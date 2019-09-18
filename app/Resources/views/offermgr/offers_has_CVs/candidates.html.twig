@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-10 mx-auto">
+                <div class="card bg-light">
+                    <div class="card-header d-flex justify-content-between  bg-dark text-white">
+                        <div>
+                            <h5 class="">Job candidates</h5>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                        <ul class="list-group">
+                            {% for candidate in candidates %}
+
+                                <div class="card list-group-item ">
+                                    <div class="card-body">
+                                        <ul class="list-group">
+                                            <li class="list-group-item pb-2">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted">Application state: </h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dpVStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                     {{ candidate.vStatus }}
+                                                                </button>
+                                                                <div class="dropdown-menu" aria-labelledby="dpVStatus">
+                                                                    <a href="{{ path("update_offer", {'id_offer':candidate.id, 'status':'ACTIVE'  } )}}" class="dropdown-item">ACTIVE</a>
+                                                                    <a href="{{ path("update_offer", {'id_offer':candidate.id, 'status':'PENDING' } )}}" name="status" class="dropdown-item">PENDING</a>
+                                                                    <a href="{{ path("update_offer", {'id_offer':candidate.id, 'status':'REJECTED'} )}}" name="status" class="dropdown-item">REJECTED</a>
+                                                                </div>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="list-group-item pb-2">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="lead"><h6 class="text-muted">Candidate name</h6></div>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div ><b>{{ candidate.cv.formerstudent.vName }}</b> {{ candidate.cv.formerstudent.vSurnames }}</div >
+                                                        <div > Address: {{ candidate.cv.formerstudent.vAddress }}</div >
+                                                        <div > Birth date: {{  candidate.cv.formerstudent.dBirthDate | date('Y/m/d') }}</div >
+                                                        <div class="lead">
+                                                            {% if candidate.cv.formerstudent.bVehicle == 1 %}
+                                                                Vehicle available
+                                                            {% endif %}
+                                                        </div >
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="list-group-item pb-2 ml-auto border-left-0 border-right-0 border-bottom-0 ">
+                                                <ul class="list-inline">
+
+                                                    <li class="list-inline-item">
+                                                        <a class="btn btn-outline-primary" href="{{ path('candidate_cv_show', { 'offerid': candidate.offer.id ,'username': candidate.cv.formerstudent.username }) }}">
+                                                            <span class="fa fa-info p-2"> </span>show CV
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <hr/>
+
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

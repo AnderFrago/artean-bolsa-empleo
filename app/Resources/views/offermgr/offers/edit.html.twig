@@ -1,0 +1,143 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-10 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Offer</h3>
+                        <div class="d-flex justify-content-between">
+                            <h4 class="card-subtitle mb-2 text-muted">update</h4>
+                            <a href="{{ path('offers_index') }}"><span class="p-2 glyphicon glyphicon-list"></span>Back
+                                to the list</a>
+                            <div class="p-2">
+                                {{ form_start(delete_form, {'action': path('offers_delete',{'id':offer.id})}) }}
+                                <input type="submit" value="Delete">
+                                {{ form_end(delete_form) }}
+                            </div>
+                        </div>
+
+                        <div class="card-text">
+                            {{ form_start(edit_form, {'action': path('offers_edit',{'id':offer.id}), 'method': 'POST'}) }}
+                            <div class="border border-white row">
+                                <label for="vOfferCode"
+                                       class="col-4 col-form-label">{{ form_label(edit_form.vOfferCode) }}</label>
+                                <div class="col-8">
+                                    {{ form_widget(edit_form.vOfferCode) }}
+                                </div>
+                            </div>
+                            <div class="border border-white  row">
+                                <label for="vOfferType"
+                                       class="col-4 col-form-label">{{ form_label(edit_form.vOfferType) }}</label>
+                                <div class="col-8">
+                                    {{ form_widget(edit_form.vOfferType) }}
+                                </div>
+                            </div>
+                            <div class="border border-white  row">
+                                <label for="dActivationDate"
+                                       class="col-4 col-form-label">{{ form_label(edit_form.dActivationDate) }}</label>
+                                <div class="col-8 input-group date" data-provide="datepicker">
+                                    {{ form_widget(edit_form.dActivationDate) }}
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-th"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border border-white  row">
+                                <label for="dDueDate"
+                                       class="col-4 col-form-label">{{ form_label(edit_form.dDueDate) }}</label>
+                                <div class="col-8 input-group date" data-provide="datepicker">
+                                    {{ form_widget(edit_form.dDueDate) }}
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-th"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border border-white  row">
+                                <label for="vPosition"
+                                       class="col-4 col-form-label">{{ form_label(edit_form.vPosition) }}</label>
+                                <div class="col-8">
+                                    {{ form_widget(edit_form.vPosition) }}
+                                </div>
+                            </div>
+                            <div class="border border-white  row">
+                                <label for="ltextDescription"
+                                       class="col-4 col-form-label">{{ form_label(edit_form.ltextDescription) }}</label>
+                                <div class="col-8">
+                                    {{ form_widget(edit_form.ltextDescription, {'attr':{'class':'wysiwyg'}}) }}
+                                </div>
+                            </div>
+                            <div class="border border-white  row">
+                                <label for="ltextDuties"
+                                       class="col-4 col-form-label">{{ form_label(edit_form.ltextDuties) }}</label>
+                                <div class="col-8">
+                                    {{ form_widget(edit_form.ltextDuties, {'attr':{'class':'wysiwyg'}}) }}
+                                </div>
+                            </div>
+                            <div class="border border-white  row">
+                                <label for="ltextExperienceRequirements"
+                                       class="col-4 col-form-label">{{ form_label(edit_form.ltextExperienceRequirements) }}</label>
+                                <div class="col-8">
+                                    {{ form_widget(edit_form.ltextExperienceRequirements, {'attr':{'class':'wysiwyg'}}) }}
+                                </div>
+                            </div>
+                            <div class="border border-white  row">
+                                <label for="vSalaray"
+                                       class="col-4 col-form-label">{{ form_label(edit_form.vSalaray) }}</label>
+                                <div class="col-8">
+                                    {{ form_widget(edit_form.vSalaray) }}
+                                </div>
+                            </div>
+                            <div class="border border-white  row">
+                                <label for="vLocation"
+                                       class="col-4 col-form-label">{{ form_label(edit_form.vLocation) }}</label>
+                                <div class="col-8">
+                                    {{ form_widget(edit_form.vLocation) }}
+                                </div>
+                            </div>
+
+                            <div class="d-flex ">
+                                <div class="p-2">
+                                    {{ form_widget(edit_form.save) }}
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(edit_form) }}
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+      $('#appbundle_offermgr_offers_dActivationDate.date').datepicker({
+        weekStart: 1,
+        startDate: "-Now",
+        maxViewMode: 2,
+      });
+      $('#appbundle_offermgr_offers_dDueDate.date').datepicker({
+        weekStart: 1,
+        startDate: "-Now",
+        maxViewMode: 2,
+      });
+
+      var els = document.getElementsByClassName('wysiwyg');
+      Array.prototype.forEach.call(els, function (el) {
+        sceditor.create(el, {
+          format: 'xhtml',
+          style: '../../build/app.css',
+          width: '100%',
+          height: '100%',
+          toolbarExclude: "emoticon",
+        });
+      });
+    </script>
+{% endblock %}

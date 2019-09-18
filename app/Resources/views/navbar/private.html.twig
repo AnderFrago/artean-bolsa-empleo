@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white " >
+    <a class="navbar-brand d-flex flex-column" href="{{ path('homepage') }}">
+        <img src="{{ asset('assets/img/dev_logo.png') }}" class="img-fluid rounded" alt="logoCuatrovientos">
+        <span class="badge"> {{ app.user.username }}</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav mr-auto">
+                {% if is_granted('ROLE_USER_EMPLOYEERS') %}
+                    <li class="nav-item">
+                        <a class="nav-link " href="{{ path('offers_new') }}" ><span class="fa fa-file p-2"></span>Publicar ofertas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="{{ path('offers_index') }}" ><span class="fa fa-address-book p-2"></span>Mis ofertas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="{{ path('cvs_index') }}" ><span class="fa fa-binoculars p-2"></span>Buscador de  CVs</a>
+                    </li>
+                    {% elseif is_granted('ROLE_USER_FORMER_STUDENTS') %}
+                    <li class="nav-item">
+                       <a class="nav-link " href="{{ path('formerstudents_show', {'username': app.user.username } ) }}"><span class="fa fa-file p-2"></span>Mi CV</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="{{ path('show_appliances', {'username': app.user.username } ) }}">
+                            <span class="fa fa-address-book p-2"></span> Mis Candidaturas
+                        </a>
+                    </li>
+
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav d-flex justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link "  href="{{ path('security_logout') }}" ><span class="fa fa-sign-out  p-2"></span> Salir</a>
+                </li>
+            </ul>
+
+    </div>
+</nav>
+<hr/>

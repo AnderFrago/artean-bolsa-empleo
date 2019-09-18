@@ -1,0 +1,18 @@
+
+
+    <ul class="list-group my-2">
+        <li class="list-group-item bg-light">
+            <ul class="list-inline">
+                <li class="list-inline-item">{% if study.dStartDate %}{{ study.dStartDate|date('Y-m-d') }} {% endif %} -  {% if study.dEndDate %}{{ study.dEndDate|date('Y-m-d') }}{% endif %}</li>
+                <li class="list-inline-item"><h4> {{ study.vStudiesLevel }} </h4></li>
+                <li class="list-inline-item"><h6> {{ study.vStudiesCode }} </h6></li>
+                <li class="list-inline-item"><h6> {{ study.vCategory }} </h6></li>
+                <li class="list-inline-item">{{ study.vStudiesCentre }}</li>
+            </ul>
+        </li>
+        <li class="list-group-item ">
+            {{ study.vDescription |raw  }}
+        </li>
+    </ul>
+
+

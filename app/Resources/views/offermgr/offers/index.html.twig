@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-10 mx-auto">
+                <div class="card bg-light">
+                    <div class="card-header d-flex justify-content-between  bg-dark text-white">
+                        <div>
+                            <h5 class="">Offer</h5>
+                        </div>
+                        <div>
+                            <a class="mr-0" href="{{ path('offers_new') }}">Create a new offer</a>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                        <ul class="list-group">
+                            {% for offer in offers %}
+                                <div class="card list-group-item ">
+                                    <div class="card-body">
+                                        <ul class="list-group">
+                                            <li class="list-group-item pb-2">
+                                                <div class="lead"><h6 class="text-muted">Offer code</h6></div>
+                                                <div class="lead">{{ offer.vOfferCode }}</div >
+                                            </li>
+                                            <li class="list-group-item pb-2">
+                                                <div class="lead"><h6 class="text-muted">Offer type</h6></div>
+                                                <div class="lead">{{ offer.vOfferType }}</div>
+                                            </li>
+                                            <li class="list-group-item pb-2">
+                                                <div class="lead"><h6 class="text-muted">Activation date</h6></div>
+                                                <div class="lead">{% if offer.dActivationDate %}{{ offer.dActivationDate|date('Y-m-d') }}{% endif %}</div>
+                                            </li>
+                                            <li class="list-group-item pb-2">
+                                                <div class="lead"><h6 class="text-muted">Due date</h6></div>
+                                                <div class="lead">{% if offer.dDueDate %}{{ offer.dDueDate|date('Y-m-d') }}{% endif %}</div>
+                                            </li>
+                                            <li class="list-group-item pb-2">
+                                                <div class="lead"><h6 class="text-muted">Position</h6></div>
+                                                <div class="lead">{{ offer.vPosition }}</div>
+                                            </li>
+                                            <li class="list-group-item pb-2">
+                                                <div class="lead"><h6 class="text-muted">Description</h6></div>
+                                                <div class="lead">{{ offer.ltextDescription|raw }}</div>
+                                            </li>
+                                            <li class="list-group-item pb-2">
+                                                <div class="lead"><h6 class="text-muted">Duties</h6></div>
+                                                <div class="lead">{{ offer.ltextDuties|raw }}</div >
+                                            </li>
+                                            <li class="list-group-item pb-2">
+                                                <div class="lead"><h6 class="text-muted">Experience requirements</h6>
+                                                </div>
+                                                <div class="lead">{{ offer.Ltextexperiencerequirements|raw}}</div>
+                                            </li>
+                                            <li class="list-group-item pb-2">
+                                                <div class="lead"><h6 class="text-muted">Salary</h6></div>
+                                                <div class="lead">{{ offer.Vsalaray }}</div>
+                                            </li>
+                                            <li class="list-group-item pb-2 ml-auto border-left-0 border-right-0 border-bottom-0 ">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item">
+                                                        <a class="btn btn-outline-primary" href="{{ path('offers_show', { 'id': offer.id }) }}">
+                                                            <span class="fa fa-info p-2"> </span>show
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <a class="btn btn-outline-info" href="{{ path('offers_edit', { 'id': offer.id }) }}">
+                                                            <span class="fa fa-edit p-2"> </span>edit
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <hr/>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

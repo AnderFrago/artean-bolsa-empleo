@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-12 bg-light">
+
+
+                <form class="form-horizontal" >
+                    <fieldset>
+                        <legend>Search filters</legend>
+                        <div class="form-group row">
+                            <!-- Key word-->
+                            <label class="col-md-3 col-12 " for="keyword">Key word: </label>
+                            <div class="col-md-6 px-0">
+                                <input id="keyword" name="keyword" type="text" placeholder="" class="form-control input-md">
+                            </div>
+                            <div class="col-md-3 px-1">
+                                <!-- Filter activation-->
+                                <button type="submit" id="singlebutton"  class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                        <hr/>
+                        <!-- Similar work experience -->
+                        <div class="form-group row">
+                            <label class="col-md-6  col-12 " for="checkboxes">Work experiences: </label>
+                            <div class="col-md-6">
+
+                                {% for wrkexp_category in wrkexp_categories %}
+                                    <div class="checkbox">
+                                        <label for="checkboxes-{{ loop.index }}">
+                                            <input type="checkbox" name="wrkexp_category" id="checkboxes-{{ loop.index }}" value="{{ loop.index }}">
+                                            {{ wrkexp_category.value }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                        <hr/>
+                        <!-- Fill studies requirements -->
+                        <div class="form-group row">
+                            <label class="col-md-6  col-12 " for="checkboxes">Studies: </label>
+                            <div class="col-md-6">
+
+                                {% for studies_category in studies_categories %}
+                                    <div class="checkbox">
+                                        <label for="checkboxes-{{ loop.index }}">
+                                            <input type="checkbox" name="studies_category" id="checkboxes-{{ loop.index }}" value="{{ loop.index }}">
+                                            {{ studies_category.value }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+
+
+            <div class="col-md-8 col-12">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Surnames</th>
+                        <th>Address</th>
+                        <th>Birthdate</th>
+                        <th>Vehicle</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for formerStudent in formerStudents %}
+                        <tr>
+                            <td>{{ formerStudent.vName }}</td>
+                            <td>{{ formerStudent.vSurnames }}</td>
+                            <td>{{ formerStudent.vAddress }}</td>
+                            <td>{% if formerStudent.dBirthDate %}{{ formerStudent.dBirthDate|date('Y-m-d') }}{% endif %}</td>
+                            <td>{% if formerStudent.bVehicle %}Yes{% else %}No{% endif %}</td>
+                            <td>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a href="{{ path('formerstudents_show', { 'username': formerStudent.username }) }}"><span class="fa fa-binoculars"></span> show</a>
+                                    </li>
+                                   {# <li class="list-inline-item ">
+                                        <a href="{{ path('formerstudents_edit', { 'username': formerStudent.username }) }}"><span class="fa fa-pencil"></span> edit</a>
+                                    </li>#}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}
+
+
+
+
+

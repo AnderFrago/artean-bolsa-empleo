@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block navbar %}
+    {% include 'navbar/empty.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+<div class="container">
+    <div class="row">
+
+        <div class="col-8 mx-auto">
+
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Employeer creation</h3>
+                    <h4 class="card-subtitle mb-2 text-muted">Add new</h4>
+                    <div class="card-text">
+
+                        {{ form_start(form) }}
+
+                        <div class="border border-white row">
+                            <label for="vCIF" class="col-4 col-form-label">{{ form_label(form.vCIF) }}</label>
+                            <div class="col-8">
+                                {{ form_widget(form.vCIF) }}
+                            </div>
+                        </div>
+                        <div class="border border-white row">
+                            <label for="vStudiesLevel" class="col-4 col-form-label">{{ form_label(form.vName) }}</label>
+                            <div class="col-8">
+                                {{ form_widget(form.vName) }}
+                            </div>
+                        </div>
+                        <div class="border border-white row">
+                            <label for="vStudiesLevel" class="col-4 col-form-label">{{ form_label(form.vLogo) }}</label>
+                            <div class="col-8">
+                                {{ form_widget(form.vLogo) }}
+                            </div>
+                        </div>
+                        <div class="border border-white row">
+                            <label for="vStudiesLevel" class="col-4 col-form-label">{{ form_label(form.vDescription) }}</label>
+                            <div class="col-8">
+                                {{ form_widget(form.vDescription) }}
+                            </div>
+                        </div>
+                        <div class="border border-white row">
+                            <label for="vStudiesLevel" class="col-4 col-form-label">{{ form_label(form.vContactName) }}</label>
+                            <div class="col-8">
+                                {{ form_widget(form.vContactName) }}
+                            </div>
+                        </div>
+                        <div class="border border-white row">
+                            <label for="vStudiesLevel" class="col-4 col-form-label">{{ form_label(form.vContactPhone) }}</label>
+                            <div class="col-8">
+                                {{ form_widget(form.vContactPhone) }}
+                            </div>
+                        </div>
+                        <div class="border border-white row">
+                            <label for="vStudiesLevel" class="col-4 col-form-label">{{ form_label(form.vContactMail) }}</label>
+                            <div class="col-8">
+                                {{ form_widget(form.vContactMail) }}
+                            </div>
+                        </div>
+                        <div class="border border-white row">
+                            <label for="vStudiesLevel" class="col-4 col-form-label">{{ form_label(form.vLocation) }}</label>
+                            <div class="col-8">
+                                {{ form_widget(form.vLocation) }}
+                            </div>
+                        </div>
+                        <div class="border border-white row">
+                            <label for="vStudiesLevel" class="col-4 col-form-label">{{ form_label(form.nNumberOfWorkers) }}</label>
+                            <div class="col-8">
+                                {{ form_widget(form.nNumberOfWorkers) }}
+                            </div>
+                        </div>
+
+                        <div class="border border-white  row">
+                            <div class="col-sm-4 textarea">
+                                {{ form_widget(form.save) }}
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {% block javascripts %}
+        {{ parent() }}
+
+        <script>
+          $('#appbundle_studies_dStartDate.date').datepicker({
+            weekStart: 1,
+            startDate: "-Now",
+            maxViewMode: 2,
+
+          });
+          $('#appbundle_studies_dEndDate.date').datepicker({
+            weekStart: 1,
+            startDate: "-Now",
+            maxViewMode: 2
+          });
+
+        </script>
+    {% endblock %}
+
+
+{% endblock %}

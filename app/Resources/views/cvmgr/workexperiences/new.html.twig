@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+{% block navbar %}
+    {% include 'navbar/empty.html.twig' %}
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="container">
+        <div class="row">
+
+            <div class="col-8 mx-auto">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Work-experience</h3>
+                        <h4 class="card-subtitle mb-2 text-muted">Add new</h4>
+                        <div class="card-text">
+                            {{ form_start(form, {'action': path('workexperience_task_add'), 'method': 'POST'}) }}
+
+                            <div class="border border-white row">
+                                <label for="vPosition"
+                                       class="col-2 col-form-label">{{ form_label(form.vPosition) }}</label>
+                                <div class="col-10">
+                                    {{ form_widget(form.vPosition) }}
+                                </div>
+                            </div>
+                            <div class="border border-white  row">
+                                <label for="vEmployer"
+                                       class="col-sm-2 col-form-label">{{ form_label(form.vEmployer) }}</label>
+                                <div class="col-10">
+                                    {{ form_widget(form.vEmployer) }}
+                                </div>
+                            </div>
+                            <div class="border border-white row ">
+                                <label for="vLocation"
+                                       class="col-2 col-form-label">{{ form_label(form.vLocation) }}</label>
+                                <div class="col-10">
+                                    {{ form_widget(form.vLocation) }}
+                                </div>
+                            </div>
+                            <div class="border border-white  row">
+                                <label for="ltextDuties"
+                                       class="col-2 col-form-label">{{ form_label(form.ltextDuties) }}</label>
+                                <div class="col-10">
+                                    {{ form_widget(form.ltextDuties, {'attr':{'class':'wysiwyg'}}) }}
+                                </div>
+                            </div>
+                            <div class="border border-white  row">
+                                <label for="dStartDate"
+                                       class="col-2 col-form-label">{{ form_label(form.dStartDate) }}</label>
+                                <div class="col-10 textarea">
+                                    <div class="input-group date" data-provide="datepicker">
+                                        {{ form_widget(form.dStartDate) }}
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="border border-white  row">
+                                <label for="dEndDate"
+                                       class="col-2 col-form-label">{{ form_label(form.dEndDate) }}</label>
+                                <div class="col-10">
+                                    <div class="input-group date" data-provide="datepicker">
+                                        {{ form_widget(form.dEndDate) }}
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="border border-white  row">
+                                <div class="col-4 textarea">
+                                    {{ form_widget(form.save) }}
+                                </div>
+                                <div class="col--4 textarea">
+                                    {{ form_widget(form.saveAndAdd) }}
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+      $('#appbundle_workexperiences_dStartDate.date').datepicker({
+        weekStart: 1,
+        startDate: "-Now",
+        maxViewMode: 2,
+
+      });
+      $('#appbundle_workexperiences_dEndDate.date').datepicker({
+        weekStart: 1,
+        startDate: "-Now",
+        maxViewMode: 2
+      });
+      var sceditor_list = document.getElementsByClassName('wysiwyg');
+      for (let item of sceditor_list) {
+        console.log(item.id);
+        sceditor.create(item, {
+          format: 'xhtml',
+          style: '../../../build/app.css',
+          width: '100%',
+          height: '100%',
+          toolbarExclude: "emoticon",
+          emoticonsEnabled: false
+        });
+      }
+    </script>
+{% endblock %}
+

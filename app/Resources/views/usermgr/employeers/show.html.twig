@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Employeer</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ employeer.id }}</td>
+            </tr>
+            <tr>
+                <th>Vcif</th>
+                <td>{{ employeer.vCIF }}</td>
+            </tr>
+            <tr>
+                <th>Vname</th>
+                <td>{{ employeer.vName }}</td>
+            </tr>
+            <tr>
+                <th>Vlogo</th>
+                <td>{{ employeer.vLogo }}</td>
+            </tr>
+            <tr>
+                <th>Vdescription</th>
+                <td>{{ employeer.vDescription }}</td>
+            </tr>
+            <tr>
+                <th>Vcontactname</th>
+                <td>{{ employeer.vContactName }}</td>
+            </tr>
+            <tr>
+                <th>Vcontactphone</th>
+                <td>{{ employeer.vContactPhone }}</td>
+            </tr>
+            <tr>
+                <th>Vcontactmail</th>
+                <td>{{ employeer.vContactMail }}</td>
+            </tr>
+            <tr>
+                <th>Vlocation</th>
+                <td>{{ employeer.vLocation }}</td>
+            </tr>
+            <tr>
+                <th>Nnumberofworkers</th>
+                <td>{{ employeer.nNumberOfWorkers }}</td>
+            </tr>
+            <tr>
+                <th>Creationuser</th>
+                <td>{{ employeer.creationUser }}</td>
+            </tr>
+            <tr>
+                <th>Modificationuser</th>
+                <td>{{ employeer.modificationUser }}</td>
+            </tr>
+            <tr>
+                <th>Creationdate</th>
+                <td>{% if employeer.creationDate %}{{ employeer.creationDate|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Modificationdate</th>
+                <td>{% if employeer.modificationDate %}{{ employeer.modificationDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('employeers_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('employeers_edit', { 'id': employeer.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
