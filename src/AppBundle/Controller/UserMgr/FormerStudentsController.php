@@ -109,7 +109,7 @@ class FormerStudentsController extends Controller
     $em = $this->getDoctrine()->getManager();
     $formerStudent = $em->getRepository(FormerStudents::class)->findOneBy([ 'username' => $username ]);
 
-    $editForm = $this->createForm('AppBundle\Form\UserMgr\FormerStudentsType', $formerStudent);
+    $editForm = $this->createForm('AppBundle\Form\UserMgr\FormerStudentsEditType', $formerStudent);
     $editForm->handleRequest($request);
 
     // We must find every CV of this FormedStudent and generate the view

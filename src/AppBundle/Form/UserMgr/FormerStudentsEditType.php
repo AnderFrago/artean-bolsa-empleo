@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FormerStudentsType extends AbstractType
+class FormerStudentsEditType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -35,7 +35,7 @@ class FormerStudentsType extends AbstractType
           'label' => 'Address',
           'attr' => array('class'=>'form-control')
         ))
-        ->add('dBirthDate',  TextType::class, array(
+        ->add('dBirthDate',  DateType::class, array(
           'label' => 'BirthDate',
           'attr' => array('class'=>'form-control')
         ))
