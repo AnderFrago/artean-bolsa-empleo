@@ -1002,8 +1002,7 @@ enlazan a los archivos css y js en el archivo base.html.twig:
 \<**html**\>\
 \<**head**\>\
 \<**meta charset=\"UTF-8\"** /\>\
-\<**title**\>{% **block** title %}Artean{% **endblock**
-%}\</**title**\>\
+\<**title**\>{% **block** title %}Artean{% **endblock**%}\</**title**\>\
 {% **block** stylesheets %}\
 \<**link rel=\"stylesheet\"\
 href=\"**{{asset(**\'build/app.css\'**)}}**\"**\>\
