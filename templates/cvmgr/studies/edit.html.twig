@@ -1,0 +1,88 @@
+{% for study in  studies %}
+    <form class="card my-2" method="post"
+          action="{{ path('stdnts_study_edit', {'id_std':CV.formerstudent.id, 'id_study':study.id }) }}">
+        <div class="card-header pb-0">
+            <div class="form-group row mb-1">
+                <label for="vStudiesLevel" class="col-sm-2 col-form-label">StudiesLevel: </label>
+                <div class="col-sm-10">
+                    {% if study.vStudiesLevel == "to complete" %}
+                        <input  type="text" class="form-control" name="studieslevel" value="{{ study.vStudiesLevel }}">
+                    {% else %}
+                        <input readonly type="text" class="form-control" name="studieslevel" value="{{ study.vStudiesLevel }}">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="card-body pb-0">
+            <div class="card-text">
+                <div class="form-group row">
+                    <label for="vCategory" class="col-sm-2 col-form-label">Category </label>
+                    <div class="col-sm-10">
+                        {% if study.vCategory ==  "to complete" %}
+                            <input   type="text" class="form-control" name="category" value="{{ study.vCategory }}">
+                        {% else %}
+                            <input  readonly type="text" class="form-control" name="category" value="{{ study.vCategory }}">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group row ">
+                    <label for="vStudiesCode" class="col-sm-2 col-form-label">StudiesCode </label>
+                    <div class="col-sm-10">
+                        {% if study.vStudiesCode ==  "to complete" %}
+                            <input   type="text" class="form-control" name="studiescode" value="{{ study.vStudiesCode }}">
+                        {% else %}
+                            <input  readonly type="text" class="form-control" name="studiescode" value="{{ study.vStudiesCode }}">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="vStudiesCentre" class="col-sm-2 col-form-label">StudiesCentre</label>
+                    <div class="col-sm-10 textarea">
+                        <input type="textarea" class="form-control wysiwyg" name="studiescentre"
+                               value="{{ study.vStudiesCentre }}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="vDescription" class="col-sm-2 col-form-label">Description</label>
+                    <div class="col-sm-10 textarea">
+                        <input type="textarea" class="form-control wysiwyg" name="description" value="{{ study.vDescription }}">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="dStartDate" class="col-sm-2 col-form-label">StartDate </label>
+                    <div class="col-sm-10 textarea">
+                        <div class="input-group date" data-provide="datepicker">
+                            <input class="form-control dStartDate" name="startdate"
+                                   value="{{ study.dStartDate|date("m/d/Y") }}">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="dEndDate" class="col-sm-2 col-form-label">EndDate </label>
+                    <div class="col-sm-10 textarea">
+                        <div class="input-group date" data-provide="datepicker">
+                            <input  class="form-control dEndDate" name="enddate"
+                                   value="{{ study.dEndDate|date("m/d/Y") }}">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer bg-transparent d-flex justify-content-end">
+            <button type="submit" class="btn btn-outline-secondary m-2">Save</button>
+            <a class="btn btn-outline-danger m-2"
+               href="{{ path('stdnts_study_delete', {'id':study.id, 'username':app.user.username}) }}">Delete</a>
+        </div>
+
+    </form>
+
+{% endfor %}

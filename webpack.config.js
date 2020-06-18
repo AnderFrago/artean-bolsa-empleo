@@ -2,7 +2,7 @@ var Encore = require('@symfony/webpack-encore');
 
 Encore
 // directory where all compiled assets will be stored
-    .setOutputPath('web/build/')
+    .setOutputPath('public/build/')
 
     // Windows??? <---------------------------
     .setManifestKeyPrefix('build')
@@ -13,11 +13,11 @@ Encore
     // empty the outputPath dir before each build
     .cleanupOutputBeforeBuild()
 
-    // will output as web/build/app.js
-    .addEntry('app', './web/assets/js/main.js')
+    // will output as public/build/app.js
+    .addEntry('app', './public/assets/js/main.js')
 
-    // will output as web/build/global.css
-    .addStyleEntry('global', './web/assets/scss/global.scss')
+    // will output as public/build/global.css
+    .addStyleEntry('global', './public/assets/scss/global.scss')
 
     // allow sass/scss files to be processed
     .enableSassLoader()

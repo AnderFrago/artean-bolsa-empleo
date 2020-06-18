@@ -1,5 +1,7 @@
-artean-bolsa-empleo
-===========
+# Artean - Job Bank
 
+## Web Development 
+### with Symfony 
 
-A Symfony project created on December 24, 2018, 6:33 am.
+Job board application developed as a Symfony learning guide in the subject of Web Development.
+

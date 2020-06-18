@@ -1,0 +1,14 @@
+easy_admin:
+    entities:
+#        # List the entity class name you want to manage
+        - App\Entity\CvMgr\CVCategories
+        - App\Entity\CvMgr\Languages
+        - App\Entity\CvMgr\Otherknowledge
+        - App\Entity\CvMgr\Studies
+        - App\Entity\CvMgr\WorkExperiences
+        - App\Entity\CvMgr\CV
+        - App\Entity\OfferMgr\Offers
+        - App\Entity\OfferMgr\Offers_has_CVs
+        - App\Entity\UserMgr\Employeers
+        - App\Entity\UserMgr\FOrmerStudents
+        - App\Entity\UserMgr\User
