@@ -486,11 +486,13 @@ Realizamos la instalación de orm a través del Symfony Pack y también añadimo
 
 Las opciones de configuración relacionadas con la base de datos van en el archivo config/package/doctrine.yaml. A continuación, modificamos el nombre de la base de datos en la configuración de parámetros.
 
+<!-- {% raw %} -->
 ```js
     doctrine:
         dbal: 
             url: mysql://artean:artean@127.0.0.1:3306/bolsaartean
 ```
+<!-- {% endraw %} -->
 
 #### **Creación**
 
@@ -551,12 +553,15 @@ composer require \--dev doctrine/doctrine-fixtures-bundle
 Una vez que se actualizan las dependencias podemos verificar que se han
 añadido las siguientes líneas en composer.json.
 
+<!-- {% raw %} -->
 ```json
     "require-dev": { "doctrine/doctrine-fixtures-bundle": "^3.0", ... },
 ```
+<!-- {% endraw %} -->
 
 Activamos la dependencia en el kernel, en la sección de desarrollo:
 
+<!-- {% raw %} -->
  ```php
         <?php
         ...
@@ -570,6 +575,7 @@ Activamos la dependencia en el kernel, en la sección de desarrollo:
         $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
         ...
 ```
+<!-- {% endraw %} -->
 
 Y con todo instalado, podemos empezar a crear fixtures.
 
@@ -578,8 +584,9 @@ uso de otro Bundle. *Faker* es una biblioteca PHP que genera datos
 falsos para nosotros. Una manera sencilla de poner en marcha una base de
 datos para hacer pruebas de desarrollo.
 
-composer require \--dev fzaninotto/faker
+  composer require \--dev fzaninotto/faker
 
+<!-- {% raw %} -->
 ```js
     "require-dev": {
         ...
@@ -587,6 +594,7 @@ composer require \--dev fzaninotto/faker
         ...
     },
 ```
+<!-- {% endraw %} -->
 
 ### 4.3.2 DataFixture
 
@@ -597,6 +605,7 @@ deseamos inicializar nuestra base de datos. *¡No hay problema! *
 Creamos una clase de InitialFixture dentro de una carpeta DataFixtures
 dentro de AppBundle.
 
+<!-- {% raw %} -->
  ```php   
     <?php
     namespace AppBundle\DataFixtures;
@@ -808,10 +817,12 @@ dentro de AppBundle.
 
     }
 ```
+<!-- {% endraw %} -->
 
 Añadimos la siguiente configuración en el archivo
-app/config/services.yml
+  app/config/services.yml
 
+<!-- {% raw %} -->
 ```php
     # Fixtures services
     # makes classes in src/AppBundle/DataFixtures available to be used as services
@@ -820,6 +831,7 @@ app/config/services.yml
         resource: '../../src/AppBundle/DataFixtures'
         tags: ['doctrine.fixture.orm']
 ```
+<!-- {% endraw %} -->
 
 Ya solo nos falta ejecutarlo, es muy fácil, pero mucho cuidado que hará
 un *borrado* de todas nuestras tablas:
@@ -933,6 +945,7 @@ Una buena práctica de estructura de carpetas para los estilos es:
 Dentro de la carpeta css debemos tener un archivo app.scss donde
 importamos los elementos css.
 
+<!-- {% raw %} -->
 ```
     @import 'settings';
     @import 'elements';
@@ -940,12 +953,14 @@ importamos los elementos css.
     @import 'themes';
     ...
 ```
+<!-- {% enderaw %} -->
 
 Con *Encore*, debemos pensar en CSS como una dependencia del JavaScript.
 Esto significa que hay
  que requerir cualquier CSS que se necesite desde
 dentro de JavaScript:
 
+<!-- {% raw %} -->
 ```js
     require('../scss/app.scss');
     // CSS
@@ -959,6 +974,7 @@ dentro de JavaScript:
     require('./webpack-icons-installer');
     console.info('Your script is loaded.');
 ```
+<!-- {% endraw %} -->
 
 Con Encore, podemos minimizar fácilmente estos archivos, preprocesar
 app.scss a través de Sass y mucho más.
@@ -969,6 +985,7 @@ Creamos un nuevo archivo llamado webpack.config.js en la ruta raíz de nuestro p
 
 En el interior, establecemos el siguiente código de configuración.
 
+<!-- {% raw %} -->
 ```json
     var Encore = require('@symfony/webpack-encore');
 
@@ -1021,14 +1038,17 @@ En el interior, establecemos el siguiente código de configuración.
     // export the final configuration
     module.exports = Encore.getWebpackConfig();
 ```
+<!-- {% endraw %} -->
 
 Debemos crear las carpetas *build* dentro la carpeta web. Para realizar
 la compilación de los assets utilizamos el siguiente comando, ejecutado
 desde la ruta donde se encuentra *Encore*.
 
+<!-- {% raw %} -->
 ```sh
     call ./node\_modules/.bin/encore dev \--context ./
 ```
+<!-- {% endraw %} -->
 
 ![](media/image12.png)
 
@@ -1048,6 +1068,7 @@ Para hacer uso de los iconos instalados actualizamos dentro del
 directorio build el archivo manifest.json estableciendo las rutas para
 descarga de las fuentes y los iconos que vamos a utilizar.
 
+<!-- {% raw %} -->
 ```json
     {
         "build/app.css": "/build/app.css",
@@ -1069,13 +1090,16 @@ descarga de las fuentes y los iconos que vamos a utilizar.
         "build/images/glyphicons-halflings-regular.svg": "/build/images/glyphicons-halflings-regular.89889688.svg"
     }
 ```
+<!-- {% endraw %} -->
 
 ### 5.1.2	Instalar el motor de plantillas Twig
 Realizamos la instalación de twig con el siguiente comando.
 
+<!-- {% raw %} -->
 ```bash
     composer req twig
 ```
+<!-- {% endraw %} -->
 
 En nuestro proyecto se crea el directorio templates que es donde almacenaremos nuestras vistas.
 
@@ -1085,6 +1109,7 @@ En nuestro proyecto se crea el directorio templates que es donde almacenaremos n
 A continuación el código actualizado de este archivo desde donde se
 enlazan a los archivos css y js en el archivo base.html.twig:
 
+<!-- {% raw %} -->
 ```html
     <!DOCTYPE html>
     <html>
@@ -1119,6 +1144,7 @@ enlazan a los archivos css y js en el archivo base.html.twig:
 
     </html>
 ```
+<!-- {% endraw %} -->
 
 ----
 
@@ -1150,6 +1176,7 @@ esta clase.
 Para hacer esto, agregamos el nombre de clase del repositorio a la
 definición de mapeo de su entidad:
 
+<!-- {% raw %} -->
 ```php
 <?php
 /** @title Offers ...*/
@@ -1164,7 +1191,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Offers {
 …
 ```
-    
+<!-- {% endraw %} -->
 
 Luego, creamos una clase Repository\\OfferMgr\\OffersRepository vacía
 que se extienda desde DoctrineORMEntityRepository.
@@ -1173,6 +1200,7 @@ Luego, agregamos un nuevo método - findAllActive() - a la clase
 OffersRepository recién generada. Este método consultará todas las
 entidades de ofertas activas, ordenadas alfabéticamente por fecha.
 
+<!-- {% raw %} -->
  ```php
  <?php
 /** @title OffersRepository ...*/
@@ -1192,6 +1220,7 @@ class OffersRepository extends EntityRepository {
   }
 }
 ````
+<!-- {% endraw %} -->
     
 
 Dentro de la carpeta de controladores establecemos la lógica de
@@ -1202,6 +1231,7 @@ entidades y de la plantilla html.
 Por cada una de las ofertas obtendremos la entidad del empleador
 formando un elemento compuesto que será el que renderizemos en la vista.
 
+<!-- {% raw %} -->
 ```php
 <?php
 
@@ -1230,12 +1260,14 @@ class DefaultController extends Controller
     }
 }
 ```
-    
+<!-- {% raw %} -->
+
 ### Vista
 
 La página principal es la página por defecto index.html.twig alojada
 dentro del directorio default.
 
+<!-- {% raw %} -->
 ```php
 {% extends 'base.html.twig' %}
     {% block navbar %}
@@ -1286,8 +1318,8 @@ dentro del directorio default.
         </div>
     </div>
 {% endblock %}
-
 ```
+<!-- {% endraw %} -->
     
 # 7. Gestor de ofertas de empleo
 
@@ -1304,6 +1336,7 @@ empleador puede publicar múltiples ofertas. Por lo que la relación es
 Dentro de la entidad Ofertas establecemos el siguiente código
 responsable de realizar la relación.
 
+<!-- {% raw %} -->
 ```php
 /**
  * @ORM\ManyToOne(targetEntity="App\Entity\OfferMgr\Employeers", inversedBy="offers",cascade={"persist"})
@@ -1311,10 +1344,11 @@ responsable de realizar la relación.
  */
 private $employeer;
 ```
-
+<!-- {% endraw %} -->
 
 Dentro de la entidad de empleadores establecemos la relación inversa.
 
+<!-- {% raw %} -->
 ```php
 /**
  * @ORM\OneToMany(targetEntity="App\Entity\OfferMgr\Offers", mappedBy="employeer")
@@ -1326,6 +1360,7 @@ public function __construct()
   $this->offers = new ArrayCollection();
 }
 ```
+<!-- {% endraw %} -->
 
 Haciendo uso del asistente vamos a crear un primer prototipo de lo que
 serían las acciones CRUD sobre la tabla de ofertas.
@@ -1356,6 +1391,7 @@ Lo mismo pasa al realizar la obtención de todas las ofertas, en el
 repositorio de ofertas debemos limitarlo a *todas las ofertas de un
 usuario determinado.*
 
+<!-- {% raw %} -->
 ```php
 /**
  * @Route("offers")
@@ -1380,7 +1416,8 @@ class OffersController extends Controller
     }
 
 ```
-    
+<!-- {% endraw %} -->
+
 # 8 Gestor de CVs
 
 Se considera que un CV pude estas compuesto por varias experiencias laborales previas, diferentes titulaciones de estudios y otros conocimientos o idiomas. El CV es un conjunto de todos estos conceptos. Para aprovechar las funcionalidades de Symfony realizamos el CRUD de las tablas que conforman el CV; studies, work_experiences, languages y other_knowledges.
@@ -1419,6 +1456,7 @@ múltiples experiencias laborales, estudios, etc.
 A continuación, la lógica implementada para realizar una llamada
 recursiva al formulario de creación de múltiples experiencias laborales.
 
+<!-- {% raw %} -->
 ```php
 /**
 * @Route("/new_workexperience", name="workexperience_task_add"))
@@ -1468,12 +1506,14 @@ public function addWorkExperienceAction(Request $request, Session $session){
   ));
 }
 ```
-    
+<!-- {% endraw %} -->
+
 #### **Almacenamiento en base de datos**
 
 Una vez el usuario a finalizado de crear su CV, introduciremos los
 valores gestionados en la sesión a la base de datos.
 
+<!-- {% raw %} -->
 ```php
 /**
  * @Route("/new_otherknowledge", name="other_task_add"))
@@ -1539,10 +1579,12 @@ public function addOtherKnowledgeAction(Request $request , Session $session){   
   ));
 }
 ```
+<!-- {% endraw %} -->
 
 La función encargada de realizar la persistencia se encuentra en la
 clase de repositorio asociada a la entidad CV.
 
+<!-- {% raw %} -->
 ```php
 // Method used to persist values in database
 public function store_cv_values( Session $session, CV $actual_user_cv)
@@ -1570,7 +1612,8 @@ public function store_cv_values( Session $session, CV $actual_user_cv)
 }
 
 ```
-    
+<!-- {% endraw %} -->
+ 
 ### 8.1.2 Edición de un CV
 
 #### **Usuario exalumno**
@@ -1580,6 +1623,7 @@ CVEditorController
 A la hora de actualizar un CV se muestran los valores obtenidos desde la
 base de datos para el CV de exalumno en cuestión.
 
+<!-- {% raw %} -->
 ```php
   /**
    * Update values of an edited work experience from a selected FormedStudent's CV
@@ -1611,7 +1655,8 @@ base de datos para el CV de exalumno en cuestión.
     return $this->redirect($this->generateUrl('formerstudents_edit', array('id' => $id_std)));
   }
 ```
-    
+<!-- {% endraw %} -->
+
 Dentro de la funcionalidad de edición hay que tener en cuenta la
 posibilidad de que el usuario quiera añadir un nuevo elemento de los que
 conforman su CV, ya sea una nueva experiencia laboral, estudios, etc.
@@ -1624,6 +1669,7 @@ Con esto simplificamos la lógica ya que al volver a realizar la llamada
 a edición a través de *stdnts\_wrkexp\_edit* el usuario visualiza estos
 valores para su edición.
 
+<!-- {% raw %} -->
 ```php
 /**
  * New work experience to add to an editing FormedStudent's CV
@@ -1666,7 +1712,8 @@ public function stdntsWorkExpNewAction($id_std, $id_cv, Request $request) {
   return $this->redirect($this->generateUrl('formerstudents_edit', ['username' => $formerStudent->getUsername()]));
 }
 ```
-    
+<!-- {% endraw %} -->
+
  >  La aplicación está diseñada para permitir que un usuario pueda
 tener múltiples CVs, pero está funcionalidad no ha sido implementada. Es
 por eso por lo que de una lista de CVs en la edición se obtiene el CV de
@@ -1694,6 +1741,7 @@ estudio*, relacionadas con la entidad *Study* con la siguiente consulta.
 A la hora de hacer uso de esta tabla se genera la respectiva entidad y
 su repositorio para obtener los valores.
 
+<!-- {% raw %} -->
 ```php
 use Doctrine\ORM\EntityRepository;
 
@@ -1709,6 +1757,7 @@ class CVCategoriesRepository extends EntityRepository {
   }
 
 ```
+<!-- {% endraw %} -->
 
 # 10 Gestión de usuarios
 
@@ -1734,6 +1783,7 @@ implementación de UserInterface y Serializable.
 La estructuración de la herencia mediante doctrine se realiza con las
 siguientes anotaciones:
 
+<!-- {% raw %} -->
 ```php
 /**
  * @ORM\Entity
@@ -1746,8 +1796,8 @@ siguientes anotaciones:
  *     "user" = "App\Entity\UserMgr\User"
  * })
  */
-
 ```
+<!-- {% endraw %} -->
     
 ### 10.1.1 Entidad base: Usuario
 
@@ -1755,6 +1805,7 @@ La clase basa User dispone de las siguientes propiedades.
 
 #### Usuario
 
+<!-- {% raw %} -->
 ```php
 /**
  * @ORM\Column(type="integer")
@@ -1776,9 +1827,9 @@ private $password;
  */
 private $email;
 private $roles=[];
-
 ```
-    
+<!-- {% endraw %} --> 
+
 Como se puede apreciar existe un array de roles de usuario el cuál no es
 trasladado a base de datos. En base de datos este campo se creará a
 partir del DiscriminatorMap establecido en la herencia de ORM.
@@ -1786,6 +1837,7 @@ partir del DiscriminatorMap establecido en la herencia de ORM.
 Se crean los getter/setter de las propiedades y se implementan las
 funciones de Serialización utilizadas por el formulario de registro.
 
+<!-- {% raw %} -->
 ```php
 public function serialize() {
   return serialize([
@@ -1805,9 +1857,9 @@ public function unserialize($serialized) {
     $this->roles
      ) = unserialize($serialized, ['allowed_classes' => FALSE]);
 }
-
 ```
-    
+<!-- {% endraw %} -->  
+
 #### Entidades de segundo nivel
 
 Los actores que participan en este apartado de la aplicación son dos,
@@ -1816,15 +1868,17 @@ empleadores y exalumnos.
 Estas clases contiene un constructor encargado de llamar al constructor
 de la clase base.
 
+<!-- {% raw %} -->
 ```php
 public function __construct() {
   parent::__construct();
 }
-
 ````
+<!-- {% endraw %} -->
 
 #### Exalumno
 
+<!-- {% raw %} -->
 ````php
 /**
  * @var int
@@ -1906,9 +1960,11 @@ private $creationDate;
 private $modificationDate;
 
 ````
+<!-- {% endraw %} -->
 
 #### Empleador
-    
+
+<!-- {% raw %} -->  
 ````php
 /**
  * @var int
@@ -2009,9 +2065,9 @@ private $creationDate;
  * @ORM\Column(name="modification_date", type="datetime")
  */
 private $modificationDate;
-
 ````
-    
+<!-- {% endraw %} -->   
+
 # 10. Gestión de acceso
 
 
@@ -2039,6 +2095,7 @@ Dentro del controlador de usuario se gestiona el registro de exalumnos y
 empleadores. Una vez introducidos los valores de acceso común a la web
 cada rol de usuarios sigue un asistente diferente.
 
+<!-- {% raw %} -->
 ```php
 /**
  * @Route("/register", name="user_register")
@@ -2080,14 +2137,15 @@ public function registerAction(Request $request, UserPasswordEncoderInterface $e
     'form' => $form->createView(),
   ]);
 }
-
 ```
-    
+<!-- {% endraw %} -->   
+
 ### 11.1.2 Acceso de usuario
 
 La lógica del controlador de usuario se encuentra sen
 SecurityController.
 
+<!-- {% raw %} -->
 ```php
 /**
  * @Route("/register", name="user_register")
@@ -2134,14 +2192,15 @@ public function registerAction(Request $request, UserPasswordEncoderInterface $e
     'form' => $form->createView(),
   ]);
 }
-
 ```
-    
+<!-- {% endraw %} --> 
+
 Desde el formulario de registro se delega la responsabilidad de
 comprobar la validación de usuario a Security\\LoginFormAuthenticator.
 Además, hay que configurar los parámetros de Autentificación y
 Autorización en la configuración de security.yml.
 
+<!-- {% raw %} -->
 ```yaml
 security:
     # En el caso que los usuarios tengan la contraseña cifrada configuramos los encoders para la entidad en la que estén los usuarios
@@ -2181,7 +2240,8 @@ security:
     - { path: ^/cv/search, role: [ROLE_USER_EMPLOYEERS] }
 
 ```
-    
+<!-- {% endraw %} -->
+
 **Manual de la aplicación.**: Resultado del primer prototipo.
 =====
 
