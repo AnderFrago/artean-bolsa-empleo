@@ -1085,7 +1085,7 @@ En nuestro proyecto se crea el directorio templates que es donde almacenaremos n
 A continuación el código actualizado de este archivo desde donde se
 enlazan a los archivos css y js en el archivo base.html.twig:
 
-```html
+
     <!DOCTYPE html>
     <html>
     <head>
@@ -1118,7 +1118,7 @@ enlazan a los archivos css y js en el archivo base.html.twig:
     </footer>
 
     </html>
-```
+
 
 ----
 
@@ -1173,25 +1173,25 @@ Luego, agregamos un nuevo método - findAllActive() - a la clase
 OffersRepository recién generada. Este método consultará todas las
 entidades de ofertas activas, ordenadas alfabéticamente por fecha.
 
- ```php
- <?php
-/** @title OffersRepository ...*/
-namespace App\Repository\OfferMgr;
 
-use Doctrine\ORM\EntityRepository;
+  <?php
+  /** @title OffersRepository ...*/
+  namespace App\Repository\OfferMgr;
 
-class OffersRepository extends EntityRepository {
+  use Doctrine\ORM\EntityRepository;
 
-  public function findAllActive()
-  {
-    return $this->getEntityManager()
-      ->createQuery(
-        "SELECT o FROM App:OfferMgr\Offers o WHERE o.vOfferCode='ACTIVE'  ORDER BY o.modificationDate ASC"
-      )
-      ->getResult();
+  class OffersRepository extends EntityRepository {
+
+    public function findAllActive()
+    {
+      return $this->getEntityManager()
+        ->createQuery(
+          "SELECT o FROM App:OfferMgr\Offers o WHERE o.vOfferCode='ACTIVE'  ORDER BY o.modificationDate ASC"
+        )
+        ->getResult();
+    }
   }
-}
-````
+
     
 
 Dentro de la carpeta de controladores establecemos la lógica de
@@ -1816,201 +1816,201 @@ empleadores y exalumnos.
 Estas clases contiene un constructor encargado de llamar al constructor
 de la clase base.
 
-```php
-public function __construct() {
-  parent::__construct();
-}
 
-````
+  public function __construct() {
+    parent::__construct();
+  }
+
+
 
 #### Exalumno
 
-````php
-/**
- * @var int
- *
- * @ORM\Column(name="id", type="integer")
- * @ORM\Id
- * @ORM\GeneratedValue(strategy="AUTO")
- */
-private $id;
 
-/**
- * @var string
- *
- * @ORM\Column(name="v_NIF", type="string", length=45)
- */
-private $vNIF;
+  /**
+  * @var int
+  *
+  * @ORM\Column(name="id", type="integer")
+  * @ORM\Id
+  * @ORM\GeneratedValue(strategy="AUTO")
+  */
+  private $id;
 
-/**
- * @var string
- *
- * @ORM\Column(name="v_Name", type="string", length=45)
- */
-private $vName;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="v_NIF", type="string", length=45)
+  */
+  private $vNIF;
 
-/**
- * @var string
- *
- * @ORM\Column(name="v_Surnames", type="string", length=45)
- */
-private $vSurnames;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="v_Name", type="string", length=45)
+  */
+  private $vName;
 
-/**
- * @var string
- *
- * @ORM\Column(name="v_Address", type="string", length=45)
- */
-private $vAddress;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="v_Surnames", type="string", length=45)
+  */
+  private $vSurnames;
 
-/**
- * @var \DateTime
- *
- * @ORM\Column(name="d_Birth_Date", type="date")
- */
-private $dBirthDate;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="v_Address", type="string", length=45)
+  */
+  private $vAddress;
 
-/**
- * @var bool
- *
- * @ORM\Column(name="b_Vehicle", type="boolean")
- */
-private $bVehicle;
+  /**
+  * @var \DateTime
+  *
+  * @ORM\Column(name="d_Birth_Date", type="date")
+  */
+  private $dBirthDate;
 
-/**
- * @var string
- *
- * @ORM\Column(name="creation_user", type="string", length=45)
- */
-private $creationUser;
+  /**
+  * @var bool
+  *
+  * @ORM\Column(name="b_Vehicle", type="boolean")
+  */
+  private $bVehicle;
 
-/**
- * @var string
- *
- * @ORM\Column(name="modification_user", type="string", length=45)
- */
-private $modificationUser;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="creation_user", type="string", length=45)
+  */
+  private $creationUser;
 
-/**
- * @var \DateTime
- *
- * @ORM\Column(name="creation_date", type="date")
- */
-private $creationDate;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="modification_user", type="string", length=45)
+  */
+  private $modificationUser;
 
-/**
- * @var \DateTime
- *
- * @ORM\Column(name="modification_date", type="datetime")
- */
-private $modificationDate;
+  /**
+  * @var \DateTime
+  *
+  * @ORM\Column(name="creation_date", type="date")
+  */
+  private $creationDate;
 
-````
+  /**
+  * @var \DateTime
+  *
+  * @ORM\Column(name="modification_date", type="datetime")
+  */
+  private $modificationDate;
+
+
 
 #### Empleador
     
-````php
-/**
- * @var int
- *
- * @ORM\Column(name="id", type="integer")
- * @ORM\Id
- * @ORM\GeneratedValue(strategy="AUTO")
- */
-private $id;
 
-/**
- * @var string
- *
- * @ORM\Column(name="v_CIF", type="string", length=45)
- */
-private $vCIF;
+  /**
+  * @var int
+  *
+  * @ORM\Column(name="id", type="integer")
+  * @ORM\Id
+  * @ORM\GeneratedValue(strategy="AUTO")
+  */
+  private $id;
 
-/**
- * @var string
- *
- * @ORM\Column(name="v_Name", type="string", length=255)
- */
-private $vName;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="v_CIF", type="string", length=45)
+  */
+  private $vCIF;
 
-/**
- * @var string
- *
- * @ORM\Column(name="v_Logo", type="string", length=255)
- */
-private $vLogo;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="v_Name", type="string", length=255)
+  */
+  private $vName;
 
-/**
- * @var string
- *
- * @ORM\Column(name="v_Description", type="string", length=255)
- */
-private $vDescription;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="v_Logo", type="string", length=255)
+  */
+  private $vLogo;
 
-/**
- * @var string
- *
- * @ORM\Column(name="v_Contact_Name", type="string", length=255)
- */
-private $vContactName;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="v_Description", type="string", length=255)
+  */
+  private $vDescription;
 
-/**
- * @var string
- *
- * @ORM\Column(name="v_Contact_Phone", type="string", length=255)
- */
-private $vContactPhone;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="v_Contact_Name", type="string", length=255)
+  */
+  private $vContactName;
 
-/**
- * @var string
- *
- * @ORM\Column(name="v_Contact_Mail", type="string", length=255)
- */
-private $vContactMail;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="v_Contact_Phone", type="string", length=255)
+  */
+  private $vContactPhone;
 
-/**
- * @var string
- *
- * @ORM\Column(name="v_Location", type="string", length=255)
- */
-private $vLocation;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="v_Contact_Mail", type="string", length=255)
+  */
+  private $vContactMail;
 
-/**
- * @var int
- *
- * @ORM\Column(name="n_Number_Of_Workers", type="integer", nullable=true)
- */
-private $nNumberOfWorkers;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="v_Location", type="string", length=255)
+  */
+  private $vLocation;
 
-/**
- * @var string
- *
- * @ORM\Column(name="creation_user", type="string", length=45)
- */
-private $creationUser;
+  /**
+  * @var int
+  *
+  * @ORM\Column(name="n_Number_Of_Workers", type="integer", nullable=true)
+  */
+  private $nNumberOfWorkers;
 
-/**
- * @var string
- *
- * @ORM\Column(name="modification_user", type="string", length=45)
- */
-private $modificationUser;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="creation_user", type="string", length=45)
+  */
+  private $creationUser;
 
-/**
- * @var \DateTime
- *
- * @ORM\Column(name="creation_date", type="date")
- */
-private $creationDate;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="modification_user", type="string", length=45)
+  */
+  private $modificationUser;
 
-/**
- * @var \DateTime
- *
- * @ORM\Column(name="modification_date", type="datetime")
- */
-private $modificationDate;
+  /**
+  * @var \DateTime
+  *
+  * @ORM\Column(name="creation_date", type="date")
+  */
+  private $creationDate;
 
-````
+  /**
+  * @var \DateTime
+  *
+  * @ORM\Column(name="modification_date", type="datetime")
+  */
+  private $modificationDate;
+
+
     
 # 10. Gestión de acceso
 
@@ -2039,148 +2039,146 @@ Dentro del controlador de usuario se gestiona el registro de exalumnos y
 empleadores. Una vez introducidos los valores de acceso común a la web
 cada rol de usuarios sigue un asistente diferente.
 
-```php
-/**
- * @Route("/register", name="user_register")
- */
-public function registerAction(Request $request, UserPasswordEncoderInterface $encoder) {
-  $user_form = new UserRegistrationForm();
-  $form = $this->createForm(UserRegistrationForm::class);
-  $form->handleRequest($request);
-  if ($form->isValid()) {
-    // Values of the User object shared by FormerStudents and Employeers
-    $user_form = $form->getData();
-    // Save access values in session
-    $session = $request->getSession();
-    $session->set('username', $user_form->getUsername());
-    $session->set('email', $user_form->getEmail());
-    $plainPassword = $user_form->getPassword();
-    $encoded = $encoder->encodePassword($user_form, $plainPassword);
-    $session->set('password', $encoded);
-    // Check user type
-    if (in_array("ROLE_USER_FORMER_STUDENT", $user_form->getRoles())) {
-      // Show cv creation form
-      return $this->redirectToRoute('formerstudents_new', ['request' => $request]);
-    }
-    else {
-      if (in_array("ROLE_USER_EMPLOYEER", $user_form->getRoles())) {
-        // Show employee creation form
-        return $this->redirectToRoute('employeers_new', ['request' => $request]);
-      }
-    }
-    return $this->get('security.authentication.guard_handler')
-      ->authenticateUserAndHandleSuccess(
-        $user_form,
-        $request,
-        $this->get('app.security.login_form_authenticator'),
-        'main'
-      );
-  }
-  return $this->render('usermgr/register.html.twig', [
-    'form' => $form->createView(),
-  ]);
-}
 
-```
+  /**
+  * @Route("/register", name="user_register")
+  */
+  public function registerAction(Request $request, UserPasswordEncoderInterface $encoder) {
+    $user_form = new UserRegistrationForm();
+    $form = $this->createForm(UserRegistrationForm::class);
+    $form->handleRequest($request);
+    if ($form->isValid()) {
+      // Values of the User object shared by FormerStudents and Employeers
+      $user_form = $form->getData();
+      // Save access values in session
+      $session = $request->getSession();
+      $session->set('username', $user_form->getUsername());
+      $session->set('email', $user_form->getEmail());
+      $plainPassword = $user_form->getPassword();
+      $encoded = $encoder->encodePassword($user_form, $plainPassword);
+      $session->set('password', $encoded);
+      // Check user type
+      if (in_array("ROLE_USER_FORMER_STUDENT", $user_form->getRoles())) {
+        // Show cv creation form
+        return $this->redirectToRoute('formerstudents_new', ['request' => $request]);
+      }
+      else {
+        if (in_array("ROLE_USER_EMPLOYEER", $user_form->getRoles())) {
+          // Show employee creation form
+          return $this->redirectToRoute('employeers_new', ['request' => $request]);
+        }
+      }
+      return $this->get('security.authentication.guard_handler')
+        ->authenticateUserAndHandleSuccess(
+          $user_form,
+          $request,
+          $this->get('app.security.login_form_authenticator'),
+          'main'
+        );
+    }
+    return $this->render('usermgr/register.html.twig', [
+      'form' => $form->createView(),
+    ]);
+  }
+
     
 ### 11.1.2 Acceso de usuario
 
 La lógica del controlador de usuario se encuentra sen
 SecurityController.
 
-```php
-/**
- * @Route("/register", name="user_register")
- */
-public function registerAction(Request $request, UserPasswordEncoderInterface $encoder) {
-  $user_form = new UserRegistrationForm();
-  $form = $this->createForm(UserRegistrationForm::class);
 
-  $form->handleRequest($request);
-  if ($form->isValid()) {
-    // Values of the User object shared by FormerStudents and Employeers
-    $user_form = $form->getData();
+  /**
+  * @Route("/register", name="user_register")
+  */
+  public function registerAction(Request $request, UserPasswordEncoderInterface $encoder) {
+    $user_form = new UserRegistrationForm();
+    $form = $this->createForm(UserRegistrationForm::class);
 
-    // Save access values in session
-    $session = $request->getSession();
-    $session->set('username', $user_form->getUsername());
-    $session->set('email', $user_form->getEmail());
+    $form->handleRequest($request);
+    if ($form->isValid()) {
+      // Values of the User object shared by FormerStudents and Employeers
+      $user_form = $form->getData();
 
-    $plainPassword = $user_form->getPassword();
-    $encoded = $encoder->encodePassword($user_form, $plainPassword);
-    $session->set('password', $encoded);
+      // Save access values in session
+      $session = $request->getSession();
+      $session->set('username', $user_form->getUsername());
+      $session->set('email', $user_form->getEmail());
 
-    // Check user type
-    if (in_array("ROLE_USER_FORMER_STUDENT", $user_form->getRoles())) {
-      // Show cv creation form
-      return $this->redirectToRoute('formerstudents_new', ['request' => $request]);
-    }
-    else {
-      if (in_array("ROLE_USER_EMPLOYEER", $user_form->getRoles())) {
-        // Show employee creation form
-        return $this->redirectToRoute('employeers_new', ['request' => $request]);
+      $plainPassword = $user_form->getPassword();
+      $encoded = $encoder->encodePassword($user_form, $plainPassword);
+      $session->set('password', $encoded);
+
+      // Check user type
+      if (in_array("ROLE_USER_FORMER_STUDENT", $user_form->getRoles())) {
+        // Show cv creation form
+        return $this->redirectToRoute('formerstudents_new', ['request' => $request]);
       }
+      else {
+        if (in_array("ROLE_USER_EMPLOYEER", $user_form->getRoles())) {
+          // Show employee creation form
+          return $this->redirectToRoute('employeers_new', ['request' => $request]);
+        }
+      }
+
+      return $this->get('security.authentication.guard_handler')
+        ->authenticateUserAndHandleSuccess(
+          $user_form,
+          $request,
+          $this->get('app.security.login_form_authenticator'),
+          'main'
+        );
     }
-
-    return $this->get('security.authentication.guard_handler')
-      ->authenticateUserAndHandleSuccess(
-        $user_form,
-        $request,
-        $this->get('app.security.login_form_authenticator'),
-        'main'
-      );
+    return $this->render('usermgr/register.html.twig', [
+      'form' => $form->createView(),
+    ]);
   }
-  return $this->render('usermgr/register.html.twig', [
-    'form' => $form->createView(),
-  ]);
-}
 
-```
     
 Desde el formulario de registro se delega la responsabilidad de
 comprobar la validación de usuario a Security\\LoginFormAuthenticator.
 Además, hay que configurar los parámetros de Autentificación y
 Autorización en la configuración de security.yml.
 
-```yaml
-security:
-    # En el caso que los usuarios tengan la contraseña cifrada configuramos los encoders para la entidad en la que estén los usuarios
-    encoders:
-        App\Entity\UserMgr\User:
-            algorithm: bcrypt
-            cost: 4
-    role_hierarchy:
-        ROLE_USER: [ROLE_USER_FORMER_STUDENTS, ROLE_USER_EMPLOYEERS]
-        ROLE_ADMIN: [ROLE_ARTEAN]
 
-    # En providers le indicamos que los usuarios van a salir de la base de datos y el username será email
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
-    providers:
-        our_db_provider:
-            entity:
-                class: App:UserMgr\User
-                property: email
-    firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-        main:
-            anonymous: ~
-            logout: ~
+  security:
+      # En el caso que los usuarios tengan la contraseña cifrada configuramos los encoders para la entidad en la que estén los usuarios
+      encoders:
+          App\Entity\UserMgr\User:
+              algorithm: bcrypt
+              cost: 4
+      role_hierarchy:
+          ROLE_USER: [ROLE_USER_FORMER_STUDENTS, ROLE_USER_EMPLOYEERS]
+          ROLE_ADMIN: [ROLE_ARTEAN]
 
-            guard:
-                authenticators:
-                - App\Security\LoginFormAuthenticator
-      access_control:
-    - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/admin, role: [ROLE_ARTEAN] }
-    - { path: ^/offers/(.+), role: [IS_AUTHENTICATED_FULLY] }
-    - { path: ^/cv/new, role: [IS_AUTHENTICATED_ANONYMOUSLY] }
-    - { path: ^/cv/search, role: [ROLE_USER_EMPLOYEERS] }
+      # En providers le indicamos que los usuarios van a salir de la base de datos y el username será email
+      # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+      providers:
+          our_db_provider:
+              entity:
+                  class: App:UserMgr\User
+                  property: email
+      firewalls:
+          # disables authentication for assets and the profiler, adapt it according to your needs
+          dev:
+              pattern: ^/(_(profiler|wdt)|css|images|js)/
+              security: false
+          main:
+              anonymous: ~
+              logout: ~
 
-```
+              guard:
+                  authenticators:
+                  - App\Security\LoginFormAuthenticator
+        access_control:
+      - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/admin, role: [ROLE_ARTEAN] }
+      - { path: ^/offers/(.+), role: [IS_AUTHENTICATED_FULLY] }
+      - { path: ^/cv/new, role: [IS_AUTHENTICATED_ANONYMOUSLY] }
+      - { path: ^/cv/search, role: [ROLE_USER_EMPLOYEERS] }
+
+
     
 **Manual de la aplicación.**: Resultado del primer prototipo.
 =====
