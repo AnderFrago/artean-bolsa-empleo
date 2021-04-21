@@ -68,7 +68,7 @@ Versión 0.2
 
     - [4.3.2 DataFixture ](#datafixture)
 
-[5 El layout ](#el-layout)
+[5 El layout](#el-layout)
 
 - [5.1 Webpack Encore ](#webpack-encore)
 
@@ -142,8 +142,7 @@ Versión 0.2
 
 - [12.3 Mi CV 52](#mi-cv)
 
-[12.4 Ventana de edición
-](#ventana-de-edición)
+[12.4 Ventana de edición](#ventana-de-edición)
 
 - [12.5 Aplicar a una oferta
 ](#aplicar-a-una-oferta)
@@ -174,7 +173,7 @@ Versión 0.2
 **ARTEAN**: Bolsa de empleo
 =====
 
-# 1 El proyecto
+# El proyecto
 
 
 Todo el mundo está hablando de la crisis hoy en día. El desempleo está
@@ -224,10 +223,10 @@ El sitio web de *Artean* tiene cuatro tipos de usuarios:
 
 -   Usuario **administrador** de la aplicación.
 
-1.1 Gestionar ofertas de empleo
+Gestionar ofertas de empleo
 ---------------------------
 
-### 1.1.1 Página principal
+### Página principal
 *Todos los usuarios*
 
 En la página de inicio, el usuario puede ver los últimos trabajos.
@@ -239,10 +238,10 @@ de trabajo primero). Para cada puesto de trabajo, sólo se muestran la
 ubicación, la posición, y la empresa.
 
 ![](media/image3.png)
-*2.  Página principal.*
+*2. Página principal.*
 
 
-### 1.1.2 Detalles de empleo
+### Detalles de empleo
 *Todos los usuarios*
 
 Un usuario hace clic en un puesto de trabajo para ver información más
@@ -254,7 +253,7 @@ más detallada.
 ![](media/image4.png)
 *3.  Detalles de empleo.*
 
-### 1.1.3 Nuevo empleo
+### Nuevo empleo
 *Usuario empleador*
 
 Un usuario registrado envía un puesto de trabajo.
@@ -292,10 +291,10 @@ trabajo está formado por varias partes de información:
 ![](media/image5.png)
 *4.  Nuevo empleo.*
 
-1.2 Gestión de Curriculum vitae (CV)
+Gestión de Curriculum vitae (CV)
 --------------------------------
 
-### 1.2.1 Añadir un nuevo CV
+### Añadir un nuevo CV
 *Usuario con rol de exalumno*
 
 Se considera que un CV pude estas compuesto por varias experiencias
@@ -339,13 +338,13 @@ El administrador puede:
 
 -   Validar roles de usuario: activar y desactivar usuarios.
 
-# 2. Persistencia
+# Persistencia
 
 
 A continuación, se opresenta el esquema de tablas de base de datos con
 el que se va a estructurar la información la aplicación *Artean.*
 
-2.1 El modelo de datos Entidad-Relación
+El modelo de datos Entidad-Relación
 -----------------------------------
 
 Aquí está el diagrama de entidad-relación completo en el que se muestran
@@ -386,20 +385,20 @@ CV, este CV puede pasar por varios estados dentro de la oferta.
 
     -   Los usuarios *pueden* ser exalumnos.
 
-# 3. Creación del proyecto
+# Creación del proyecto
 
 
 A continuación, se explica mediante una guía paso a paso como llevar a
 cabo este proyecto.
 
-3.1 Preparación del entorno
+Preparación del entorno
 -----------------------
 
 El Entorno de Desarrollo Intergrado (IDE) utilizado ha sido PhpStorm al
 que se le ha añadido el *plugin de Symfony* y su dependencia del *plugin
 de* *Annotations*.
 
-### 3.1.1 Instalación de Symfony
+### Instalación de Symfony
 
 La primera tarea que realizar es descargar el instalador de Symfony, lo
 hacemos mediante el siguiente comando.
@@ -415,7 +414,7 @@ Para ejecutar nuestra aplicación lanzaremos el comando
 
     C:\> php bin/console server:run
 
-### 3.1.2 Estructurando la aplicación
+### Estructurando la aplicación
 
 Después de crear la aplicación, vemos un número de archivos y
 directorios generados automáticamente:
@@ -437,7 +436,7 @@ El propósito recomendado de cada directorio es el siguiente:
 - public/, almacena todos los archivos del controlador frontal y todos los activos web, como hojas de estilo, archivos JavaScript e imágenes.
 
 
-### 3.1.3 **La filosofía de Symfony**
+### La filosofía de Symfony
 
 ![](media/image8.png)
 *7.  La filosofía de symfony. (Eguiluz, J. 2017. *deSymfony*)*
@@ -470,10 +469,10 @@ importantes:**
 >
 > parameters.yml desaparece para apostar por variables de entorno.
 
-# 4. La base de datos
+# La base de datos
 
 
-4.1 Integración de la base de datos
+Integración de la base de datos
 -------------------------------
 
 #### **Instalación**
@@ -501,7 +500,7 @@ Lanzamos el comando generador de la base de datos.
     php bin/console doctrine:database:create    
 
 
-4.2 Generación de las entidades
+Generación de las entidades
 ---------------------------
 
 Las entidades deben cumplir con los requisitos establecidos en el
@@ -535,10 +534,10 @@ En caso de que realicemos modificaciones en las clases de nuestras entidades y q
     php bin\console doctrine:schema:update --force
 
 
-4.3 Valores iniciales
+Valores iniciales
 -----------------
 
-### 4.3.1 Doctrine Fixture Bundle
+### Doctrine Fixture Bundle
 
 Para poner algunos datos iniciales en nuestra base de datos, crearemos
 el comando de la consola que nos permite llenar una base de datos. Pero
@@ -596,7 +595,7 @@ datos para hacer pruebas de desarrollo.
 ```
 <!-- {% endraw %} -->
 
-### 4.3.2 DataFixture
+### DataFixture
 
 Los *DataFixture* son clases de PHP donde se crean objetos y los
 almacenamos de manera persistente en la base de datos. Imagina que
@@ -838,7 +837,7 @@ un *borrado* de todas nuestras tablas:
 
     php bin/console doctrine:fixtures:load
 
-# 5. El layout
+# El layout
 
 En primer lugar, si realizas una mirada más cercana a los prototipos,
 *mockups*, te darás cuenta de que gran parte de cada página se ve igual.
@@ -873,7 +872,7 @@ Lo primero que vamos a hacer es instalar el bundle de assets.
 Symfony viene con una biblioteca de JavaScript, llamada Webpack Encore,
 que hace que trabajar con CSS y JavaScript sea una delicia.
 
-5.1 Webpack Encore
+Webpack Encore
 --------------
 
 *Webpack Encore* es una forma más simple de integrar *Webpack* en una
@@ -1092,7 +1091,7 @@ descarga de las fuentes y los iconos que vamos a utilizar.
 ```
 <!-- {% endraw %} -->
 
-### 5.1.2	Instalar el motor de plantillas Twig
+### Instalar el motor de plantillas Twig
 Realizamos la instalación de twig con el siguiente comando.
 
 <!-- {% raw %} -->
@@ -1104,7 +1103,7 @@ Realizamos la instalación de twig con el siguiente comando.
 En nuestro proyecto se crea el directorio templates que es donde almacenaremos nuestras vistas.
 
 
-### 5.1.3	Plantilla base
+### Plantilla base
 
 A continuación el código actualizado de este archivo desde donde se
 enlazan a los archivos css y js en el archivo base.html.twig:
@@ -1152,16 +1151,16 @@ enlazan a los archivos css y js en el archivo base.html.twig:
 **Desarrollo según el rol.**
 =====
 
-# 6. Visitante
+# Visitante
 **Usuario anónimo**
 
 A continuación, se desarrollan las pantallas dentro del ámbito de un
 usuario visitante.
 
- 6.1 Página principal
+Página principal
 ----------------
 
-### 6.1.1 Controlador
+### Controlador
 
 En la página principal se muestra un listado de las ofertas de empleo
 más recientes.
@@ -1321,7 +1320,7 @@ dentro del directorio default.
 ```
 <!-- {% endraw %} -->
     
-# 7. Gestor de ofertas de empleo
+# Gestor de ofertas de empleo
 
 
 Para el desarrollo de la funcionalidad Gestor de ofertas de empleo vamos
@@ -1418,7 +1417,7 @@ class OffersController extends Controller
 ```
 <!-- {% endraw %} -->
 
-# 8 Gestor de CVs
+# Gestor de CVs
 
 Se considera que un CV pude estas compuesto por varias experiencias laborales previas, diferentes titulaciones de estudios y otros conocimientos o idiomas. El CV es un conjunto de todos estos conceptos. Para aprovechar las funcionalidades de Symfony realizamos el CRUD de las tablas que conforman el CV; studies, work_experiences, languages y other_knowledges.
 Para completar un CV debemos indicar un flujo de pantallas que nos permita completar esta tabla mediante la introducción recursiva de registros en las tablas de studies, work_experiences, languages y other_knowledges. Esta lógica debemos implementarla en el controlador.
@@ -1431,10 +1430,10 @@ Una vez realizada la instalación se genera una capeta Forms en nuestro proyecto
     php bin/console make:crud Offers
 
 
-7.1 Controladores de CV
+Controladores de CV
 -------------------
 
-### 7.1.1 Creación de un CV
+### Creación de un CV
 
 #### **Usuario exalumno**
 
@@ -1614,7 +1613,7 @@ public function store_cv_values( Session $session, CV $actual_user_cv)
 ```
 <!-- {% endraw %} -->
  
-### 8.1.2 Edición de un CV
+### Edición de un CV
 
 #### **Usuario exalumno**
 
@@ -1719,7 +1718,7 @@ tener múltiples CVs, pero está funcionalidad no ha sido implementada. Es
 por eso por lo que de una lista de CVs en la edición se obtiene el CV de
 índice 0.
 
-### 9.1.3 Busqueda de un CV
+### Busqueda de un CV
 
 #### **Usuario empleador**
 
@@ -1759,7 +1758,7 @@ class CVCategoriesRepository extends EntityRepository {
 ```
 <!-- {% endraw %} -->
 
-# 10 Gestión de usuarios
+# Gestión de usuarios
 
 
 Para el desarrollo de las funcionalidades relacionadas con el control de
@@ -1799,7 +1798,7 @@ siguientes anotaciones:
 ```
 <!-- {% endraw %} -->
     
-### 10.1.1 Entidad base: Usuario
+### Entidad base: Usuario
 
 La clase basa User dispone de las siguientes propiedades.
 
@@ -1870,13 +1869,16 @@ de la clase base.
 
 <!-- {% raw %} -->
 ```php
-public function __construct() {
-  parent::__construct();
-}
+  public function __construct() {
+    parent::__construct();
+  }
 ````
 <!-- {% endraw %} -->
 
+
 #### Exalumno
+
+
 
 <!-- {% raw %} -->
 ````php
@@ -2068,7 +2070,7 @@ private $modificationDate;
 ````
 <!-- {% endraw %} -->   
 
-# 10. Gestión de acceso
+# Gestión de acceso
 
 
 *Symfony* gestiona la seguridad mediante dos aspectos diferenciados:
@@ -2086,10 +2088,10 @@ disponer de un token, pero algunos tienen más acceso que otros.
 los usuarios puedan acceder a un determinado sitio. No necesita saber
 quién eres, solo si tienes permiso de acceso o no.
 
-10.1 Formularios de acceso
+Formularios de acceso
 ---------------------
 
-### 10.1.1 Registro de usuario
+### Registro de usuario
 
 Dentro del controlador de usuario se gestiona el registro de exalumnos y
 empleadores. Una vez introducidos los valores de acceso común a la web
@@ -2140,7 +2142,7 @@ public function registerAction(Request $request, UserPasswordEncoderInterface $e
 ```
 <!-- {% endraw %} -->   
 
-### 11.1.2 Acceso de usuario
+### Acceso de usuario
 
 La lógica del controlador de usuario se encuentra sen
 SecurityController.
@@ -2245,7 +2247,7 @@ security:
 **Manual de la aplicación.**: Resultado del primer prototipo.
 =====
 
-# 11 Acceso a la web
+# Acceso a la web
 
 
 En la primera pantalla lo que aparecen son las ofertas publicadas en la
@@ -2269,7 +2271,7 @@ Generación de un Exalumno:
 
 ![](media/image18.png)
 
-# 12 Exalumno
+# Exalumno
 
 
 Registro de CV
@@ -2299,7 +2301,7 @@ Controlar sus candidaturas.
 
 ![](media/image21.png)
 
-12.1 Mi CV
+Mi CV
 -----
 
 Desde la pantalla de visualización de CV se puede visualizar el aspecto
@@ -2338,10 +2340,10 @@ Desde aquí puede hacer el seguimiento de su estado.
 
 ![](media/image25.png)
 
-# 13 Empresa
+# Empresa
 
 
-13.1 Registro
+Registro
 --------
 
 La empresa pasa por un asistente parecido al de el exalumno al
@@ -2349,7 +2351,7 @@ registrarse en el sistema.
 
 ![](media/image26.png)
 
-13.2 Barra de herramientas
+Barra de herramientas
 ---------------------
 
 La barra de herramientas de la empresa muestra la opción de publicar
@@ -2357,7 +2359,7 @@ oferta, gestionar los inscritos en las ofertas y el buscador de CVs.
 
 ![](media/image27.png)
 
-13.3 Publicar ofertas
+Publicar ofertas
 ----------------
 
 En lugar de publicar su CV la empresa lanza la pantalla de publicación
@@ -2365,7 +2367,7 @@ de ofertas desde la barra de herramientas.
 
 ![](media/image28.png)
 
-13.4 Detalles de oferta
+Detalles de oferta
 ------------------
 
 Desde la pantalla de visualización de la oferta se pueden ver los
@@ -2381,7 +2383,7 @@ uno de ellos.
 
 ![](media/image30.png)
 
-13.4 Buscador de ofertas
+Buscador de ofertas
 -------------------
 
 El gran potencial de esta aplicación es el buscador de CVs, capaz de
