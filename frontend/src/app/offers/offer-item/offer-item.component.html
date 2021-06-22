@@ -1,0 +1,17 @@
+<div class="card m-1" [routerLink]="['/offers',offer.id]">
+    <div class="card-header">
+      <small>Nº inscritos: </small>{{offer.numberOfApplyments}}
+    </div>
+    <div class="card-body">
+      <h6 class="card-title">
+        {{offer.name}}
+      </h6>
+      <div class="card-text">
+        <div class="card-text-description">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><small>Ciclo:  </small>{{offer.description.category}}</li>
+          </ul>
+        </div>   
+      </div>
+    </div>
+  </div>

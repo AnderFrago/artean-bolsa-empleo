@@ -1,0 +1,58 @@
+<div class="card" style="width: 18rem;">
+    <div class="card-header">
+      {{offer.name}}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Nº inscritos: {{offer.numberOfApplyments}}</h5>
+      <div class="card-text">
+        <div class="card-text-description">
+          <h3>Descripción: </h3>
+          <p>
+            {{offer.description.text}}
+          </p>
+          <ul class="list-group list-group-flush">
+            <li *ngIf="offer.description.typeOfIndustry" class="list-group-item">{{offer.description.typeOfIndustry}}</li>
+            <li class="list-group-item">{{offer.description.category}}</li>
+            <li class="list-group-item">{{offer.description.level}}</li>
+            <li *ngIf="offer.description.staffInCharge" class="list-group-item">
+              <small>Personas a cargo: </small>{{offer.description.staffInCharge}}
+            </li>
+            <li *ngIf="offer.description.numberOfVacancies" class="list-group-item">
+              <small>Nº vacantes: </small>
+              {{offer.description.numberOfVacancies}}
+            </li>
+            <li *ngIf="offer.description.schedule" class="list-group-item">
+              <small>Horario: </small>
+              {{offer.description.schedule}}
+            </li>
+            <li *ngIf="offer.description.salary" class="list-group-item">
+              <small>Salario: </small>
+              {{offer.description.salary}}
+            </li>
+            <li *ngIf="offer.description.perks" class="list-group-item">
+              <small>Beneficios: </small>
+              {{offer.description.perks}}
+            </li>
+          </ul>
+        </div>
+        <div class="card-text-requirements">
+          <h3>Requisitos: </h3>
+          <p *ngIf="offer.requirements">
+          <ul class="list-group list-group-flush">
+            <li *ngIf="offer.requirements.minimumEducation" class="list-group-item">
+              <small>Estudios mínimos: </small>
+              {{offer.requirements.minimumEducation}}</li>
+            <li *ngIf="offer.requirements.minimumWorkExperience" class="list-group-item">
+              <small>Experiencia laboral mínima: </small>
+              {{offer.requirements.minimumWorkExperience}}</li>
+            <li class="list-group-item">
+              <small>Requisitos mínimos: </small>
+              {{offer.requirements.minimumRequirements}}
+            </li>
+          </ul>
+        </div>
+  
+      </div>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>

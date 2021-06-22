@@ -1,0 +1,205 @@
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+
+  <div class="card-body">
+    <form novalidate (ngSubmit)="saveOffer()" [formGroup]="offerForm">
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="name">Nombre</label>
+        <div class="col-md-8">
+          <input class="form-control" id="name" type="text" placeholder="Nombre (requerido)" formControlName="name"
+            name="name" value="empty" />
+        </div>
+        <!-- Validation messages -->
+        <div class="invalid-feedback"
+          *ngIf="(offerForm.value.name.errors) || (!offerForm.value.name.pristine && offerForm.value.name.invalid)">
+          <div *ngIf="offerForm.value.name.errors.required">El nombre es requerido</div>
+          <div *ngIf="offerForm.value.name.errors.minlength">3 carácteres mínimo</div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="dueDate">Fecha límite</label>
+        <div class="col-md-8">
+          <input class="form-control" id="dueDate" type="date" placeholder="Fecha límite (requerido)"
+            formControlName="dueDate" name="dueDate" value="empty" />
+        </div>
+      </div>
+
+      <h4>Descripción</h4>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="text">Texto</label>
+        <div class="col-md-8">
+          <input class="form-control" id="text" type="text" placeholder="Descripción extendida (requerido)"
+            formControlName="text" name="text" value="empty" />
+        </div>
+        <!-- Validation messages -->
+        <div class="invalid-feedback"
+          *ngIf="(offerForm.value.text.errors) || (!offerForm.value.text.pristine && offerForm.value.text.invalid)">
+          <div *ngIf="offerForm.value.text.errors.required">El nombre es requerido</div>
+          <div *ngIf="offerForm.value.text.errors.minlength">3 carácteres mínimo</div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="typeOfIndustry">Tipo de industria</label>
+        <div class="col-md-8">
+          <input class="form-control" id="typeOfIndustry" type="text" placeholder="Tipo de industria (opcional)"
+            formControlName="typeOfIndustry" name="typeOfIndustry" value="empty" />
+        </div>
+        <!-- Validation messages -->
+        <div class="invalid-feedback"
+          *ngIf="(offerForm.value.typeOfIndustry.errors) || (!offerForm.value.typeOfIndustry.pristine && offerForm.value.typeOfIndustry.invalid)">
+          <div *ngIf="offerForm.value.typeOfIndustry.errors">Error</div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="category">Categoría</label>
+        <div class="col-md-8">
+          <input class="form-control" id="category" type="text" placeholder="Categoría oferta (requerido)"
+            formControlName="category" name="category" value="empty" />
+        </div>
+        <!-- Validation messages -->
+        <div class="invalid-feedback"
+          *ngIf="(offerForm.value.category.errors) || (!offerForm.value.category.pristine && offerForm.value.category.invalid)">
+          <div *ngIf="offerForm.value.category.errors.required">El nombre es requerido</div>
+          <div *ngIf="offerForm.value.category.errors.minlength">3 carácteres mínimo</div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="level">Nivel exigido</label>
+        <div class="col-md-8">
+          <input class="form-control" id="level" type="text" placeholder="Nivel exigido (requerido)"
+            formControlName="level" name="level" value="empty" />
+        </div>
+        <!-- Validation messages -->
+        <div class="invalid-feedback"
+          *ngIf="( offerForm.value.level.invalid)">
+          <div *ngIf="offerForm.value.level.errors">Error</div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="staffInCharge">Personal a cargo</label>
+        <div class="col-md-8">
+          <input class="form-control" id="staffInCharge" type="text" placeholder="Personal a cargo (opcional)"
+            formControlName="staffInCharge" name="staffInCharge" value="empty" />
+        </div>
+        <!-- Validation messages -->
+        <div class="invalid-feedback"
+          *ngIf="(offerForm.value.staffInCharge.errors) || (!offerForm.value.staffInCharge.pristine && offerForm.value.staffInCharge.invalid)">
+          <div *ngIf="offerForm.constaffInChargetrols.staffInCharge.errors">Error</div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="numberOfVacancies">Número de vacantes</label>
+        <div class="col-md-8">
+          <input class="form-control" id="numberOfVacancies" type="text" placeholder="Nº vacantes (opcional)"
+            formControlName="numberOfVacancies" name="numberOfVacancies" value="empty" />
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="schedule">Horario</label>
+        <div class="col-md-8">
+          <input class="form-control" id="schedule" type="text" placeholder="Horario (opcional)"
+            formControlName="schedule" name="schedule" value="empty" />
+        </div>
+        <!-- Validation messages -->
+        <div class="invalid-feedback"
+          *ngIf="(offerForm.value.schedule.errors) || (!offerForm.value.schedule.pristine && offerForm.value.schedule.invalid)">
+          <div *ngIf="offerForm.constaffInChargetrols.schedule.errors">Error</div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="salary">Salario</label>
+        <div class="col-md-8">
+          <input class="form-control" id="salary" type="text" placeholder="Salario (opcional)" formControlName="salary"
+            name="salary" value="empty" />
+        </div>
+        <!-- Validation messages -->
+        <div class="invalid-feedback"
+          *ngIf="(offerForm.value.salary.errors) || (!offerForm.value.salary.pristine && offerForm.value.salary.invalid)">
+          <div *ngIf="offerForm.constaffInChargetrols.salary.errors">Error</div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="perks">Beneficios</label>
+        <div class="col-md-8">
+          <input class="form-control" id="perks" type="text" placeholder="Beneficios (opcional)" formControlName="perks"
+            name="perks" value="empty" />
+        </div>
+        <!-- Validation messages -->
+        <div class="invalid-feedback"
+          *ngIf="(offerForm.value.perks.errors) || (!offerForm.value.perks.pristine && offerForm.value.perks.invalid)">
+          <div *ngIf="offerForm.constaffInChargetrols.perks.errors">Error</div>
+        </div>
+      </div>
+
+      <h4>Requisitos</h4>
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="minimumEducation">Educación mínima</label>
+        <div class="col-md-8">
+          <input class="form-control" id="minimumEducation" type="text" placeholder="Educación mínima (opcional)"
+            formControlName="minimumEducation" name="minimumEducation" value="empty" />
+        </div>
+          <!-- Validation messages -->
+          <div class="invalid-feedback"
+            *ngIf="(offerForm.value.minimumEducation.errors) || (!offerForm.value.minimumEducation.pristine && offerForm.value.minimumEducation.invalid)">
+            <div *ngIf="offerForm.constaffInChargetrols.minimumEducation.errors">Error</div>
+          </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="minimumWorkExperience">Experiencia laboral mínima</label>
+        <div class="col-md-8">
+          <input class="form-control" id="minimumWorkExperience" type="text"
+            placeholder="Experiencia laboral mínima (opcional)" formControlName="minimumWorkExperience"
+            name="minimumWorkExperience" value="empty" />
+        </div>
+        <!-- Validation messages -->
+        <div class="invalid-feedback"
+          *ngIf="(offerForm.value.minimumWorkExperience.errors) || (!offerForm.value.minimumWorkExperience.pristine && offerForm.value.minimumWorkExperience.invalid)">
+          <div *ngIf="offerForm.constaffInChargetrols.minimumWorkExperience.errors">Error</div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="minimumRequirements">Requisitos mínimos</label>
+        <div class="col-md-8">
+          <input class="form-control" id="minimumRequirements" type="text" placeholder="Requisitos mínimos (opcional)"
+            formControlName="minimumRequirements" name="minimumRequirements" value="empty" />
+        </div>
+        <!-- Validation messages -->
+        <div class="invalid-feedback"
+          *ngIf="(offerForm.value.minimumRequirements.errors) || (!offerForm.value.minimumRequirements.pristine && offerForm.value.minimumRequirements.invalid)">
+          <div *ngIf="offerForm.constaffInChargetrols.minimumRequirements.errors">Error</div>
+        </div>
+      </div>
+
+
+      <div class="form-group row mb-2">
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-primary mr-3" type="submit"
+          [disabled]="!offerForm.valid">
+            Guardar
+          </button>
+          <button class="btn btn-outline-secondary mr-3" type="button" title="Cancelar edición" routerLink="['']">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}
+  </div>
+</div>

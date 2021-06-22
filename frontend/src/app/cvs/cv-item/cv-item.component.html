@@ -1,0 +1,84 @@
+<div class="card" [routerLink]="['/cvs',cv.id]">
+  <div class="card-header">
+    <small>Izena </small>
+  </div>
+  <div class="card-body">
+    <h6 class="card-title">
+      argazki :: kontaktua
+    </h6>
+    <div class="card-text">
+      <h2>Experiencia laborla:</h2>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let work of cv.works">
+          <div class="media">
+            <div class="media-body">
+              <h5 class="mt-0">{{work.position}}</h5>
+              <div class="d-flex flex-row">
+                <div class="p-2">{{work.startDate | date:'mediumDate'}} - {{work.endDate | date:'mediumDate'}}: </div>
+                <div class="p-2"><small>Empresa: </small>{{work.employer}}</div>
+              </div>
+              <p>
+                <small>Labores: {{work.duties}}</small>
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <hr />
+
+      <h2>Estudios:</h2>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let study of cv.studies">
+          <div class="media">
+            <div class="media-body">
+              <h5 class="mt-0">{{study.title}}</h5>
+              <div class="d-flex flex-row">
+                <div class="p-2">{{study.startDate | date:'mediumDate'}} - {{study.endDate | date:'mediumDate'}}: </div>
+                <div class="p-2">{{study.level}}</div>
+                <div class="p-2">{{study.category}}</div>
+                <div class="p-2">{{study.center}}</div>
+              </div>
+              <p>
+                <small>{{study.description}}</small>
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <hr />
+      <h2>Idiomas:</h2>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let lang of cv.languages">
+          <div class="media">
+            <div class="media-body">
+              <h5 class="mt-0">{{lang.name}}</h5>
+              <div class="d-flex flex-row">
+                <div class="p-2">{{lang.title}}</div>
+              </div>
+
+            </div>
+          </div>
+        </li>
+      </ul>
+      <hr />
+      <h2>Otros:</h2>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let other of cv.otherknowledges">
+          <div class="media">
+            <div class="media-body">
+              <h5 class="mt-0">{{other.name}}</h5>
+              <div class="d-flex flex-row">
+                <div class="p-2">{{other.title}}</div>
+              </div>
+              <p>
+                <small>{{other.description}}</small>
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
