@@ -1,7 +1,8 @@
 export interface Offer {
     id: number,
     name: string,
-    dueDate: Date,    
+    dueDate: Date,
+    position: String,
     requirements?: Requirements,
     description: Description,
     numberOfApplyments: number

@@ -10,7 +10,7 @@ import { Offer } from './offer';
   providedIn: 'root'
 })
 export class OfferService {
-  private offersUrl = 'api/offers';
+  private offersUrl = 'http://localhost:8000/offers';
 
   constructor(private http: HttpClient) { }
 
@@ -24,11 +24,11 @@ export class OfferService {
 
   getMaxOfferId(): Observable<Offer> {
     return this.http.get<Offer[]>(this.offersUrl)
-    .pipe(
-      // Get max value from an array
-      map(data => Math.max.apply(Math, data.map(function(o) { return o.id; }))   ),
-      catchError(this.handleError)
-    );
+      .pipe(
+        // Get max value from an array
+        map(data => Math.max.apply(Math, data.map(function (o) { return o.id; }))),
+        catchError(this.handleError)
+      );
   }
 
   getOfferById(id: number): Observable<Offer> {
