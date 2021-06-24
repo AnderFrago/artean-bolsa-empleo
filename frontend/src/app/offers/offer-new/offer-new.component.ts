@@ -27,47 +27,11 @@ export class OfferNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.offerForm = this.fb.group({
-      name: ['', [Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(150),]],
-      dueDate: Date.now,
-      numberOfApplyments: 0,
-      minimumEducation: ['', [Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(150)]],
-      minimumWorkExperience: ['', [Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(150)]],
-      minimumRequirements: ['', [Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(500)]],
-      text: ['', [Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(500)]],
-      typeOfIndustry: ['', [Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(150)]],
-      category: ['', [Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(500)]],
-      level: ['', [Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(500)]],
-      staffInCharge: ['', [Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(150)]],
-      numberOfVacancies: ['', [Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(150)]],
-      schedule: ['', [Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(150)]],
-      salary: ['', [Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(150)]],
-      perks: ['', [Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(150)]]
+      company: '',
+      position: '',
+      dueDate: Date.now,  
+      requirements: '',
+      description: '',     
     });
 
     // Read the offer Id from the route parameter
@@ -89,12 +53,12 @@ export class OfferNewComponent implements OnInit {
           );
         
       } else {
-        // this.onSaveComplete();
+         this.onSaveComplete();
         this.errorMessage = 'Por favor, termina de insertar valores.';
       }
      } else {
        this.errorMessage = 'Por favor, corrije los errores de validación.';
-      // this.isFormSubmitted = false;
+       this.isFormSubmitted = false;
     }
   }
 

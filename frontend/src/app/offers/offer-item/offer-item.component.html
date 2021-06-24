@@ -1,14 +1,17 @@
 <div class="card m-1" [routerLink]="['/offers',offer.id]">
   <div class="card-header">
-    {{offer.name}}
+    {{offer.position}}:  {{offer.numberOfApplyments}}
+
   </div>
   <div *ngIf="offer" class="card-body">
     <h6 class="card-title">
-      {{offer.position}}
+      {{offer.company}}
     </h6>
     <div class="card-text">
       <div class="card-text-description">
         <ul class="list-group list-group-flush">
+          <li class="list-group-item"> {{offer.description.text}} </li>
+          <li *ngIf="offer.requirements" class="list-group-item"> {{offer.requirements.minimumRequirements}} </li>
           <li class="list-group-item"><small> {{offer.dueDate | date:'shortDate'}} </small></li>
         </ul>
       </div>

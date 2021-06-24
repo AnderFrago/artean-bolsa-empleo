@@ -15,7 +15,7 @@ export class OfferService {
   constructor(private http: HttpClient) { }
 
   getOffers(): Observable<Offer[]> {
-    return this.http.get<Offer[]>(this.offersUrl)
+    return this.http.get<Offer[]>(this.offersUrl+'?XDEBUG_SESSION_START=15134')
       .pipe(
         tap(data => console.log(JSON.stringify(data))),
         catchError(this.handleError)
@@ -32,7 +32,7 @@ export class OfferService {
   }
 
   getOfferById(id: number): Observable<Offer> {
-    const url = `${this.offersUrl}/${id}`;
+    const url = `${this.offersUrl}/${id}/?XDEBUG_SESSION_START=15134`;
     return this.http.get<Offer>(url)
       .pipe(
         tap(data => console.log('getOffer: ' + JSON.stringify(data))),
@@ -43,7 +43,9 @@ export class OfferService {
   createOffer(offer: Offer): Observable<Offer> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     offer.id = null;
-    return this.http.post<Offer>(this.offersUrl, offer, { headers: headers })
+    console.log(offer);
+    
+    return this.http.post<Offer>(this.offersUrl, JSON.stringify(offer), { headers: headers })
       .pipe(
         tap(data => console.log('createOffer: ' + JSON.stringify(data))),
         catchError(this.handleError)
