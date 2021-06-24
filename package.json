@@ -1,0 +1,21 @@
+{
+  "name": "artean-bolsa-empleo-44",
+  "version": "1.0.0",
+  "description": "Job board application developed as a Symfony learning guide in the subject of Web Development.",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "bootstrap": "^4.5.0",
+    "jquery": "^3.5.1",
+    "node-sass": "^4.14.1",
+    "popper.js": "^1.16.1",
+    "sass-loader": "^8.0.2",
+    "webpack": "^4.43.0",
+    "webpack-icons-installer": "^2.0.0",
+    "webpack-notifier": "^1.8.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
