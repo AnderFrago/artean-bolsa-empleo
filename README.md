@@ -1040,12 +1040,22 @@ En el interior, establecemos el siguiente código de configuración.
 <!-- {% endraw %} -->
 
 Debemos crear las carpetas *build* dentro la carpeta web. Para realizar
-la compilación de los assets utilizamos el siguiente comando, ejecutado
+la compilación de los assets agregamos el siguente comando dentro de scripts en package.json
+
+<!-- {% raw %} -->
+```javascript
+"scripts": {
+    "encore": "encore"
+}
+```
+<!-- {% endraw %} -->
+
+utilizamos el siguiente comando, ejecutado
 desde la ruta donde se encuentra *Encore*.
 
 <!-- {% raw %} -->
 ```sh
-    call ./node\_modules/.bin/encore dev \--context ./
+    npm run encore dev 
 ```
 <!-- {% endraw %} -->
 
