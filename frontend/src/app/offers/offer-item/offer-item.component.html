@@ -1,20 +1,28 @@
-<div class="card m-1" [routerLink]="['/offers',offer.id]">
-  <div class="card-header">
-    {{offer.position}}:  {{offer.numberOfApplyments}}
-
-  </div>
-  <div *ngIf="offer" class="card-body">
-    <h6 class="card-title">
-      {{offer.company}}
-    </h6>
-    <div class="card-text">
-      <div class="card-text-description">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"> {{offer.description.text}} </li>
-          <li *ngIf="offer.requirements" class="list-group-item"> {{offer.requirements.minimumRequirements}} </li>
-          <li class="list-group-item"><small> {{offer.dueDate | date:'shortDate'}} </small></li>
-        </ul>
+<mat-card class="container m-1" [routerLink]="['/offers',offer.id]">
+  <div class="row">
+    <div class="col-4">
+      <mat-card-title class="d-flex flex-column bg-light">
+        <div class="pt-2"> {{offer.position}}
+          <mat-card-subtitle class="pt-1">
+            {{offer.company}}
+          </mat-card-subtitle>
+        </div>
+      </mat-card-title>
+    </div>
+    <div class="col-8">
+      <div *ngIf="offer">
+        <div class="d-flex justify-content-between">
+          <div class="ml-2 text-muted">
+            {{offer.minimumRequirements }}
+          </div>
+          <div class="ml-2">
+            {{offer.dueDate | date:'shortDate'}}
+          </div>
+        </div>
+        <mat-card-content>
+          {{offer.description}}
+        </mat-card-content>
       </div>
     </div>
   </div>
-</div>
+</mat-card>

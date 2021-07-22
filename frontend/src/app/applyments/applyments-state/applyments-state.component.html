@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>Modificar estado</h1>
+<form mat-dialog-content [formGroup]="stateForm" (ngSubmit)="onSubmit()">
+
+    <mat-radio-group aria-label="Selecciona nuevo estado">
+        <div>
+            <input id="waiting" type="radio" formControlName="state" name="state" value="0" />
+            <label for="waiting">Esperando</label>
+        </div>
+        <div>
+            <input id="reading" type="radio" formControlName="state" name="state" value="1" />
+            <label for="reading">Leyendo</label>
+        </div>
+        <div>
+            <input id="continueprocess" type="radio" formControlName="state" name="state" value="2" />
+            <label for="continueprocess">Continua en proceso</label>
+        </div>
+        <div>
+            <input id="discard" type="radio" formControlName="state" name="state" value="3" />
+            <label for="discard">Descartado</label>
+        </div>
+        <div>
+            <input id="selected" type="radio" formControlName="state" name="state" value="4" />
+            <label for="selected">Seleccionado</label>
+        </div>
+    </mat-radio-group>
+    <div *ngIf="isSet && myForm.invalid">
+        Selecciona una opción
+    </div>
+    <button type="submit">Submit</button>
+</form>

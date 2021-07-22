@@ -1,26 +1,38 @@
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" routerLink="/home">
-        <img src="/assets/images/brujula.jpg" class="img-fluid">
+<div class="container-fluid bg-light fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-light container">
+    <a class=" navbar-brand" routerLink="/home">
+      <img src="/assets/images/logo.png" class="img-fluid ">
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon">     </span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar1"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"> </span>
     </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">     
+
+    <div class="collapse navbar-collapse" id="navbar1">
+      <ul class="navbar-nav w-75">
         <li class="nav-item">
-            <h3><a class="nav-link" routerLink="/home">Artean :: Bolsa de empleo</a></h3>
-        </li> 
-        <li class="nav-item my-auto">
-            <a class="nav-link " (click)="newOffer()">Nueva oferta</a>
+          <a class="nav-link display-6" routerLink="/home"> Artean</a>
         </li>
-        <li class="nav-item my-auto">
-          <a class="nav-link " (click)="newCv()">Nuevo CV</a>
-      </li>  
-      <li class="nav-item my-auto">
-        <app-auth-nav></app-auth-nav>
-      </li>  
+        <li *ngIf="isEmployer()" class="nav-item my-auto">
+          <button mat-button class="text-muted mt-2" (click)="newOffer()">Nueva oferta</button>
+        </li>
+        <li *ngIf="isStudent()" class="nav-item my-auto">
+          <button mat-button class="text-muted mt-2" (click)="newCv()">Nuevo CV</button>
+        </li>
       </ul>
+      <div class="my-auto text-muted">
+        {{username}}
+      </div>
+      <div class="mx-auto">
+        <div *ngIf="!isLoggedIn() ">
+          <a class="btn btn-sm btn-outline-secondary mx-2" (click)="register()">Registrarse</a>
+          <a class="btn btn-sm btn-outline-primary mx-2" (click)="login()">Acceder</a>
+        </div>
+        <div *ngIf="isLoggedIn()">
+          <a class="btn btn-outline-info mx-2" (click)="logout()">Salir</a>
+        </div>
+      </div>
     </div>
+
   </nav>
+</div>

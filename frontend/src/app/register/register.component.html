@@ -1,0 +1,38 @@
+<form (ngSubmit)="register()" [formGroup]="form">
+    <fieldset class="form-group">
+        <legend>Acceder</legend>
+        <div class="form-field row  mx-5">
+            <label class="form-text text-muted col-2">Email:</label>
+            <input name="username" formControlName="username" class="form-control col-6" type="email">
+        </div>
+        <div class="form-field row py-2  mx-5">
+            <label class="form-text text-muted col-2">Password:</label>
+            <input name="password" formControlName="password" type="password" class="form-control col-6">
+        </div>
+    </fieldset>
+    <div class="row">
+        <div class="col-2 ml-auto">
+            <div class="row ">
+                <div class="form-check  col-4 mx-auto">
+                    <input class="form-check-input" formControlName="type" value="student" type="radio" name="type"
+                        id="flexRadioDefault1" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Estudiante
+                    </label>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="form-check  col-4 mx-auto">
+                    <input class="form-check-input" formControlName="type" value="employer" type="radio" name="type"
+                        id="flexRadioDefault2">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Empleador
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="ml-auto col-6 my-auto">
+            <button class="btn btn-success  " (click)="register()">Aceptar</button>
+        </div>
+    </div>
+</form>

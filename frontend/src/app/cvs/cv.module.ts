@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CvItemComponent } from './cv-item/cv-item.component';
-import { CvListComponent } from './cv-list/cv-list.component';
 import { CvNewComponent } from './cv-new/cv-new.component';
-import { CvDetailComponent } from './cv-detail/cv-detail.component';
 import { CvRoutingModule } from './cv-routing.module';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -13,16 +11,13 @@ import { CvRoutingModule } from './cv-routing.module';
         CommonModule,
         ReactiveFormsModule,
         CvRoutingModule,
-        FormsModule
+        FormsModule,
+        MatIconModule
     ],
     exports: [
-        CvListComponent
     ],
     declarations: [
-        CvItemComponent,
-        CvListComponent,
-        CvNewComponent,
-        CvDetailComponent
+        CvNewComponent
     ],
     providers: [],
 })

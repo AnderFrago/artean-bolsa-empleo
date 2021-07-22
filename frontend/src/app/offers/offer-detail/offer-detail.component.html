@@ -1,25 +1,74 @@
-<div *ngIf="!offer" >Cargando...</div>
-<div  *ngIf="offer"  class="card" style="width: 18rem;">
-    <div class="card-header">
-      {{offer.position}}
+<div *ngIf="!offer">Cargando...</div>
+
+<mat-card *ngIf="offer" class="container m-1">
+  <div class="row">
+    <div class="col-4">
+      <mat-card-title class="d-flex flex-column bg-light">
+        <div class="pt-2"> {{offer.position}}
+          <mat-card-subtitle class="pt-1">
+            {{offer.company}}
+          </mat-card-subtitle>
+        </div>
+      </mat-card-title>
     </div>
-    <div class="card-body">
-      <h5 class="card-title">{{offer.numberOfApplyments}}</h5>
-      <div class="card-text">
-        <div class="card-text-description">
-          <p>
-            {{offer.description}}
-          </p>         
+    <div class="col-8">
+      <div *ngIf="offer">
+        <div class="d-flex justify-content-between">
+          <div class="ml-2 text-muted">
+            {{offer.minimum_requirements }}
+          </div>
+          <div class="ml-2">
+            {{offer.dueDate | date:'shortDate'}}
+          </div>
         </div>
-        <div *ngIf="offer.minimumRequirements" class="card-text-requirements">
-          <ul class="list-group list-group-flush">
-            <li *ngIf="offer.minimumRequirements" class="list-group-item">
-              {{offer.minimumRequirements}}
-            </li>           
-          </ul>
-        </div>
-  
+        <mat-card-content class="d-flex flex-column">
+          {{offer.description}}
+          <div>
+            <!-- File Column -->
+            <mat-icon (click)="loadOffer(offer.original_name)" svgIcon="file-down"></mat-icon>
+            {{offer.original_name}}
+          </div>
+        </mat-card-content>
       </div>
-      <a href="#" class="btn btn-primary">Editar</a>
     </div>
+    <mat-card-footer class="d-flex flex-row justify-content-between">
+      <div *ngIf="isOwner" class="d-flex flex-row justify-content-between">
+        <div class="p-1">
+          <button class="pr-1 ml-2" mat-flat-button color="accent" (click)="goEdit()">Editar</button>
+        </div>
+        <div class="p-1">
+          <button class="ml-2" mat-flat-button color="warn" (click)="goDelete()">Borrar</button>
+        </div>
+      </div>
+      <div *ngIf="isOwner" class="p-1">
+        <button class="ml-2" mat-flat-button color="primary" (click)="goManage()">Gestionar inscritos</button>
+      </div>
+      <div *ngIf="isStudent && offerState == 0" class="d-flex flex-row justify-content-between">
+        <div class="p-1 ">
+          <button class=" ml-2" mat-flat-button color="primary" (click)="apply()">Inscribirse</button>
+        </div>
+      </div>
+      <div *ngIf="isStudent && offerState == 1" class="d-flex flex-row justify-content-between">
+        <div class="p-1 ">
+          <button class=" ml-2" mat-flat-button color="secondary">Inscrito</button>
+        </div>
+      </div>
+      <div *ngIf="isStudent && offerState == 2" class="d-flex flex-row justify-content-between">
+        <div class="p-1 ">
+          <button class=" ml-2" mat-flat-button color="warn">En proceso de selección... esperando</button>
+        </div>
+      </div>
+      <div *ngIf="isStudent && offerState == 3" class="d-flex flex-row justify-content-between">
+        <div class="p-1 ">
+          <button class=" ml-2" mat-flat-button color="danger">Descartado</button>
+        </div>
+      </div>
+      <div *ngIf="isStudent && offerState == 3" class="d-flex flex-row justify-content-between">
+        <div class="p-1 ">
+          <button class=" ml-2" mat-flat-button color="success">Seleccionado</button>
+        </div>
+      </div>
+    </mat-card-footer>
+
   </div>
+</mat-card>

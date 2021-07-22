@@ -1,0 +1,111 @@
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+
+  <div *ngIf="offer == null" class="card-body">
+    Cargando...
+  </div>
+  <div *ngIf="offer != null" class="card-body">
+    <form novalidate (ngSubmit)="saveOffer()" [formGroup]="offerForm">
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="name">Position</label>
+        <div class="col-md-8">
+          <input class="form-control" id="position" type="text" placeholder="Cargo (requerido)"
+            formControlName="position" name="position" value="empty" />
+        </div>
+        <!-- Validation messages -->
+        <div class="invalid-feedback"
+          *ngIf="(offerForm.value.position.errors) || (!offerForm.value.position.pristine && offerForm.value.position.invalid)">
+          <div *ngIf="offerForm.value.position.errors.required">La posición es requerida</div>
+          <div *ngIf="offerForm.value.position.errors.minlength">3 carácteres mínimo</div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="name">Empresa</label>
+        <div class="col-md-8">
+          <input class="form-control" id="company" type="text" placeholder="Empresa" formControlName="company"
+            name="company" value="empty" />
+        </div>
+        <!-- Validation messages -->
+        <div class="invalid-feedback"
+          *ngIf="(offerForm.value.company.errors) || (!offerForm.value.company.pristine && offerForm.value.position.invalid)">
+          <div *ngIf="offerForm.value.company.errors.required">La empresa es requerida</div>
+          <div *ngIf="offerForm.value.company.errors.minlength">3 carácteres mínimo</div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="dueDate">Fecha límite</label>
+        <div class="col-md-8">
+          <input class="form-control" id="dueDate" type="date" placeholder="Fecha límite (requerido)"
+            formControlName="dueDate" name="dueDate" value="empty" />
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="text">Descripción</label>
+        <div class="col-md-8">
+          <input class="form-control" id="text" type="text" placeholder="Descripción extendida (requerido)"
+            formControlName="description" name="description" value="empty" />
+        </div>
+        <!-- Validation messages -->
+        <div class="invalid-feedback"
+          *ngIf="(offerForm.value.description.errors) || (!offerForm.value.description.pristine && offerForm.value.description.invalid)">
+          <div *ngIf="offerForm.value.description.errors.required">El nombre es requerido</div>
+          <div *ngIf="offerForm.value.description.errors.minlength">3 carácteres mínimo</div>
+        </div>
+      </div>
+
+
+      <hr />
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="requirements">Requisitos mínimos</label>
+        <div class="col-md-8">
+          <input class="form-control" id="requirements" type="text" placeholder="Requisitos mínimos (opcional)"
+            formControlName="requirements" name="requirements" value="empty" />
+        </div>
+        <!-- Validation messages -->
+        <div class="invalid-feedback"
+          *ngIf="(offerForm.value.requirements.errors) || (!offerForm.value.requirements.pristine && offerForm.value.requirements.invalid)">
+          <div *ngIf="offerForm.constaffInChargetrols.requirements.errors">Error</div>
+        </div>
+      </div>
+
+      <hr />
+      <input hidden type="file" class="file-input" [accept]="requiredFileType" (change)="onFileSelected($event)"
+        #fileUpload>
+      <div class="file-upload">
+        {{fileName || "No file uploaded yet."}}
+        <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+          <mat-icon>attach_file</mat-icon>
+        </button>
+      </div>
+
+      <div class="progress">
+        <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress">
+        </mat-progress-bar>
+        <mat-icon class="cancel-upload" (click)="cancelUpload()" *ngIf="uploadProgress">delete_forever</mat-icon>
+      </div>
+
+      <div class="form-group row mb-2">
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-primary mr-3" type="submit" [disabled]="!offerForm.valid">
+            Guardar
+          </button>
+          <button class="btn btn-outline-secondary mr-3" type="button" title="Cancelar edición" routerLink="['']">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}
+  </div>
+</div>

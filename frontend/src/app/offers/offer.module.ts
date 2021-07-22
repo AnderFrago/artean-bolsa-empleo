@@ -6,23 +6,30 @@ import { OfferListComponent } from './offer-list/offer-list.component';
 import { OfferNewComponent } from './offer-new/offer-new.component';
 import { OfferDetailComponent } from './offer-detail/offer-detail.component';
 import { OfferRoutingModule } from './offer-routing.module';
-
+import { OfferEditComponent } from './offer-edit/offer-edit.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
         OfferRoutingModule,
-        FormsModule
+        FormsModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule
     ],
     exports: [
-        OfferListComponent
+        OfferListComponent,
     ],
     declarations: [
         OfferItemComponent,
         OfferListComponent,
         OfferNewComponent,
-        OfferDetailComponent
+        OfferDetailComponent,
+        OfferEditComponent
     ],
     providers: [],
 })

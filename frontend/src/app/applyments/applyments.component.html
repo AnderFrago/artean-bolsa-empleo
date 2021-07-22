@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row">
+        <div class="col-10 mx-auto my-3">
+            <table mat-table [dataSource]="cvs" class="mat-elevation-z8">
+
+                <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                </ng-container>
+
+                <!-- Username Column -->
+                <ng-container matColumnDef="username" class="mx-2 bg-light">
+                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                    <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+                </ng-container>
+
+                <!-- File Column -->
+                <ng-container matColumnDef="file">
+                    <th mat-header-cell *matHeaderCellDef> CV </th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-icon (click)="loadCV(element.originalName)" svgIcon="file-down"></mat-icon>
+                        {{element.originalName}}
+                    </td>
+                </ng-container>
+
+                <!-- State Column -->
+                <ng-container matColumnDef="state">
+                    <th mat-header-cell *matHeaderCellDef> Estado </th>
+                    <td mat-cell *matCellDef="let element">
+
+                        <div *ngIf="element.state==0">Esperando</div>
+                        <div *ngIf="element.state==1">
+                            Leído
+                        </div>
+                        <div *ngIf="element.state==2">
+                            Continua el proceso
+                        </div>
+                        <div *ngIf="element.state==3">
+                            Descartado
+                        </div>
+                        <div *ngIf="element.state==4">
+                            Seleccionado
+                        </div>
+
+                    </td>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> Acción </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button (click)="changeState(element.username, element.state)" mat-flat-button>Modificar
+                            estado</button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+</div>

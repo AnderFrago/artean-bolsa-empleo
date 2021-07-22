@@ -19,6 +19,26 @@ class OfferRepository extends ServiceEntityRepository
         parent::__construct($registry, Offer::class);
     }
 
+    /**
+     * Get an offer by $id only if the owner of the offer
+     * corresponds to the passed username.
+     * @param $id
+     * @param $owner
+     * @return mixed
+     */
+    public function findByIdFromOwner($id,$owner){
+        $sql = "SELECT o.* FROM "
+            ."(SELECT id AS employer_id FROM users "
+            ."WHERE username = '$owner'"
+            .") as t, offer o"
+            ." WHERE o.employer_id = t.employer_id"
+            ." AND o.id = $id"
+            ." GROUP BY o.id";
+
+        $q = $this->_em->getConnection();
+        return $q->fetchAll($sql);
+    }
+
     // /**
     //  * @return Offer[] Returns an array of Offer objects
     //  */

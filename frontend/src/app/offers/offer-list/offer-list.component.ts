@@ -8,12 +8,12 @@ import { OfferService } from 'src/app/shared/offer.service';
   styleUrls: ['./offer-list.component.scss']
 })
 export class OfferListComponent implements OnInit {
-  offers: Offer[]=[];
+  offers: Offer[] = [];
   constructor(private offerService: OfferService) { }
 
   ngOnInit() {
-   this.offerService.getOffers().subscribe(
-    (data: Offer[]) => this.offers = data
-   );
+    this.offerService.getOffers().subscribe(
+      (data: Offer[]) => this.offers = data
+    );
   }
 }

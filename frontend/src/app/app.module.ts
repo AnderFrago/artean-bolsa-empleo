@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,13 +15,15 @@ import { OfferModule } from './offers/offer.module';
 import { CvService } from './shared/cv.service';
 import { OfferService } from './shared/offer.service';
 
-import { AuthModule } from '@auth0/auth0-angular';
-import { environment as env } from '../environments/environment';
-import { LoginButtonComponent } from './components/login-button/login-button.component';
-import { SignupButtonComponent } from './components/signup-button/signup-button.component';
-import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
-import { AuthenticationButtonComponent } from './components/authentication-button/authentication-button.component';
-import { AuthNavComponent } from './components/auth-nav/auth-nav.component';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './shared/auth.service';
+import { RegisterComponent } from './register/register.component';
+import { AuthInterceptor } from './shared/auth.interceptor';
+import { AuthGuard } from './shared/auth-guard.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { ApplymentsModule } from './applyments/applyments.module';
+
 
 @NgModule({
   declarations: [
@@ -29,11 +31,9 @@ import { AuthNavComponent } from './components/auth-nav/auth-nav.component';
     HomeComponent,
     FooterComponent,
     NavbarComponent,
-    LoginButtonComponent,
-    SignupButtonComponent,
-    LogoutButtonComponent,
-    AuthenticationButtonComponent,
-    AuthNavComponent
+    LoginComponent,
+    RegisterComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -42,11 +42,18 @@ import { AuthNavComponent } from './components/auth-nav/auth-nav.component';
     HttpClientModule,
     OfferModule,
     CvModule,
-    AuthModule.forRoot({
-      ...env.auth,
-    }),
+    ApplymentsModule,
+    BrowserAnimationsModule,
+    MatButtonModule
   ],
-  providers: [OfferService, CvService],
+  providers: [OfferService, CvService, AuthService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

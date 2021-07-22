@@ -5,7 +5,9 @@ export interface Offer {
     position: String,
     requirements?: Requirements,
     description: Description,
-    numberOfApplyments: number
+    numberOfApplyments: number,
+    owner?,
+    originalFileName: string,
 
 }
 export interface Description {
@@ -13,6 +15,14 @@ export interface Description {
 }
 export interface Requirements {
     minimumRequirements: string
+}
+
+export enum OfferState {
+    NoApplied = 0,
+    Applied = 1,
+    WaitingResponse = 2,
+    Discard = 3,
+    Selected = 4
 }
 
 
