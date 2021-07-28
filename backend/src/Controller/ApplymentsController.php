@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ApplymentsController extends AbstractController
 {
     /**
-     * @Route("/applyments/update-state",name="applyments_update_state")
+     * @Route("/api/v1/applyments/update-state",name="applyments_update_state")
      */
     public function updateState(Request $request){
         $data = $request->getContent();
@@ -50,7 +50,7 @@ class ApplymentsController extends AbstractController
     }
 
     /**
-     * @Route("/applyments/load-cv", name="applyments_load_cv")
+     * @Route("/api/v1/applyments/load-cv", name="applyments_load_cv")
      */
     public function loadCV(Request $request) {
         $data = $request->getContent();
@@ -72,7 +72,7 @@ class ApplymentsController extends AbstractController
     }
 
     /**
-     * @Route("/applyments/cvs-offer", name="applyments_cvs_offer")
+     * @Route("/api/v1/applyments/cvs-offer", name="applyments_cvs_offer")
      */
     public function cvsFromOfferApplyment(Request $request) {
         $data = $request->getContent();
@@ -135,7 +135,7 @@ class ApplymentsController extends AbstractController
     }
 
     /**
-     * @Route("/applyments/state", name="applyments_state", methods={"POST"})
+     * @Route("/api/v1/applyments/state", name="applyments_state", methods={"POST"})
      */
     public function stateApplayment(Request $request): Response
     {

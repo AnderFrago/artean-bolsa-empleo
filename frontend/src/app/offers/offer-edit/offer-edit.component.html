@@ -82,9 +82,9 @@
         #fileUpload>
       <div class="file-upload">
         {{fileName || "No file uploaded yet."}}
-        <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+        <a mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
           <mat-icon>attach_file</mat-icon>
-        </button>
+        </a>
       </div>
 
       <div class="progress">
@@ -98,7 +98,7 @@
           <button class="btn btn-primary mr-3" type="submit" [disabled]="!offerForm.valid">
             Guardar
           </button>
-          <button class="btn btn-outline-secondary mr-3" type="button" title="Cancelar edición" routerLink="['']">
+          <button class="btn btn-outline-secondary mr-3" type="button" title="Cancelar edición" [routerLink]="['/home']">
             Cancelar
           </button>
         </div>

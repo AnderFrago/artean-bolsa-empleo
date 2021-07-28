@@ -1,0 +1,25 @@
+<div class="container">
+    {{pageTitle}}
+    <div class="row">
+        <div class="col-10 mx-auto">
+            <table class="table">
+                <thead>
+                    <tr>
+                      <th scope="col">Nombre de usuario</th>
+                      <th scope="col">CV</th>
+                      <th scope="col">Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let element of students">
+                      <td> {{element.username}}</td>
+                      <td>{{element.cv}}</td>
+                      <td><button class="btn btn-outline-primary" (click)="changeState(element.username, element.state)">
+                        {{element.state}}
+                      </button></td>
+                    </tr>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</div>

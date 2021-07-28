@@ -1,0 +1,25 @@
+<div class="container">
+    {{pageTitle}}
+    <div class="row">
+        <div class="col-8 mx-auto">
+            <form class="form d-flex flex-row " novalidate (ngSubmit)="search()" [formGroup]="searchForm">
+               <div class="p-2">
+                <input class="form-control" type="text" formControlName="keyword" name="keyword"  />
+               </div>
+               <div class="p-2">
+                <button class="btn btn-primary" type="submit">  Buscar</button> 
+               </div>
+            </form>
+        </div>
+    </div>
+    <div *ngIf="isFormSubmitted">
+        <mat-spinner></mat-spinner>
+      </div>
+    <div *ngIf="cvs"  class="row">
+        <ul class="list-group" >
+            <li class="list-group-item" *ngFor="let element of cvs"> 
+               <div (click)="loadCV(element)"> {{ element }} </div> 
+            </li>
+        </ul>
+    </div>
+</div>

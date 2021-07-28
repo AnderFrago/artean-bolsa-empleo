@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/shared/auth.service';
 import { Offer } from 'src/app/shared/offer';
 import { OfferService } from 'src/app/shared/offer.service';
 
@@ -33,9 +34,19 @@ export class OfferNewComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private activatedroute: ActivatedRoute,
     private router: Router,
-    private offerService: OfferService) { }
+    private offerService: OfferService,
+    private authService: AuthService
+    ) { }
 
   ngOnInit(): void {
+    this.authService.getState().subscribe(data=>{
+        if(data != 1){
+          alert("Cuenta no validada");
+          this.authService.logout()
+          this.router.navigate(['login'])
+        }
+    });
+
     this.offerForm = this.fb.group({
       company: '',
       position: '',
@@ -45,16 +56,15 @@ export class OfferNewComponent implements OnInit {
     });
 
     // Read the offer Id from the route parameter
-    this.offerId = parseInt(this.activatedroute.snapshot.params['id']);
+  //  this.offerId = parseInt(this.activatedroute.snapshot.params['id']);
   }
 
   saveOffer(): void {
-    this.isFormSubmitted = true;
-
     if (this.offerForm.valid && typeof this.file !== 'undefined') {
       if (this.offerForm.dirty) {
+        this.isFormSubmitted = true;
         this.offer = this.offerForm.value;
-        this.offer.id = this.offerId;
+      //  this.offer.id = this.offerId;
         this.offer.owner = localStorage.getItem('u')
         this.offer.originalFileName = this.fileName
 
@@ -113,6 +123,7 @@ export class OfferNewComponent implements OnInit {
   reset() {
     this.uploadProgress = null;
     this.uploadSub = null;
+    this.isFormSubmitted = false;
   }
 
 }

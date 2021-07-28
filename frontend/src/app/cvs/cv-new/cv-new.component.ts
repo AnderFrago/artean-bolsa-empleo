@@ -1,7 +1,9 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { AuthService } from 'src/app/shared/auth.service';
 
 import { CvService } from 'src/app/shared/cv.service';
 
@@ -11,7 +13,7 @@ import { CvService } from 'src/app/shared/cv.service';
   templateUrl: './cv-new.component.html',
   styleUrls: ['./cv-new.component.scss']
 })
-export class CvNewComponent {
+export class CvNewComponent implements OnInit{
   pageTitle = "Subir CV";
 
   fileName = '';
@@ -22,7 +24,22 @@ export class CvNewComponent {
   uploadSub: Subscription;
 
 
-  constructor(private http: HttpClient, private cvService: CvService) { }
+  constructor(
+    private http: HttpClient, 
+    private cvService: CvService,
+    private authService: AuthService,
+    private router: Router
+    ) { }
+
+  ngOnInit(): void {
+    this.authService.getState().subscribe(data=>{
+      if(data != 1){
+        alert("Cuenta no validada");
+        this.authService.logout()
+        this.router.navigate(['login'])
+      }
+    });
+  }
 
   onFileSelected(event) {
     const file: File = event.target.files[0];

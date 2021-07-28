@@ -11,6 +11,7 @@ import { throwError } from "rxjs";
 @Injectable()
 export class AuthService {
     private authUrl = 'https://localhost:8000';
+    private privateAuthUrl = 'https://localhost:8000/api/v1';
 
     constructor(private http: HttpClient) {
     }
@@ -29,7 +30,7 @@ export class AuthService {
     register(username: string, password: string, type: string) {
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-        return this.http.post<AuthResult>(this.authUrl + '/register', { username, password, type }, { headers })
+        return this.http.post<AuthResult>(this.authUrl + '/register?XDEBUG_SESSION_START=16872', { username, password, type }, { headers })
             .pipe(
                 tap(res => console.log("registered " + JSON.stringify(res)))
             );
@@ -47,7 +48,6 @@ export class AuthService {
     }
 
     logout() {
-
         localStorage.removeItem('u');
         localStorage.removeItem('r');
         localStorage.removeItem("token");
@@ -82,10 +82,22 @@ export class AuthService {
     }
 
     getRole() {
-        return localStorage.getItem('r') === "ROLE_STUDENT" ? "s" : localStorage.getItem('r') === "ROLE_EMPLOYER" ? "e" : ""
+        return localStorage.getItem('r') === "ROLE_STUDENT" ? "s" : localStorage.getItem('r') === "ROLE_EMPLOYER" ? "e" : localStorage.getItem('r') === "ROLE_ARTEAN" ? "a" : ""
+    }
 
-
-            ;
+    getState(){
+        const username =   localStorage.getItem('u');
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.post<any>(this.authUrl , { username }, { headers })
+       // return this.http.post<any>(this.authUrl + '/state?XDEBUG_SESSION_START=16872', { username }, { headers })
+            .pipe(
+                tap(res => {
+                    console.log("registered " + JSON.stringify(res))
+                }),
+                map(data =>{
+                    return data.state;
+                })
+            );
     }
 
     private handleError(err) {

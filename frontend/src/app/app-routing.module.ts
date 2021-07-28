@@ -14,6 +14,12 @@ import { AuthGuard } from './shared/auth-guard.service';
       { path: 'register', component: RegisterComponent },
       { path: 'login', component: LoginComponent },
       {
+        path: 'artean',
+        loadChildren: () =>
+          import('./artean/artean.module').then(m => m.ArteanModule),
+        canActivate: [AuthGuard]
+      },
+      {
         path: 'offers',
         loadChildren: () =>
           import('./offers/offer.module').then(m => m.OfferModule),

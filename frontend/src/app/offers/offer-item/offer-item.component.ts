@@ -14,6 +14,7 @@ export class OfferItemComponent implements OnInit {
   constructor(private offerService: OfferService) { }
 
   ngOnInit(): void {
+    
     if (typeof this.offer.numberOfApplyments === 'undefined') {
       this.offer.numberOfApplyments = 0;
     }

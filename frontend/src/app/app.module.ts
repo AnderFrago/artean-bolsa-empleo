@@ -23,6 +23,8 @@ import { AuthGuard } from './shared/auth-guard.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { ApplymentsModule } from './applyments/applyments.module';
+import { ArteanModule } from './artean/artean.module';
+import { ArteanService } from './shared/artean.service';
 
 
 @NgModule({
@@ -32,8 +34,7 @@ import { ApplymentsModule } from './applyments/applyments.module';
     FooterComponent,
     NavbarComponent,
     LoginComponent,
-    RegisterComponent,
-
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -43,10 +44,11 @@ import { ApplymentsModule } from './applyments/applyments.module';
     OfferModule,
     CvModule,
     ApplymentsModule,
+    ArteanModule,
     BrowserAnimationsModule,
     MatButtonModule
   ],
-  providers: [OfferService, CvService, AuthService,
+  providers: [OfferService, CvService, AuthService, ArteanService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,

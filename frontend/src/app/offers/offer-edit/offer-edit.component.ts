@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/shared/auth.service';
 import { Offer } from 'src/app/shared/offer';
 import { OfferService } from 'src/app/shared/offer.service';
 
@@ -35,9 +36,19 @@ export class OfferEditComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private activatedroute: ActivatedRoute,
     private router: Router,
-    private offerService: OfferService) { }
+    private offerService: OfferService,
+    private authService: AuthService
+    ) { }
 
   ngOnInit(): void {
+    this.authService.getState().subscribe(data=>{
+        if(data != 1){
+          alert("Cuenta no validada");
+          this.authService.logout()
+          this.router.navigate(['login'])
+        }
+    });
+
     this.offerForm = this.fb.group({
       company: '',
       position: '',
@@ -51,7 +62,7 @@ export class OfferEditComponent implements OnInit {
 
     this.offerService.getOfferById(this.offerId).subscribe(data => {
       this.offer = data.offer;
-      this.file = data.offer.fileName;
+      this.fileName = data.offer.original_name;
       this.offerForm.setValue({
         company: data.offer.company,
         position: data.offer.position,
@@ -68,7 +79,13 @@ export class OfferEditComponent implements OnInit {
 
     if (this.offerForm.valid && typeof this.file !== 'undefined') {
       //if (this.offerForm.dirty) {
-      this.offer = this.offerForm.value;
+     // this.offer = this.offerForm.value;
+      this.offer.company = this.offerForm.value.company || this.offer.company
+      this.offer.position = this.offerForm.value.position || this.offer.position
+      this.offer.dueDate = this.offerForm.value.due_date || this.offer.dueDate
+      this.offer.requirements = this.offerForm.value.minimum_requirements || this.offer.requirements
+      this.offer.description = this.offerForm.value.description || this.offer.description
+
       this.offer.id = this.offerId;
       this.offer.owner = localStorage.getItem('u')
       this.offer.originalFileName = this.fileName
@@ -96,6 +113,24 @@ export class OfferEditComponent implements OnInit {
       //   this.onSaveComplete();
       //   this.errorMessage = 'Por favor, termina de insertar valores.';
       // }
+    }else if(this.offerForm.valid) {
+      this.offer.company = this.offerForm.value.company || this.offer.company
+      this.offer.position = this.offerForm.value.position || this.offer.position
+      this.offer.dueDate = this.offerForm.value.due_date || this.offer.dueDate
+      this.offer.requirements = this.offerForm.value.minimum_requirements || this.offer.requirements
+      this.offer.description = this.offerForm.value.description || this.offer.description
+
+      this.offer.id = this.offerId;
+      this.offer.owner = localStorage.getItem('u')
+      this.offer.originalFileName = this.fileName
+
+      this.offerService.updateOffer(this.offer)
+        .subscribe(
+          data => {
+              this.onSaveComplete();
+          },
+          (error: any) => this.errorMessage = <any>error
+        );
     } else if (typeof this.file !== 'undefined') {
       this.errorMessage = 'Por favor, corrije los errores de validación.';
       this.isFormSubmitted = false;

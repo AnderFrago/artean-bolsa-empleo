@@ -34,6 +34,11 @@ final class Version20210721143017 extends AbstractMigration
         $this->addSql('ALTER TABLE employer ADD CONSTRAINT FK_DE4CF066BF396750 FOREIGN KEY (id) REFERENCES users (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE offer ADD CONSTRAINT FK_29D6873E41CD9E7A FOREIGN KEY (employer_id) REFERENCES employer (id)');
         $this->addSql('ALTER TABLE student ADD CONSTRAINT FK_B723AF33BF396750 FOREIGN KEY (id) REFERENCES users (id) ON DELETE CASCADE');
+
+        $this->addSql('insert into users (username,password,is_active,roles) values ("artean", "$argon2id$v=19$m=65536,t=4,p=1$eoByn0wFZKwqqg/d2Y+wqA$ZbwFWReYvetiJuQJLNUAp1Fbr6/LTM1XuYootTGyNk", true, "artean")' );
+
+
+
     }
 
     public function down(Schema $schema): void

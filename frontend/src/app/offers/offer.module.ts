@@ -10,7 +10,7 @@ import { OfferEditComponent } from './offer-edit/offer-edit.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
     imports: [
         CommonModule,
@@ -19,7 +19,8 @@ import { MatIconModule } from '@angular/material/icon';
         FormsModule,
         MatCardModule,
         MatButtonModule,
-        MatIconModule
+        MatIconModule,
+        MatProgressSpinnerModule
     ],
     exports: [
         OfferListComponent,

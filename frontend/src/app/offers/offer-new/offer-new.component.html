@@ -4,7 +4,10 @@
   </div>
 
   <div class="card-body">
-    <form novalidate (ngSubmit)="saveOffer()" [formGroup]="offerForm">
+    <div *ngIf="isFormSubmitted">
+      <mat-spinner></mat-spinner>
+    </div>
+    <form *ngIf="!isFormSubmitted" novalidate (ngSubmit)="saveOffer()" [formGroup]="offerForm">
 
       <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label" for="name">Position</label>

@@ -12,7 +12,7 @@ const routes: Routes = [
     path: '',
     component: OfferListComponent
   },
-  { path: 'offers/:id/new', component: OfferNewComponent, canActivate: [AuthGuard] },
+  { path: 'offers/new', component: OfferNewComponent, canActivate: [AuthGuard] },
   { path: 'offers/:id', component: OfferDetailComponent, canActivate: [AuthGuard] },
   { path: 'offers/:id/edit', component: OfferEditComponent, canActivate: [AuthGuard] }
 ];

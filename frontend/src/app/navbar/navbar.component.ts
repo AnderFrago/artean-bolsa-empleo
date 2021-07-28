@@ -32,16 +32,19 @@ export class NavbarComponent implements OnInit {
   }
 
   newOffer() {
-    // Get max offer Id from the offer list
-    this.offerService.getMaxOfferId().subscribe(
-      data => {
-        this.id = data;
-        this.router.navigate(['/offers', ++this.id, 'new']);
-      }
-    );
+    this.router.navigate(['/offers','new']);
   }
   newCv() {
     this.router.navigate(['/cv', 'new']);
+  }
+  search() {
+    this.router.navigate(['/artean']);
+  }
+  mngStudents(){
+    this.router.navigate(['/artean', 'students']);
+  }
+  mngEmployers(){
+    this.router.navigate(['/artean', 'employers']);
   }
 
   register() {
@@ -63,6 +66,9 @@ export class NavbarComponent implements OnInit {
   }
   isEmployer() {
     return this.authService.getRole() === "e";
+  }
+  isArtean() {
+    return this.authService.getRole() === "a";
   }
 
 }

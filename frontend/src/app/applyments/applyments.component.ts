@@ -10,10 +10,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { ApplymentsStateComponent } from './applyments-state/applyments-state.component';
+import { AuthService } from '../shared/auth.service';
 
-export interface DialogData {
-  state: 'Waiting' | 'Reading' | 'ContinueProcess' | 'Discard' | 'Selected';
-}
+
 
 @Component({
   selector: 'app-applyments',
@@ -28,6 +27,7 @@ export class ApplymentsComponent implements OnInit {
   state: CVState;
 
   constructor(
+    private authService: AuthService,
     private applymentsService: ApplymentsService,
     private activatedroute: ActivatedRoute,
     private router: Router,
@@ -41,6 +41,13 @@ export class ApplymentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.getState().subscribe(data=>{
+        if(data != 1){
+          alert("Cuenta no validada");
+          this.authService.logout()
+          this.router.navigate(['login'])
+        }
+    });
     this.offerId = parseInt(this.activatedroute.snapshot.params['id']);
     this.applymentsService.getCVsForOffer(this.offerId).subscribe(data => {
       this.cvs = data;

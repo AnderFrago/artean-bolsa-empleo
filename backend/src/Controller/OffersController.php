@@ -22,23 +22,55 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class OffersController extends AbstractController
 {
 
+    /**
+     * Saves the uploaded CV in the specific location of the server system
+     *
+     * @Route("/api/v1/offers/offer-upload", name="offer_upload", methods={"POST", "PUT"})
+     */
+    public function offerUpload(Request $request){
+        $file = $request->files->get('cv');
+        $filename = $file->getFilename();
+        $original_file_name = $file->getClientOriginalName();
+        // Gets paths from .env files
+        $dir_pdf =  $_ENV['OFFER_PATH_PDF'];
+        $path_origin = "/tmp/$filename";
+        $path_target = "$dir_pdf/$filename";
+
+        $process = new Process(['mv', "$path_origin", "$path_target"]);
+        $process->run();
+        // executes after the command finishes
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        $offer = $this->getDoctrine()->getRepository(Offer::class)
+            ->findOneBy([
+                "originalName" => $original_file_name
+            ]);
+        $offer->setFileNam($file->getFilename());
+        $offer->setOriginalName($file->getClientOriginalName());
+        $offer->setFilePath($path_target);
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+        return $this->json([
+            'message' => 'OK: File correctly saved',
+        ]);
+    }
+
 
     /**
-     * @Route("/offers/load-offer", name="applyments_load_offer")
+     * Retrieves the offer's pdf from filename
+     *
+     * @Route("/api/v1/offers/load-offer", name="applyments_load_offer")
      */
     public function loadOffer(Request $request) {
         $data = $request->getContent();
         $content = json_decode($data);
-
-        $username = $content->username;
         $fileName = $content->fileName;
-
         $offer = $this->getDoctrine()->getManager()->getRepository(Offer::class)->findOneBy([
             "originalName" => $fileName
         ]);
         $pdfPath = $offer->getFilePath();
-
-
         return $this->json([
             "message" => "OK: pdf loaded",
             "file" => $this->file($pdfPath)
@@ -46,7 +78,7 @@ class OffersController extends AbstractController
     }
 
     /**
-     * @Route("/p/offers/apply", name="offer_apply", methods={"POST"})
+     * @Route("/api/v1/p/offers/apply", name="offer_apply", methods={"POST"})
      */
     public function applyToOffer( Request $request): Response
     {
@@ -55,27 +87,20 @@ class OffersController extends AbstractController
         $content = json_decode($data);
         $username = $content->username;
         $id = $content->id;
-
-        // Verify is not applied already
         $offer = $em->getRepository(Offer::class)->findOneBy([
             "id" => $id
         ]);
         $cvs = $em->getRepository(CV::class)->findCVByUsername($username);
         $cv = $cvs[count($cvs)-1];
-
         $apply = $em->getRepository(Applyments::class)->findApplyOfferCV($offer, $cv);
-
+        // Verify is not applied already
         if($apply == null) {
             $apply = new Applyments();
             $apply->setOffer($offer);
-
             $apply->setCv($cv);
-
             $apply->setState(ApplymentsStates::Applied);
-
             $em->persist($apply);
             $em->flush();
-
             return $this->json( [
                 'message' => 'OK: 1',
 
@@ -88,37 +113,40 @@ class OffersController extends AbstractController
         ]);
     }
 
-
-
-
     /**
-     * @Route("/offers/{id}", name="offer_delete", methods={"DELETE"})
+     * @Route("/api/v1/offers/{id}", name="offer_delete", methods={"DELETE"})
      */
     public function deleteOffer($id, Request $request): Response
     {
         $em = $this->getDoctrine()->getManager();
-
         $offer = $this->getDoctrine()
             ->getRepository(Offer::class)
             ->find($id);
         $em->remove($offer);
         $em->flush();
-        return $this->json( $offer, 200, [], [
-            'groups' => ['offer'],
+        $offer_readable = [
+            'id' => $offer->getId(),
+            'company' => $offer->getCompany(),
+            'dueDate' => $offer->getDueDate(),
+            'position' => $offer->getPosition(),
+            'description' => $offer->getDescription(),
+            'minimumRequirements' => $offer->getMinimumRequirements()
+        ];
+        return $this->json( [
+            "message" => "OK: File deleted",
+            "offer" => $offer_readable
         ]);
     }
     /**
-     * @Route("/offers/{id}", name="offer_update", methods={"PUT"})
+     * @Route("/api/v1/offers/{id}", name="offer_update", methods={"PUT"})
      */
     public function updateOffer($id, Request $request): Response
     {
         $em = $this->getDoctrine()->getManager();
-
         $offer = $this->getDoctrine()
             ->getRepository(Offer::class)
             ->find($id);
         $em->remove($offer);
-
         $item = json_decode($request->getContent(), true);
         $offer->setCompany( $item['company'] );
         try {
@@ -127,60 +155,31 @@ class OffersController extends AbstractController
         }
         $offer->setPosition( $item['position'] );
         $offer->setDescription( $item['description'] );
-        $offer->setMinimumRequirements( $item['requirements'] );
+        $offer->setMinimumRequirements( $item['minimum_requirements'] );
         $offer->setNumberOfApplyments(0);
-        $offer->setOriginalName($item['originalFileName'])
-
+        $offer->setOriginalName($item['originalFileName']);
         $em->persist($offer);
         $em->flush();
-
-        return $this->json( $offer, 200, [], [
-            'groups' => ['offer'],
+        $offer_readable = [
+            'id' => $offer->getId(),
+            'company' => $offer->getCompany(),
+            'dueDate' => $offer->getDueDate(),
+            'position' => $offer->getPosition(),
+            'description' => $offer->getDescription(),
+            'minimumRequirements' => $offer->getMinimumRequirements()
+        ];
+        return $this->json( [
+            "message" => "OK: File saved without PDF",
+            "offer" => $offer_readable
         ]);
     }
 
     /**
-     * @Route("/offers/offer-upload", name="offer_upload", methods={"POST", "PUT"})
-     */
-    public function offerUpload(Request $request){
-        $file = $request->files->get('cv');
-        $filename = $file->getFilename();
-        $originalfilename = $file->getClientOriginalName();
-        $dir_pdf =  $_ENV['OFFER_PATH_PDF'];
-        $path_origin = "/tmp/$filename";
-        $path_target = "$dir_pdf/$filename";
-        // shell_exec("mv $path_origin $path_target");
-        $process = new Process(['mv', "$path_origin", "$path_target"]);
-        $process->run();
-        // executes after the command finishes
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        $offer = $this->getDoctrine()->getRepository(Offer::class)
-            ->findOneBy([
-                "originalName" => $originalfilename
-            ]);
-
-        $offer->setFileNam($file->getFilename());
-        $offer->setOriginalName($file->getClientOriginalName());
-        $offer->setFilePath($path_target);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->flush();
-
-        return $this->json([
-            'message' => 'OK: File correctly saved',
-        ]);
-    }
-
-    /**
-     * @Route("/offers", name="offer_insert", methods={"POST"})
+     * @Route("/api/v1/offers", name="offer_insert", methods={"POST"})
      */
     public function insertOffer(Request $request): Response
     {
         $item = json_decode($request->getContent(), true);
-
         $offer = new Offer();
         $offer->setCompany( $item['company'] );
         try {
@@ -195,18 +194,14 @@ class OffersController extends AbstractController
         $offer->setOriginalName($item['originalFileName']);
         $offer->setFileNam("nofile");
         $offer->setFilePath("nofile");
-
-
         $employer_username= $item['owner'];
         $employer = $this->getDoctrine()->getRepository(Employer::class)->findOneBy([
             "username" =>$employer_username
         ]);
-
         $offer->setEmployer($employer);
         $em = $this->getDoctrine()->getManager();
         $em->persist($offer);
         $em->flush();
-
         $offer_readable = [
             'id' => $offer->getId(),
             'company' => $offer->getCompany(),
@@ -221,18 +216,16 @@ class OffersController extends AbstractController
         ]);
     }
     /**
-     * @Route("/p/offers/{id}", name="offer_by_id_from_owner", methods={"POST"}, requirements={"id"="\d+"}))
+     * @Route("/api/v1/p/offers/{id}", name="offer_by_id_from_owner", methods={"POST"}, requirements={"id"="\d+"}))
      */
     public function offerByIdFromOwner($id, Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $data = $request->getContent();
         $content = json_decode($data);
         $username = $content->username;
-
         $offer = $this->getDoctrine()
             ->getRepository(Offer::class)
             ->findByIdFromOwner($id,$username);
-
         if(count($offer) > 0 ){
             return $this->json( [
                 "message" => "OK: owner",
@@ -251,7 +244,6 @@ class OffersController extends AbstractController
                 'minimum_requirements' => $tmp->getMinimumRequirements(),
                 'original_name' => $tmp->getOriginalName()
             ];
-
             return $this->json([
                 "message" => "OK: reader",
                 "offer" =>  $offer_readable
@@ -262,7 +254,25 @@ class OffersController extends AbstractController
             "message" => "ERROR: Not value found"
         ] );;
     }
+    /**
+     * @Route("/offers/maxid", name="max-id", methods={"GET"})
+     */
+    public function maxId(): Response
+    {
+        $offers = $this->getDoctrine()->getRepository(Offer::class)->findAll();
 
+        if($offers == null){
+            return $this->json( ['id'=>0] );
+        }
+        $data = [];
+        foreach($offers as $item) {
+            $tmp = [
+                'id' => $item->getId(),
+            ];
+            $data[] = $tmp;
+        }
+        return $this->json( $data );
+    }
     /**
      * @Route("/offers", name="offers", methods={"GET"})
      */

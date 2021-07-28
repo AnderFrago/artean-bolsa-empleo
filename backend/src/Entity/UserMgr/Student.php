@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity(repositoryClass=SApp\Repository\UserMgr\StudentRepository::class)
+ * @ORM\Entity(repositoryClass=App\Repository\UserMgr\StudentRepository::class)
  */
 class Student extends User
 {

@@ -15,7 +15,7 @@ use Symfony\Component\Process\Process;
 class CVController extends AbstractController
 {
     /**
-     * @Route("/cv-upload", name="cv", methods="post")
+     * @Route("/api/v1/cv-upload", name="cv", methods="post")
      */
     public function index(Request $request): Response
     {
@@ -23,8 +23,6 @@ class CVController extends AbstractController
         //https://stackoverflow.com/questions/18400216/how-to-get-file-upload-without-a-form
         $file = $request->files->get('cv');
         $username = $request->get('username');
-
-
         $filename = $file->getFilename();
         // Variables read from .env file to set location of PDF and TXT folders in the system
         $dir_pdf =  $_ENV['CV_PATH_PDF'];
@@ -66,8 +64,6 @@ class CVController extends AbstractController
         }
         $file = null;
         $cv->setTextcv($txt_content);
-
-
         $em = $this->getDoctrine()->getManager();
         // Relationship between CV and User
          $student = $em->getRepository(User::class)->findOneBy([
@@ -75,10 +71,8 @@ class CVController extends AbstractController
         ]);
         //$cv->setStudent($student);
         $student->addCV($cv);
-
         $em->persist($cv);
         $em->flush();
-
         return $this->json([
             'message' => 'OK: File correctly saved',
         ]);

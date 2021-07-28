@@ -10,7 +10,7 @@ import { catchError, tap, map, finalize } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CvService {
-  private cvsUrl = 'https://localhost:8000';
+  private cvsUrl = 'https://localhost:8000/api/v1';
 
 
 
@@ -20,7 +20,9 @@ export class CvService {
     // const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const username = localStorage.getItem('u');
 
-    // return this.http.post(this.cvsUrl + "/cv-upload?username=" + username + "&XDEBUG_SESSION_START=10110", formData, {
+    // DEV
+    //return this.http.post(this.cvsUrl + "/cv-upload?username=" + username + "&XDEBUG_SESSION_START=16872", formData, {
+    //PROD
     return this.http.post(this.cvsUrl + "/cv-upload?username=" + username, formData, {
       // headers,
       reportProgress: true,

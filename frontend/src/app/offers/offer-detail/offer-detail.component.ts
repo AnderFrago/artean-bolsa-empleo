@@ -78,7 +78,7 @@ export class OfferDetailComponent implements OnInit {
   }
   goDelete(): void {
     this.offerService.deleteOffer(this.offerId).subscribe(
-      () => this.router.navigate([''])
+      data => this.router.navigate([''])
     );
   }
   goManage(): void {

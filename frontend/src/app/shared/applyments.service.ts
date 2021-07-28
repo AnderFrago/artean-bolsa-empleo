@@ -10,12 +10,13 @@ import { OfferState } from './offer';
 })
 export class ApplymentsService {
 
-  private applymentsUrl = 'https://localhost:8000/applyments';
+  private applymentsUrl = 'https://localhost:8000/api/v1/applyments';
 
   constructor(private http: HttpClient) { }
 
   updateApplymentState(offerId: number, newstate: CVState, studentname: string): Observable<string> {
-    const url = `${this.applymentsUrl}/update-state` + '?XDEBUG_SESSION_START=10110';
+    // const url = `${this.applymentsUrl}/update-state` + '?XDEBUG_SESSION_START=16872';
+    const url = `${this.applymentsUrl}/update-state` ;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     const username = localStorage.getItem('u');
@@ -31,11 +32,11 @@ export class ApplymentsService {
         }),
         catchError(this.handleError)
       );
-
   }
 
   loadCV(fileName: any) {
-    const url = `${this.applymentsUrl}/load-cv` + '?XDEBUG_SESSION_START=10110';
+    // const url = `${this.applymentsUrl}/load-cv` + '?XDEBUG_SESSION_START=16872';
+    const url = `${this.applymentsUrl}/load-cv` ;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     const username = localStorage.getItem('u');
@@ -54,7 +55,8 @@ export class ApplymentsService {
   }
 
   getCVsForOffer(id: number): Observable<CV[]> {
-    const url = `${this.applymentsUrl}/cvs-offer` + '?XDEBUG_SESSION_START=10110';
+    //const url = `${this.applymentsUrl}/cvs-offer` + '?XDEBUG_SESSION_START=16872';
+    const url = `${this.applymentsUrl}/cvs-offer` ;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     const username = localStorage.getItem('u');
@@ -75,7 +77,7 @@ export class ApplymentsService {
 
 
   getApplymentState(id: number) {
-    // const url = `${this.applymentsUrl}/state` + '?XDEBUG_SESSION_START=10110';
+    // const url = `${this.applymentsUrl}/state` + '?XDEBUG_SESSION_START=16872';
     const url = `${this.applymentsUrl}/state`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
