@@ -15,7 +15,6 @@ export class ArteanService {
 
 
   updateEmployerState(employername: string, newstate: UserState): Observable<string> {
-    //const url = `${this.arteanUrl}/employers-update-state` + '?XDEBUG_SESSION_START=16872';
     const url = `${this.arteanUrl}/employers-update-state` ;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -37,7 +36,6 @@ export class ArteanService {
 
 
   updateStudentState(studentname: string, newstate: UserState): Observable<string> {
-    // const url = `${this.arteanUrl}/students-update-state` + '?XDEBUG_SESSION_START=16872';
     const url = `${this.arteanUrl}/students-update-state` ;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -59,7 +57,7 @@ export class ArteanService {
 
   search(keyword: string):Observable<string[]> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.arteanUrl}/search` + '?XDEBUG_SESSION_START=16872';
+    const url = `${this.arteanUrl}/search`;
 
     return this.http.post<any>(url, {keyword})
     .pipe(
@@ -70,7 +68,6 @@ export class ArteanService {
   }
 
   getStudentsNoActivated():Observable<any> {
-    // const url = `${this.arteanUrl}/students-pending-activation` + '?XDEBUG_SESSION_START=16872';
     const url = `${this.arteanUrl}/students-pending-activation` ;
     return this.http.get<any>(url)
       .pipe(
@@ -80,7 +77,7 @@ export class ArteanService {
       );
   }
   getEmployersNoActivated():Observable<any> {
-    const url = `${this.arteanUrl}/employers-pending-activation` + '?XDEBUG_SESSION_START=16872';
+    const url = `${this.arteanUrl}/employers-pending-activation`;
     return this.http.get<any>(url)
       .pipe(
         tap(data=>console.log(data),

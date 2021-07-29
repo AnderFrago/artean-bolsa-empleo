@@ -30,7 +30,7 @@ export class AuthService {
     register(username: string, password: string, type: string) {
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-        return this.http.post<AuthResult>(this.authUrl + '/register?XDEBUG_SESSION_START=16872', { username, password, type }, { headers })
+        return this.http.post<AuthResult>(this.authUrl + '/register', { username, password, type }, { headers })
             .pipe(
                 tap(res => console.log("registered " + JSON.stringify(res)))
             );
@@ -88,8 +88,7 @@ export class AuthService {
     getState(){
         const username =   localStorage.getItem('u');
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
-        return this.http.post<any>(this.authUrl , { username }, { headers })
-       // return this.http.post<any>(this.authUrl + '/state?XDEBUG_SESSION_START=16872', { username }, { headers })
+        return this.http.post<any>(this.authUrl+'/state' , { username }, { headers })
             .pipe(
                 tap(res => {
                     console.log("registered " + JSON.stringify(res))
@@ -104,14 +103,7 @@ export class AuthService {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console
         let errorMessage: string;
-        if (err.error instanceof ErrorEvent) {
-            // A client-side or network error occurred. Handle it accordingly.
-            errorMessage = `An error occurred: ${err.error.message}`;
-        } else {
-            // The backend returned an unsuccessful response code.
-            // The response body may contain clues as to what went wrong,
-            errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
-        }
+        alert(`An error occurred: ${err.error.message}`);
         console.error(err);
         return throwError(errorMessage);
     }

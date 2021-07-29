@@ -17,12 +17,8 @@ export class CvService {
   constructor(private http: HttpClient) { }
 
   createCV(formData: FormData) {
-    // const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const username = localStorage.getItem('u');
 
-    // DEV
-    //return this.http.post(this.cvsUrl + "/cv-upload?username=" + username + "&XDEBUG_SESSION_START=16872", formData, {
-    //PROD
     return this.http.post(this.cvsUrl + "/cv-upload?username=" + username, formData, {
       // headers,
       reportProgress: true,

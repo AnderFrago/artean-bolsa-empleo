@@ -15,6 +15,10 @@ use Symfony\Component\Process\Process;
 class CVController extends AbstractController
 {
     /**
+     * Adds a new CV to a user. Saves the PDF file in the system and
+     * the transformation of the PDF to text is stored in
+     * a column in the CV table of the database.
+     *
      * @Route("/api/v1/cv-upload", name="cv", methods="post")
      */
     public function index(Request $request): Response

@@ -38,6 +38,14 @@ export class OfferDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authService.getState().subscribe(data=>{
+        if(data != 1){
+          alert("Cuenta no validada");
+          this.authService.logout()
+          this.router.navigate(['login'])
+        }
+    });
+
     this.offerId = parseInt(this.activatedroute.snapshot.params['id']);
     this.offerService.getOfferById(this.offerId).subscribe(data => {
       if (data.message.includes("owner")) {

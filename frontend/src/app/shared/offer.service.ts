@@ -18,9 +18,6 @@ export class OfferService {
   constructor(private http: HttpClient) { }
 
   loadOffer(fileName: any) {
-    // DEV:
-    // const url = `${this.offersUrl}/load-offer` + '?XDEBUG_SESSION_START=16872';
-    // PROD:
     const url = `${this.offersUrl}/load-offer`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -41,7 +38,6 @@ export class OfferService {
 
 
   getOffers(): Observable<Offer[]> {
-    // return this.http.get<Offer[]>(this.offersUrl+ '?XDEBUG_SESSION_START=16872')
     return this.http.get<Offer[]>(this.offersUrlPublic)
       .pipe(
         tap(data => console.log(JSON.stringify(data))),
@@ -51,7 +47,6 @@ export class OfferService {
 
 
   getOfferById(id: number): Observable<any> {
-    // const url = `${this.offersUrlPrivate}/${id}` + '?XDEBUG_SESSION_START=16872';
     const url = `${this.offersUrlPrivate}/${id}`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -77,7 +72,6 @@ export class OfferService {
     offer.id = null;
     console.log(offer);
 
-    //return this.http.post<any>(this.offersUrl + "?XDEBUG_SESSION_START=16872", JSON.stringify(offer), { headers: headers })
     return this.http.post<any>(this.offersUrl, JSON.stringify(offer), { headers: headers })
       .pipe(
         tap(data => console.log('createOffer: ' + JSON.stringify(data))),
@@ -89,10 +83,8 @@ export class OfferService {
   }
 
   createOfferPDF(formData: FormData) {
-    // const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const username = localStorage.getItem('u');
 
-    //return this.http.post(this.offersUrl + "/offer-upload?username=" + username + "&XDEBUG_SESSION_START=16872", formData, {
     return this.http.post(this.offersUrl + "/offer-upload?username=" + username, formData, {
       // headers,
       reportProgress: true,
@@ -119,7 +111,6 @@ export class OfferService {
 
   updateOffer(offer: Offer): Observable<Offer> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    //const url = `${this.offersUrl}/${offer.id}` + "?XDEBUG_SESSION_START=16872";
     const url = `${this.offersUrl}/${offer.id}`;
     return this.http.put<Offer>(url, offer, { headers: headers })
       .pipe(
@@ -137,7 +128,6 @@ export class OfferService {
     const username = localStorage.getItem('u');
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    //const url = `${this.offersUrlPrivate}/apply` + '?XDEBUG_SESSION_START=16872';
     const url = `${this.offersUrlPrivate}/apply`;
     return this.http.post<any>(url, { username, id: offer.id }, { headers: headers })
       .pipe(

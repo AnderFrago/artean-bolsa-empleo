@@ -60,7 +60,7 @@ security:
         - { path: ^/api/v1/offers/offer-upload, role: ROLE_EMPLOYER }
         - { path: ^/api/v1/offers, role: ROLE_EMPLOYER }
         ## offer by id from owner
-        - { path: ^/api/v1/p/offers/([0-9]+), role: offer by id from owner }
+        - { path: ^/api/v1/p/offers/([0-9]+), role: ROLE_STUDENT }
         # CV
         - { path: ^/api/v1/cv-upload, role: ROLE_STUDENT }
         ## APPLYMENTS
@@ -73,5 +73,4 @@ security:
         - { path: ^/api/v1/artean/students-pending-activation, role: ROLE_ARTEAN }
         - { path: ^/api/v1/artean/employers-pending-activation, role: ROLE_ARTEAN }
         - { path: ^/api/v1/artean/employers-update-state, role: ROLE_ARTEAN }
-        - { path: ^/api/v1/artean/create-admin-user, role: ROLE_ARTEAN }
         - { path: ^/api/v1/artean/search, role: ROLE_ARTEAN }

@@ -78,6 +78,7 @@ class OffersController extends AbstractController
     }
 
     /**
+     *
      * @Route("/api/v1/p/offers/apply", name="offer_apply", methods={"POST"})
      */
     public function applyToOffer( Request $request): Response
@@ -112,6 +113,10 @@ class OffersController extends AbstractController
             'groups' => ['offer'],
         ]);
     }
+
+    ///
+    ///  CRUD operations
+    ///
 
     /**
      * @Route("/api/v1/offers/{id}", name="offer_delete", methods={"DELETE"})

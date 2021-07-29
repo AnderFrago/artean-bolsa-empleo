@@ -23,24 +23,18 @@ class SecurityController extends AbstractController
         // IMP! To get JSON format from POST method
         $data = $request->getContent();
         $content = json_decode($data);
-
         $username = $content->username;
         $password = $content->password;
         $type = $content->type;
-
         if($type === "student"){
             $user = new Student($username);
         }else{
             $user = new Employer($username);
         }
         $user->setPassword($encoder->encodePassword($user, $password));
-
         $em->persist($user);
         $em->flush();
-
-        //return new Response(sprintf('User %s successfully created', $user->getUsername()));
         $expires_at = date('Y-m-d H:i:s', strtotime('+7200 seconds', time()));
-
         return new JsonResponse([
             'id_token' => $user->getPassword(),
             'expires_at' => $expires_at,
@@ -56,11 +50,9 @@ class SecurityController extends AbstractController
         $data = $request->getContent();
         $content = json_decode($data);
         $username = $content->username;
-
         $db_user = $em->getRepository(User::class)->findOneBy([
             'username' => $username,
         ]);
-
         return new JsonResponse( $db_user->getRoles());
     }
 
@@ -69,11 +61,9 @@ class SecurityController extends AbstractController
      */
     public function getState(Request $request){
         $em = $this->getDoctrine()->getManager();
-
         $data = $request->getContent();
         $content = json_decode($data);
         $username = $content->username;
-
         $db_user = $em->getRepository(User::class)->findOneBy([
             'username' => $username,
         ]);
