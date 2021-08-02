@@ -81,4 +81,50 @@ class CVController extends AbstractController
             'message' => 'OK: File correctly saved',
         ]);
     }
+
+    /**
+     * @Route("/api/v1/cv-filename", name="cv-filename")
+     */
+    public function showCvByFilename(Request $request){
+      $data = $request->getContent();
+        $content = json_decode($data);
+
+        $username = $content->username;
+        $fileName = $content->fileName;
+
+        $cv = $this->getDoctrine()->getManager()->getRepository(CV::class)->findOneBy([
+            "originalName" => $fileName
+        ]);
+        $pdfPath = $cv->getPathName();
+
+
+        return $this->json([
+            "message" => "OK: pdf loaded",
+            "file" => $this->file($pdfPath)
+        ], 200);
+    }
+
+
+    /**
+     * @Route("/api/v1/cv-show", name="cv-show")
+     */
+    public function showCv(Request $request) {
+        $data = $request->getContent();
+        $content = json_decode($data);
+
+        $username = $content->username;
+
+        $cvs  = $this->getDoctrine()->getManager()
+            ->getRepository(CV::class)
+            ->findCVByUsername($username);
+        $cv = $cvs[count($cvs)-1];
+
+        $pdfPath = $cv->getPathName();
+
+        return $this->json([
+            "message" => "OK: show pdf",
+            "file" => $this->file($pdfPath),
+            "filename" => $cv->getOriginalName()
+        ], 200);
+    }
 }

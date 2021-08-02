@@ -3,6 +3,7 @@ import { OfferService } from '../shared/offer.service';
 import { Router } from '@angular/router';
 import { CvService } from '../shared/cv.service';
 import { AuthService } from '../shared/auth.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'navbar',
@@ -36,6 +37,11 @@ export class NavbarComponent implements OnInit {
   }
   newCv() {
     this.router.navigate(['/cv', 'new']);
+  }
+  showCv() {
+    this.cvService.showCv().subscribe(data => {
+      saveAs(data.file, data.fileName, { type: "application/pdf" });
+    });
   }
   search() {
     this.router.navigate(['/artean']);

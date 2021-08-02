@@ -135,25 +135,6 @@ class ArteanController extends AbstractController
         ]);
     }
 
-
-    /**
-     * @Route("/artean/create-admin-user", name="create-admin-user")
-     */
-    public function createAdminUser(UserPasswordEncoderInterface $encoder): Response
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $password = $_ENV['ARTEAN_PASSWORD'];
-        $user = new Artean($password);
-        $user->setPassword($encoder->encodePassword($user, $password));
-
-        $em->persist($user);
-        $em->flush();
-
-        return $this->json([
-            "message" => "Welcome to the jungle"
-        ]);
-    }
     /**
      * @Route("/api/v1/artean/search", name="artean")
      */

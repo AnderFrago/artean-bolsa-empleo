@@ -5,6 +5,7 @@ import { saveAs } from 'file-saver';
 import { ApplymentsService } from 'src/app/shared/applyments.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
+import { CvService } from 'src/app/shared/cv.service';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class SearchComponent implements OnInit {
   constructor(
     private fb: FormBuilder, 
     private arteanService:ArteanService ,
+    private cvService:CvService ,
     private authService:AuthService ,
     private router: Router,
     private applymentsService: ApplymentsService
@@ -62,7 +64,7 @@ export class SearchComponent implements OnInit {
 
 
   loadCV(fileName) {
-    this.applymentsService.loadCV(fileName).subscribe(data => {
+    this.cvService.showCvByFileName(fileName).subscribe(data => {
       saveAs(data.file, fileName, { type: "application/pdf" });
     });
   }

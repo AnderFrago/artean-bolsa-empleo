@@ -32,6 +32,43 @@ export class CvService {
 
   }
 
+  showCvByFileName(fileName: any) {
+    const url = `${this.cvsUrl}/cv-filename` ;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    const username = localStorage.getItem('u');
+
+    return this.http.post<any>(url, { username, fileName }, { headers })
+      .pipe(
+        map(data => {
+          if (data.message.startsWith("ERROR:")) {
+            return null;
+          }
+          console.log('showCvByUsername: ' + JSON.stringify(data));
+          return data.file
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  showCv() {
+    const url = `${this.cvsUrl}/cv-show` ;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    const username = localStorage.getItem('u');
+
+    return this.http.post<any>(url, { username }, { headers })
+      .pipe(
+        map(data => {
+          if (data.message.startsWith("ERROR:")) {
+            return null;
+          }
+          console.log('show cv : ' + JSON.stringify(data));
+          return data.file
+        }),
+        catchError(this.handleError)
+      );
+  }
 
   private handleError(err) {
     // in a real world app, we may send the server to some remote logging infrastructure

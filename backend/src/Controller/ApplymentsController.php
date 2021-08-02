@@ -49,27 +49,6 @@ class ApplymentsController extends AbstractController
 
     }
 
-    /**
-     * @Route("/api/v1/applyments/load-cv", name="applyments_load_cv")
-     */
-    public function loadCV(Request $request) {
-        $data = $request->getContent();
-        $content = json_decode($data);
-
-        $username = $content->username;
-        $fileName = $content->fileName;
-
-        $cv = $this->getDoctrine()->getManager()->getRepository(CV::class)->findOneBy([
-            "originalName" => $fileName
-        ]);
-        $pdfPath = $cv->getPathName();
-
-
-        return $this->json([
-            "message" => "OK: pdf loaded",
-            "file" => $this->file($pdfPath)
-        ], 200);
-    }
 
     /**
      * @Route("/api/v1/applyments/cvs-offer", name="applyments_cvs_offer")

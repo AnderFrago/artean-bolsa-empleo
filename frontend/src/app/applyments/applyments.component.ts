@@ -11,6 +11,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { ApplymentsStateComponent } from './applyments-state/applyments-state.component';
 import { AuthService } from '../shared/auth.service';
+import { CvService } from '../shared/cv.service';
 
 
 
@@ -28,6 +29,7 @@ export class ApplymentsComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private cvService: CvService,
     private applymentsService: ApplymentsService,
     private activatedroute: ActivatedRoute,
     private router: Router,
@@ -55,7 +57,7 @@ export class ApplymentsComponent implements OnInit {
   }
 
   loadCV(fileName) {
-    this.applymentsService.loadCV(fileName).subscribe(data => {
+    this.cvService.showCvByFileName(fileName).subscribe(data => {
       saveAs(data.file, fileName, { type: "application/pdf" });
     });
   }

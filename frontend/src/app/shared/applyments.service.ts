@@ -33,24 +33,6 @@ export class ApplymentsService {
       );
   }
 
-  loadCV(fileName: any) {
-    const url = `${this.applymentsUrl}/load-cv` ;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    const username = localStorage.getItem('u');
-
-    return this.http.post<any>(url, { username, fileName }, { headers })
-      .pipe(
-        map(data => {
-          if (data.message.startsWith("ERROR:")) {
-            return null;
-          }
-          console.log('loadCv: ' + JSON.stringify(data));
-          return data.file
-        }),
-        catchError(this.handleError)
-      );
-  }
 
   getCVsForOffer(id: number): Observable<CV[]> {
     const url = `${this.applymentsUrl}/cvs-offer` ;
