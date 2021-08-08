@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AlertsComponent } from 'src/app/alerts/alerts.component';
 import { ArteanService } from 'src/app/shared/artean.service';
 import { AuthService } from 'src/app/shared/auth.service';
 import { User, UserState } from 'src/app/shared/user';
@@ -28,7 +29,13 @@ export class EmployersComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getState().subscribe(data=>{
       if(data != 1){
-        alert("Cuenta no validada");
+          // alert("Cuenta no validada");
+          this.dialog.open(AlertsComponent, {
+            data: {
+              item: "Cuenta no validada",
+              type: "info"
+            }
+          });
         this.authService.logout()
         this.router.navigate(['login'])
       }

@@ -25,6 +25,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ApplymentsModule } from './applyments/applyments.module';
 import { ArteanModule } from './artean/artean.module';
 import { ArteanService } from './shared/artean.service';
+import { AlertsComponent } from './alerts/alerts.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { ArteanService } from './shared/artean.service';
     FooterComponent,
     NavbarComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AlertsComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,9 @@ import { ArteanService } from './shared/artean.service';
     ApplymentsModule,
     ArteanModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+
   ],
   providers: [OfferService, CvService, AuthService, ArteanService,
     AuthGuard,

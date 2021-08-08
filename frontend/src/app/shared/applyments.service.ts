@@ -2,8 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { AlertsComponent } from '../alerts/alerts.component';
 import { CV, CVState } from './cv';
 import { OfferState } from './offer';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,10 @@ export class ApplymentsService {
 
   private applymentsUrl = 'https://localhost:8000/api/v1/applyments';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+  public dialog: MatDialog
+  ) { }
 
   updateApplymentState(offerId: number, newstate: CVState, studentname: string): Observable<string> {
     const url = `${this.applymentsUrl}/update-state` ;
@@ -65,7 +70,13 @@ export class ApplymentsService {
       .pipe(
         map(data => {
           if (data.message.startsWith("ERROR:")) {
-            alert(data.message);
+//            alert(data.message);
+          this.dialog.open(AlertsComponent, {
+            data: {
+              item: data.message,
+              type: "error"
+            }
+          });
             return null;
           }
           console.log('getOffer: ' + JSON.stringify(data));

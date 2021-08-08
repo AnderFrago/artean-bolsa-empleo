@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ApplymentsStateComponent } from './applyments-state/applyments-state.component';
 import { AuthService } from '../shared/auth.service';
 import { CvService } from '../shared/cv.service';
+import { AlertsComponent } from '../alerts/alerts.component';
 
 
 
@@ -45,7 +46,14 @@ export class ApplymentsComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getState().subscribe(data=>{
         if(data != 1){
-          alert("Cuenta no validada");
+          // alert("Cuenta no validada");
+          this.dialog.open(AlertsComponent, {
+            data: {
+              item: "Cuenta no validada",
+              type: "info"
+            }
+          });
+
           this.authService.logout()
           this.router.navigate(['login'])
         }

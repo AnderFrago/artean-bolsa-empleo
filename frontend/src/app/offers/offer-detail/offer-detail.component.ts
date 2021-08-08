@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/shared/auth.service';
 import { Offer, OfferState } from 'src/app/shared/offer';
 import { OfferService } from 'src/app/shared/offer.service';
 import { saveAs } from 'file-saver';
+import { AlertsComponent } from 'src/app/alerts/alerts.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-offer-detail',
@@ -28,7 +30,7 @@ export class OfferDetailComponent implements OnInit {
     private authService: AuthService,
     private applymentsService: ApplymentsService,
     iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
-
+    public dialog: MatDialog
   ) {
 
     iconRegistry.addSvgIcon(
@@ -40,7 +42,13 @@ export class OfferDetailComponent implements OnInit {
   ngOnInit() {
     this.authService.getState().subscribe(data=>{
         if(data != 1){
-          alert("Cuenta no validada");
+          // alert("Cuenta no validada");
+          this.dialog.open(AlertsComponent, {
+            data: {
+              item: "Cuenta no validada",
+              type: "info"
+            }
+          });
           this.authService.logout()
           this.router.navigate(['login'])
         }

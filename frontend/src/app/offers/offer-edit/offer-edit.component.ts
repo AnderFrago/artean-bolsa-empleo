@@ -3,9 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AlertsComponent } from 'src/app/alerts/alerts.component';
 import { AuthService } from 'src/app/shared/auth.service';
 import { Offer } from 'src/app/shared/offer';
 import { OfferService } from 'src/app/shared/offer.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-offer-edit',
@@ -37,13 +39,20 @@ export class OfferEditComponent implements OnInit {
     private activatedroute: ActivatedRoute,
     private router: Router,
     private offerService: OfferService,
-    private authService: AuthService
+    private authService: AuthService,
+    public dialog: MatDialog
     ) { }
 
   ngOnInit(): void {
     this.authService.getState().subscribe(data=>{
         if(data != 1){
-          alert("Cuenta no validada");
+          // alert("Cuenta no validada");
+          this.dialog.open(AlertsComponent, {
+            data: {
+              item: "Cuenta no validada",
+              type: "info"
+            }
+          });
           this.authService.logout()
           this.router.navigate(['login'])
         }

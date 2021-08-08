@@ -6,6 +6,8 @@ import { ApplymentsService } from 'src/app/shared/applyments.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 import { CvService } from 'src/app/shared/cv.service';
+import { AlertsComponent } from 'src/app/alerts/alerts.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -30,13 +32,20 @@ export class SearchComponent implements OnInit {
     private cvService:CvService ,
     private authService:AuthService ,
     private router: Router,
-    private applymentsService: ApplymentsService
+    private applymentsService: ApplymentsService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.authService.getState().subscribe(data=>{
       if(data != 1){
-        alert("Cuenta no validada");
+          // alert("Cuenta no validada");
+          this.dialog.open(AlertsComponent, {
+            data: {
+              item: "Cuenta no validada",
+              type: "info"
+            }
+          });
         this.authService.logout()
         this.router.navigate(['login'])
       }

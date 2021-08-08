@@ -3,7 +3,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { AlertsComponent } from 'src/app/alerts/alerts.component';
 import { AuthService } from 'src/app/shared/auth.service';
+import { MatDialog } from '@angular/material/dialog';
 
 import { CvService } from 'src/app/shared/cv.service';
 
@@ -28,13 +30,20 @@ export class CvNewComponent implements OnInit{
     private http: HttpClient, 
     private cvService: CvService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
     ) { }
 
   ngOnInit(): void {
     this.authService.getState().subscribe(data=>{
       if(data != 1){
-        alert("Cuenta no validada");
+          // alert("Cuenta no validada");
+          this.dialog.open(AlertsComponent, {
+            data: {
+              item: "Cuenta no validada",
+              type: "info"
+            }
+          });
         this.authService.logout()
         this.router.navigate(['login'])
       }
