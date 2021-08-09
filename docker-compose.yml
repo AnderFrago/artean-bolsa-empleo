@@ -44,7 +44,7 @@ services:
     #Volumes are how you mount your local filesystem to the filesystem inside your container. Works the same way as SMB works
     #Except a lot easier. The syntax is shown in the example below
     volumes:
-      - ${APP_DIR}\backend:/var/www/html:cached
+      - backend:/var/www/html:cached
     #Ports are used when you want to publish ports and allow them to be accessed by computers or services outside
     #of the docker network. Since we are working on a LAMP stack that we want to access from a browser, we opened ports
     #80 & 443 for http and https access.
