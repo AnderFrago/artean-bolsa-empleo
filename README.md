@@ -1,7 +1,6 @@
 # Single Page Application for a Job bank
 
-## Developed with Symfony and Angular
-## using Docker
+## Developed with Symfony and Angular _using_ _Docker_
 
 ### @author: anderfrago
 
@@ -15,4 +14,3 @@ In addition, to avoid the massive registration of fake accounts, either from for
 ### More documentation in this [link](https://ander-frago-landa.gitbook.io/artean-spa-sym4-3/)
 
 Access to Docker tutorial in this other [link](https://drive.google.com/file/d/1MAlN7EGC-WjULNI3UB2hycwO2PYf2blZ/view?usp=sharing)
-
