@@ -9,7 +9,7 @@ import { User, UserState } from './user';
 })
 export class ArteanService {
 
-  private arteanUrl = 'https://172.21.3.3:8000/api/v1/artean';
+  private arteanUrl = 'https://localhost:8000/api/v1/artean';
 
   constructor(private http: HttpClient) { }
 
