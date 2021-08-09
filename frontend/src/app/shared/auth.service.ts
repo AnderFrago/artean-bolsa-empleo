@@ -8,7 +8,7 @@ import { throwError } from "rxjs";
 import { AlertsComponent } from "../alerts/alerts.component";
 import { MatDialog } from '@angular/material/dialog';
 
-import { environment } from './../environments/environment';
+import { environment } from './../../environments/environment';
 
 @Injectable()
 export class AuthService {

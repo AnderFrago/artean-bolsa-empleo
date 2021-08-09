@@ -4,7 +4,7 @@ COPY package.json ./
 RUN npm install
 RUN npm install -g @angular/cli@11.2.1
 COPY . .
-RUN npm run build
+RUN npm run build --prod
 
 CMD ng serve --port 4200 --host 0.0.0.0 --ssl true
 

@@ -6,7 +6,7 @@ import { AlertsComponent } from '../alerts/alerts.component';
 import { CV, CVState } from './cv';
 import { OfferState } from './offer';
 import { MatDialog } from '@angular/material/dialog';
-import { environment } from './../environments/environment';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

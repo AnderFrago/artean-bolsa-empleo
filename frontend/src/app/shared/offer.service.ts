@@ -5,7 +5,8 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map, finalize } from 'rxjs/operators';
 
 import { Offer, OfferState } from './offer';
-import { environment } from './../environments/environment';
+import { environment } from './../../environments/environment';
+
 
 
 @Injectable({
