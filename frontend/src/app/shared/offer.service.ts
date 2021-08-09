@@ -14,9 +14,9 @@ import { environment } from './../../environments/environment';
 })
 export class OfferService {
   private APIEndpoint = environment.APIEndpoint;
-  private offersUrlPublic = `https://${APIEndpoint}:8000/offers`;
-  private offersUrl = `https://${APIEndpoint}:8000/api/v1/offers`;
-  private offersUrlPrivate = `https://${APIEndpoint}:8000/api/v1/p/offers`;
+  private offersUrlPublic = `https://${this.APIEndpoint}:8000/offers`;
+  private offersUrl = `https://${this.APIEndpoint}:8000/api/v1/offers`;
+  private offersUrlPrivate = `https://${this.APIEndpoint}:8000/api/v1/p/offers`;
 
 
   constructor(private http: HttpClient) { }
