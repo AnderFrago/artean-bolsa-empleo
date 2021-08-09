@@ -12,8 +12,8 @@ import { MatDialog } from '@angular/material/dialog';
 
 @Injectable()
 export class AuthService {
-    private authUrl = 'https://localhost:8000';
-    private privateAuthUrl = 'https://localhost:8000/api/v1';
+    private authUrl = 'https://172.21.3.3:8000';
+    private privateAuthUrl = 'https://172.21.3.3:8000/api/v1';
 
     constructor(
         private http: HttpClient,
