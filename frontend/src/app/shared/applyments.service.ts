@@ -6,13 +6,15 @@ import { AlertsComponent } from '../alerts/alerts.component';
 import { CV, CVState } from './cv';
 import { OfferState } from './offer';
 import { MatDialog } from '@angular/material/dialog';
+import { environment } from './../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApplymentsService {
+  private APIEndpoint = environment.APIEndpoint;
 
-  private applymentsUrl = 'https://52.178.13.119:8000/api/v1/applyments';
+  private applymentsUrl = `https://${this.APIEndpoint}:8000/api/v1/applyments`;
 
   constructor(
     private http: HttpClient,

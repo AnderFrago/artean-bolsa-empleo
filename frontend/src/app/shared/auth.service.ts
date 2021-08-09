@@ -8,12 +8,14 @@ import { throwError } from "rxjs";
 import { AlertsComponent } from "../alerts/alerts.component";
 import { MatDialog } from '@angular/material/dialog';
 
-
+import { environment } from './../environments/environment';
 
 @Injectable()
 export class AuthService {
-    private authUrl = 'https://52.178.13.119:8000';
-    private privateAuthUrl = 'https://52.178.13.119:8000/api/v1';
+    private APIEndpoint = environment.APIEndpoint;
+
+    private authUrl = `https://${this.APIEndpoint}:8000`;
+    private privateAuthUrl = `https://${this.APIEndpoint}:8000/api/v1`;
 
     constructor(
         private http: HttpClient,

@@ -5,14 +5,17 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map, finalize } from 'rxjs/operators';
 
 import { Offer, OfferState } from './offer';
+import { environment } from './../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class OfferService {
-  private offersUrlPublic = 'https://52.178.13.119:8000/offers';
-  private offersUrl = 'https://52.178.13.119:8000/api/v1/offers';
-  private offersUrlPrivate = 'https://52.178.13.119:8000/api/v1/p/offers';
+  private APIEndpoint = environment.APIEndpoint;
+  private offersUrlPublic = `https://${APIEndpoint}:8000/offers`;
+  private offersUrl = `https://${APIEndpoint}:8000/api/v1/offers`;
+  private offersUrlPrivate = `https://${APIEndpoint}:8000/api/v1/p/offers`;
 
 
   constructor(private http: HttpClient) { }

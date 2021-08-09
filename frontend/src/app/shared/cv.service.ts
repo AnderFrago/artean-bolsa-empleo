@@ -4,13 +4,15 @@ import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Observable, of, Subscription, throwError } from 'rxjs';
 import { catchError, tap, map, finalize } from 'rxjs/operators';
 
-
+import { environment } from './../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CvService {
-  private cvsUrl = 'https://52.178.13.119:8000/api/v1';
+  private APIEndpoint = environment.APIEndpoint;
+
+  private cvsUrl = `https://${this.APIEndpoint}:8000/api/v1`;
 
 
 

@@ -3,13 +3,16 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User, UserState } from './user';
+import { environment } from './../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArteanService {
 
-  private arteanUrl = 'https://52.178.13.119:8000/api/v1/artean';
+  private APIEndpoint = environment.APIEndpoint;
+
+  private arteanUrl = `https://${this.APIEndpoint}:8000/api/v1/artean`;
 
   constructor(private http: HttpClient) { }
 
