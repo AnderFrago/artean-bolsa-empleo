@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ApplymentsService {
 
-  private applymentsUrl = 'https://localhost:8000/api/v1/applyments';
+  private applymentsUrl = 'https://52.178.13.119:8000/api/v1/applyments';
 
   constructor(
     private http: HttpClient,

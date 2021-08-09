@@ -10,7 +10,7 @@ import { catchError, tap, map, finalize } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CvService {
-  private cvsUrl = 'https://localhost:8000/api/v1';
+  private cvsUrl = 'https://52.178.13.119:8000/api/v1';
 
 
 

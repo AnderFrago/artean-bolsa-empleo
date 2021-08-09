@@ -10,9 +10,9 @@ import { Offer, OfferState } from './offer';
   providedIn: 'root'
 })
 export class OfferService {
-  private offersUrlPublic = 'https://localhost:8000/offers';
-  private offersUrl = 'https://localhost:8000/api/v1/offers';
-  private offersUrlPrivate = 'https://localhost:8000/api/v1/p/offers';
+  private offersUrlPublic = 'https://52.178.13.119:8000/offers';
+  private offersUrl = 'https://52.178.13.119:8000/api/v1/offers';
+  private offersUrlPrivate = 'https://52.178.13.119:8000/api/v1/p/offers';
 
 
   constructor(private http: HttpClient) { }
