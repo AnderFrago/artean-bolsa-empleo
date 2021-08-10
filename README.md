@@ -1,8 +1,8 @@
-# Single Page Application for a Job bank
+# Single Page Application (SPA) for a Job bank
 
-## Developed with Symfony and Angular _using_ _Docker_
+## Developed with Symfony and Angular *using* *Docker* and *deployed* *in* *Azure*
 
-### @author: anderfrago
+### author: anderfrago
 
 The aim of this project is to develop a job bank that is simple to use and easy to adapt to the different needs of the users.
 
@@ -11,6 +11,10 @@ The great advantage of this application is that it allows the administrator user
 
 In addition, to avoid the massive registration of fake accounts, either from former students or employers, every time there is a new registration it must be validated by the account administrator.
 
-### More documentation in this [link](https://ander-frago-landa.gitbook.io/artean-spa-sym4-3/)
+## [Demo web page](https://52.178.13.119:4200/login)
 
-Access to Docker tutorial in this other [link](https://drive.google.com/file/d/1MAlN7EGC-WjULNI3UB2hycwO2PYf2blZ/view?usp=sharing)
+### Artean Classic web page documentacion in this [link](https://app.gitbook.com/@ander-frago-landa/s/sym-artean/)
+### Documentation about SPA in this other[link](https://ander-frago-landa.gitbook.io/artean-spa-sym4-3/)
+
+### Access to Docker tutorial [here](https://drive.google.com/file/d/1MAlN7EGC-WjULNI3UB2hycwO2PYf2blZ/view?usp=sharing)
+
