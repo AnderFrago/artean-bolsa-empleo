@@ -43,6 +43,13 @@
         </div>
     </fieldset>
     <div class="form-buttons">
-        <button class="btn btn-primary" (click)="register()">Aceptar</button>
+        <div *ngIf="isFormSubmitted">
+            <mat-spinner></mat-spinner>
+        </div>
+        <div *ngIf="!isFormSubmitted">
+            <button class="btn btn-primary" (click)="register()"
+            [disabled]=" this.form.status == 'INVALID'"
+            >Aceptar</button>
+        </div>
     </div>
 </form>

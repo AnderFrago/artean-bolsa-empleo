@@ -63,6 +63,12 @@ export class CvNewComponent implements OnInit{
           this.uploadProgress = Math.round(100 * (event.loaded / event.total));
         } else if (event.type == HttpEventType.Sent) {
           console.log("Upload finished");
+          this.dialog.open(AlertsComponent, {
+            data: {
+              item: "Se ha almacenado su CV",
+              type: "info"
+            }
+          });
           this.reset();
         }
       });

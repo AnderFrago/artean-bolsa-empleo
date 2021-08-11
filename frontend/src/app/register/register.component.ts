@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { AuthService } from '../shared/auth.service';
+import { MatSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'register',
@@ -11,6 +12,8 @@ import { AuthService } from '../shared/auth.service';
 export class RegisterComponent {
 
   form: FormGroup;
+  isFormSubmitted = false;
+
 
   constructor(private fb: FormBuilder,
     private authService: AuthService,
@@ -28,6 +31,8 @@ export class RegisterComponent {
     const val = this.form.value;
 
     if (val.username && val.password) {
+      this.isFormSubmitted = true;
+
       this.authService.register(val.username, val.password, val.type)
         .subscribe(
           data => {
@@ -52,6 +57,8 @@ export class RegisterComponent {
                       r: r[r.length - 1]
                     }
                     this.authService.setSession(data);
+                    this.isFormSubmitted = false;
+
                   }
                   )
                   console.log("User is logged in");

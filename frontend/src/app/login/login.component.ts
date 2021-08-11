@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from "moment";
 import { AuthService } from '../shared/auth.service';
+import { AlertsComponent } from "../alerts/alerts.component";
+import { MatDialog } from '@angular/material/dialog';
+import { MatSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-login',
@@ -11,10 +14,15 @@ import { AuthService } from '../shared/auth.service';
 export class LoginComponent {
 
   form: FormGroup;
+  isFormSubmitted: boolean = false;
+
+  isDisabled = true;
 
   constructor(private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router) {
+    private router: Router,
+    public dialog: MatDialog
+    ) {
 
     this.form = this.fb.group({
       email: ['', Validators.required],
@@ -26,9 +34,13 @@ export class LoginComponent {
     const val = this.form.value;
 
     if (val.email && val.password) {
+
+      this.isFormSubmitted = true;
+
       this.authService.login(val.email, val.password)
-        .subscribe(
-          data => {
+        .subscribe(        
+          data => { 
+            this.isFormSubmitted = false;
             data = {
               ...data,
               u: val.email,
@@ -46,7 +58,16 @@ export class LoginComponent {
             )
             console.log("User is logged in");
             this.router.navigateByUrl('/');
-          }
+          },
+          error=>{
+            this.isFormSubmitted = false;
+            this.dialog.open(AlertsComponent, {
+              data: {
+                  item: `${error}`,
+                  type: "error"
+              }
+              });
+          },
         );
     }
   }

@@ -27,6 +27,7 @@ import { ArteanModule } from './artean/artean.module';
 import { ArteanService } from './shared/artean.service';
 import { AlertsComponent } from './alerts/alerts.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule, MatSpinner } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     BrowserAnimationsModule,
     MatButtonModule,
     MatDialogModule,
+    MatProgressSpinnerModule
 
   ],
   providers: [OfferService, CvService, AuthService, ArteanService,

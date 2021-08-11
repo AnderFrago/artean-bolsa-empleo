@@ -5,4 +5,8 @@ export interface AuthResult {
     r?: string,
     token: string,
     expires_at?: string
+    error? : {
+        message: string,
+        type: string
+    }
 }

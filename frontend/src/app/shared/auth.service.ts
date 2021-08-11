@@ -5,8 +5,6 @@ import { catchError, filter, map, tap } from "rxjs/operators";
 import { User } from "./user";
 import { AuthResult } from "./authresult";
 import { throwError } from "rxjs";
-import { AlertsComponent } from "../alerts/alerts.component";
-import { MatDialog } from '@angular/material/dialog';
 
 import { environment } from './../../environments/environment';
 
@@ -19,7 +17,6 @@ export class AuthService {
 
     constructor(
         private http: HttpClient,
-        public dialog: MatDialog
         ) {
     }
 
@@ -109,15 +106,10 @@ export class AuthService {
     private handleError(err) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console
-        let errorMessage: string;
-        //alert(`An error occurred: ${err.error.message}`);
-        this.dialog.open(AlertsComponent, {
-        data: {
-            item: `An error occurred: ${err.error.message}`,
-            type: "error"
-        }
-        });
-        console.error(err);
-        return throwError(errorMessage);
+       //let errorMessage: string;
+       // alert(`An error occurred: ${err.error.message}`);
+
+       // console.error(err.error.message);
+        return throwError(new Error(err.error.message));
     }
 }
