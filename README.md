@@ -1,6 +1,6 @@
 # Single Page Application (SPA) for a Job bank
 
-## Developed with Symfony and Angular *using* *Docker* and *deployed* *in* *Azure*
+## Developed with Symfony and Angular _using_ _Docker_ and _deployed_ _in_ _Azure_
 
 ### author: anderfrago
 
@@ -13,46 +13,44 @@ In addition, to avoid the massive registration of fake accounts, either from for
 
 ## [Demo web page](https://52.178.13.119:4200/home)
 
-
 > The certificate is not valid, to use the application you must accept the risk of accessing the urls below:
- 
- - [Fontend](https://52.178.13.119:4200)
 
- - [Backend](https://52.178.13.119:4200/login)
+- [Fontend](https://52.178.13.119:4200)
 
+- [Backend](https://52.178.13.119:8000)
 
- -----
+---
 
- ## Documentation
+## Documentation
 
 ### Artean Classic web page documentacion in this [link](https://app.gitbook.com/@ander-frago-landa/s/sym-artean/)
+
 ### Documentation about SPA in this other [link](https://ander-frago-landa.gitbook.io/artean-spa-sym4-3/)
 
 ### Access to Docker tutorial [here](https://drive.google.com/file/d/1MAlN7EGC-WjULNI3UB2hycwO2PYf2blZ/view?usp=sharing)
 
-
-----
+---
 
 ## Deployment guide
+
 The demo deployment have been done in a ubuntu server machine, in Azure cloud.
 The ports 4200 and 8000 must be open in the machine.
 
 The first thing that must be done in the ubuntu server is to clone the project with git and install Docker and Docker compose.
 
-Once excuted ``` docker-compose build  ```  and ``` docker-compose up ``` 
+Once excuted `docker-compose build ` and `docker-compose up`
 
-Is necessary to access to *www* container to load the project dependencies
+Is necessary to access to _www_ container to load the project dependencies
 
-``` docker exec -it CONTAINER_ID bash``` 
+` docker exec -it CONTAINER_ID bash`
 
-> You can get the CONTAINER_ID executing 
-``` docker ps ``` 
+> You can get the CONTAINER_ID executing
+> `docker ps`
 
 Then run these commands:
 
-``` composer install ``` 
+`composer install`
 
-``` php bin\console   doctrine:migrations:migrate ``` 
+`php bin\console doctrine:migrations:migrate`
 
-``` php bin/console lexik:jwt:generate-keypair ``` 
-
+`php bin/console lexik:jwt:generate-keypair`
