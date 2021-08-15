@@ -25,7 +25,9 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(125) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `provider` varchar(255) NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `roles` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
@@ -39,7 +41,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'artean','$argon2id$v=19$m=65536,t=4,p=1$0fvkXpHdHuS1IIPYeqj/Tg$WoCUkN4zRl80TedHReCeYruDEd0+cfEwqKoasZCzZGI',1,'artean'),(2,'oier','$argon2id$v=19$m=65536,t=4,p=1$Ew/dFitQbx2Z0eMmaCleuQ$Bq9rscStc3yobYPu7VECBX6uLPQmDtUFcgTudRUB3UE',1,'student'),(4,'empresa1','$argon2id$v=19$m=65536,t=4,p=1$+MG57verZRzM7eVx4uppQg$B/BEOkcVkUXI4RAD31R4SK8APGIgeiF+aSHhxXlWW5M',1,'employer');
+insert into users (username,email,password,is_active,provider,roles) values ("artean", "ander_frago@cuatrovientos.org", "$argon2id$v=19$m=65536,t=4,p=1$0fvkXpHdHuS1IIPYeqj/Tg$WoCUkN4zRl80TedHReCeYruDEd0+cfEwqKoasZCzZGI", true, "ARTEAN", "artean");
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
