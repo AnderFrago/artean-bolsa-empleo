@@ -24,14 +24,29 @@ class SecurityController extends AbstractController
         $data = $request->getContent();
         $content = json_decode($data);
         $username = $content->username;
+        $email = $content->email;
         $password = $content->password;
         $type = $content->type;
+        $provider = $content->provider;
+
+        // Check if the user does not exist yet
+        $exist = $em->getRepository(User::class)->checkUserExists($username, $email);
+
+        if($exist){
+            return new JsonResponse([
+                'message' => "ERROR: User already exists",
+            ]);
+        }
+
+
         if($type === "student"){
             $user = new Student($username);
         }else{
             $user = new Employer($username);
         }
         $user->setPassword($encoder->encodePassword($user, $password));
+        $user->setEmail($email);
+        $user->setProvider($provider);
         $em->persist($user);
         $em->flush();
         $expires_at = date('Y-m-d H:i:s', strtotime('+7200 seconds', time()));
@@ -72,4 +87,33 @@ class SecurityController extends AbstractController
             "state" => $state
         ]);
     }
+
+    /**
+     * @Route("/provider_check", name="provider_check")
+     */
+    public function providerCheck(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+        $data = $request->getContent();
+        $content = json_decode($data);
+        $username = $content->username;
+        $provider = $content->provider;
+
+        $user = $em->getRepository(User::class)->findOneBy([
+            "username" => $username,
+            "provider" => $provider
+        ]);
+
+        if($user->getProvider() != $provider) {
+            return $this->json([
+                "message" => "ERROR: Hacking you"
+            ]);
+        }
+
+        return $this->json([
+            "message" => "OK: Everything is fine"
+        ]);
+    }
+
+
 }

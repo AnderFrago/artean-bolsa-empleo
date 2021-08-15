@@ -15,7 +15,7 @@
                       <td> {{element.username}}</td>
                       <td>{{element.cv}}</td>
                       <td><button class="btn btn-outline-primary" (click)="changeState(element.username, element.state)">
-                        {{element.state}}
+                        <p *ngIf=" element.state == 0">esperando </p>
                       </button></td>
                     </tr>
                     </tbody>

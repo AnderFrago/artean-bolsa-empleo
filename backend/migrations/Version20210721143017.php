@@ -26,7 +26,7 @@ final class Version20210721143017 extends AbstractMigration
         $this->addSql('CREATE TABLE employer (id INT NOT NULL, state INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE offer (id INT AUTO_INCREMENT NOT NULL, employer_id INT DEFAULT NULL, company VARCHAR(255) NOT NULL, due_date DATE NOT NULL, position VARCHAR(255) NOT NULL, minimum_requirements LONGTEXT DEFAULT NULL, description LONGTEXT NOT NULL, number_of_applyments INT NOT NULL, original_name VARCHAR(255) NOT NULL, file_nam VARCHAR(255) NOT NULL, file_path VARCHAR(255) NOT NULL, INDEX IDX_29D6873E41CD9E7A (employer_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE student (id INT NOT NULL, state INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE users (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(25) NOT NULL, password VARCHAR(500) NOT NULL, is_active TINYINT(1) NOT NULL, roles VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_1483A5E9F85E0677 (username), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE users (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(25) NOT NULL,email VARCHAR(25) NOT NULL, password VARCHAR(500) NOT NULL, is_active TINYINT(1) NOT NULL, provider VARCHAR(255) NOT NULL, roles VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_1483A5E9F85E0677 (username), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE applyments ADD CONSTRAINT FK_4C2BE176CFE419E2 FOREIGN KEY (cv_id) REFERENCES cv (id)');
         $this->addSql('ALTER TABLE applyments ADD CONSTRAINT FK_4C2BE17653C674EE FOREIGN KEY (offer_id) REFERENCES offer (id)');
         $this->addSql('ALTER TABLE artean ADD CONSTRAINT FK_8DD5E64ABF396750 FOREIGN KEY (id) REFERENCES users (id) ON DELETE CASCADE');
@@ -35,7 +35,7 @@ final class Version20210721143017 extends AbstractMigration
         $this->addSql('ALTER TABLE offer ADD CONSTRAINT FK_29D6873E41CD9E7A FOREIGN KEY (employer_id) REFERENCES employer (id)');
         $this->addSql('ALTER TABLE student ADD CONSTRAINT FK_B723AF33BF396750 FOREIGN KEY (id) REFERENCES users (id) ON DELETE CASCADE');
 
-        $this->addSql('insert into users (username,password,is_active,roles) values ("artean", "$argon2id$v=19$m=65536,t=4,p=1$0fvkXpHdHuS1IIPYeqj/Tg$WoCUkN4zRl80TedHReCeYruDEd0+cfEwqKoasZCzZGI", true, "artean")' );
+        $this->addSql('insert into users (username,email,password,is_active,provider,roles) values ("artean", "ander_frago@cuatrovientos.org", "$argon2id$v=19$m=65536,t=4,p=1$0fvkXpHdHuS1IIPYeqj/Tg$WoCUkN4zRl80TedHReCeYruDEd0+cfEwqKoasZCzZGI", true, "ARTEAN", "artean")' );
 
 
 

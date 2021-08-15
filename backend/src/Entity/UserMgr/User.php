@@ -35,6 +35,12 @@ class User implements UserInterface
 
     /**
      * @Groups("user")
+     * @ORM\Column(type="string", length=25, unique=true)
+     */
+    private $email;
+
+    /**
+     * @Groups("user")
      * @ORM\Column(type="string", length=500)
      */
     private $password;
@@ -49,6 +55,11 @@ class User implements UserInterface
      *
      */
     protected $rol = ['ROLE_USER'];
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $provider;
 
     public function __construct($username)
     {
@@ -83,5 +94,28 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+    }
+
+    public function getProvider(): ?string
+    {
+        return $this->provider;
+    }
+
+    public function setProvider(string $provider): self
+    {
+        $this->provider = $provider;
+
+        return $this;
+    }
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
     }
 }

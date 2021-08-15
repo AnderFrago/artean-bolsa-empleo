@@ -1,55 +1,172 @@
-<form (ngSubmit)="register()" [formGroup]="form">
-    <fieldset class="form-group">
-        <legend>Registrarse</legend>
-        <div class="continer">
-            <div class="row my-2">
-                <div class="col-2 d-flex justify-content-end">
-                    <label class="form-text text-muted ">Email:</label>
-                </div>
-                <div class="col-6">
-                    <input name="username" formControlName="username" class="form-control">
-                </div>
-            </div>
-            <div class="row my-2">
-                <div class="col-2  d-flex justify-content-end">
-                    <label class="form-text text-muted">Contraseña:</label>
-                </div>
-                <div class="col-6">
-                    <input name="password" formControlName="password" type="password" class="form-control">
-                </div>
-            </div>
-            <div class="row my-2">
-                <div class="col-6 d-flex flex-column justify-content-start">
-                    <div class="row ">
-                        <div class="form-check  col-4 mx-auto">
-                            <input class="form-check-input" formControlName="type" value="student" type="radio" name="type"
-                                id="flexRadioDefault1" checked>
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Estudiante
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row ">
-                        <div class="form-check  col-4 mx-auto">
-                            <input class="form-check-input" formControlName="type" value="employer" type="radio" name="type"
-                                id="flexRadioDefault2">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Empleador
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </fieldset>
-    <div class="form-buttons">
+<div class="container">
+    <div class="row">
+        <h3 class="display-3">Registrarse</h3>
         <div *ngIf="isFormSubmitted">
             <mat-spinner></mat-spinner>
         </div>
-        <div *ngIf="!isFormSubmitted">
-            <button class="btn btn-primary" (click)="register()"
-            [disabled]=" this.form.status == 'INVALID'"
-            >Aceptar</button>
+    </div>
+    <div class="row">
+        <div class="col-12 mx-auto">
+
+            <div class="jumbotron bg-transparent text-center">
+                <div *ngIf="!user" class="card text-center">
+                    <h6 class="card-header">
+                        Registrarse con Artean
+                    </h6>
+                    <div class="card-block">
+                        <form [formGroup]="form">
+                            <fieldset class="form-group">
+                                <!-- <legend>Acceder</legend> -->
+                                <div class="continer">
+                                    <div class="row my-2">
+                                        <div class="col-2 d-flex justify-content-end">
+                                            <label class="form-text text-muted ">Nombre usuario:</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input name="username" formControlName="username" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row my-2">
+                                        <div class="col-2 d-flex justify-content-end">
+                                            <label class="form-text text-muted ">Email:</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input name="email" formControlName="email" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row my-2">
+                                        <div class="col-2  d-flex justify-content-end">
+                                            <label class="form-text text-muted">Contraseña:</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input name="password" formControlName="password" type="password"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row my-2">
+                                        <div class="col-6 d-flex flex-column justify-content-start">
+                                            <div class="row ">
+                                                <div class="form-check  col-4 mx-auto">
+                                                    <input class="form-check-input" formControlName="type"
+                                                        value="student" type="radio" name="type" id="flexRadioDefault1"
+                                                        checked>
+                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                        Estudiante
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="form-check  col-4 mx-auto">
+                                                    <input class="form-check-input" formControlName="type"
+                                                        value="employer" type="radio" name="type"
+                                                        id="flexRadioDefault2">
+                                                    <label class="form-check-label" for="flexRadioDefault2">
+                                                        Empleador
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="form-buttons ml-aut my-2">
+                                <div *ngIf="!isFormSubmitted">
+                                    <button class="btn btn-primary" (click)="register()"
+                                        [disabled]=" this.form.status == 'INVALID'">Aceptar</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-</form>
+    <div class="row">
+        <div class="col-12 mx-auto">
+
+            <div class="jumbotron bg-transparent text-center">
+                <div *ngIf="!user" class="card text-center">
+                    <h6 class="card-header">
+                        Registrarse con Google
+                    </h6>
+
+                    <form [formGroup]="formGoogle">
+                        <fieldset class="form-group">
+                            <!-- <legend>Acceder</legend> -->
+                            <div class="continer">                                
+                                <div class="row my-2">
+                                    <div class="col-6 d-flex flex-column justify-content-start">
+                                        <div class="row ">
+                                            <div class="form-check  col-4 mx-auto">
+                                                <input class="form-check-input" formControlName="typeGoogle" value="student"
+                                                    type="radio" name="typeGoogle" id="flexRadioDefault3" checked>
+                                                <label class="form-check-label" for="flexRadioDefault3">
+                                                    Estudiante
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="form-check  col-4 mx-auto">
+                                                <input class="form-check-input" formControlName="typeGoogle" value="employer"
+                                                    type="radio" name="typeGoogle" id="flexRadioDefault4">
+                                                <label class="form-check-label" for="flexRadioDefault4">
+                                                    Empleador
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>   
+                        <div class="form-buttons ml-aut my-2">
+                            <div *ngIf="!isFormSubmitted">
+                                <button class="btn btn-primary btn-social-icon btn-google mx-1"
+                                 (click)="registerWithGoogle()"
+                                 [disabled]=" this.formGoogle.status == 'INVALID'"><span
+                                class="fab fa-google"></span></button> 
+                            </div>
+                        </div> 
+                    </form>
+                </div>
+            </div>
+            <!-- <div *ngIf="user" class="card text-center">
+                <div class="card-block"></div>
+                <img *ngIf="user.photoUrl" class="card-img-top img-responsive photo" src="{{ user.photoUrl }}">
+                <div class="card-block">
+                    <h4 class="card-title">{{ user.name }}</h4>
+                    <p class="card-text">{{ user.email }}</p>
+                    <p class="card-text">Logged in with {{ user.provider }}</p>
+                </div>
+                <div class="card-block">
+                    <button class="btn btn-danger" type="submit" (click)="signOut()">Sign out</button>
+                </div>
+            
+            </div> -->
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- <div class="container">
+    <div class="row">
+        <h3 class="display-3">Acceder</h3>
+    </div>
+    <div class="row">
+        <div class="col-4">
+
+
+        </div>
+        <div class="col-8">
+
+
+        </div>
+    </div>
+</div> -->

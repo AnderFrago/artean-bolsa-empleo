@@ -6,91 +6,94 @@ import { User, UserState } from './user';
 import { environment } from './../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ArteanService {
-
   private APIEndpoint = environment.APIEndpoint;
 
   private arteanUrl = `https://${this.APIEndpoint}:8000/api/v1/artean`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-
-  updateEmployerState(employername: string, newstate: UserState): Observable<string> {
-    const url = `${this.arteanUrl}/employers-update-state` ;
+  updateEmployerState(
+    employername: string,
+    newstate: UserState
+  ): Observable<string> {
+    const url = `${this.arteanUrl}/employers-update-state`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     const username = localStorage.getItem('u');
 
-    return this.http.post<any>(url, { employername, newstate }, { headers })
+    return this.http
+      .post<any>(url, { employername, newstate }, { headers })
       .pipe(
-        map(data => {
-          if (data.message.startsWith("ERROR:")) {
+        map((data) => {
+          if (data.message.startsWith('ERROR:')) {
             return null;
           }
           console.log('stateUpdated: ' + JSON.stringify(data));
-          return data.state
+          return data.state;
         }),
         catchError(this.handleError)
       );
-
   }
 
-
-  updateStudentState(studentname: string, newstate: UserState): Observable<string> {
-    const url = `${this.arteanUrl}/students-update-state` ;
+  updateStudentState(
+    studentname: string,
+    newstate: UserState
+  ): Observable<string> {
+    const url = `${this.arteanUrl}/students-update-state`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     const username = localStorage.getItem('u');
 
-    return this.http.post<any>(url, { studentname, newstate }, { headers })
+    return this.http
+      .post<any>(url, { studentname, newstate }, { headers })
       .pipe(
-        map(data => {
-          if (data.message.startsWith("ERROR:")) {
+        map((data) => {
+          if (data.message.startsWith('ERROR:')) {
             return null;
           }
           console.log('stateUpdated: ' + JSON.stringify(data));
-          return data.state
+          return data.state;
         }),
         catchError(this.handleError)
       );
-
   }
 
-  search(keyword: string):Observable<string[]> {
+  search(keyword: string): Observable<string[]> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.arteanUrl}/search`;
 
-    return this.http.post<any>(url, {keyword})
-    .pipe(
-      map(
-        data => { return data.cvs}
-      )
+    return this.http.post<any>(url, { keyword }).pipe(
+      map((data) => {
+        return data.cvs;
+      })
     );
   }
 
-  getStudentsNoActivated():Observable<any> {
-    const url = `${this.arteanUrl}/students-pending-activation` ;
-    return this.http.get<any>(url)
-      .pipe(
-        tap(data=>console.log(data),
-        map(data => {return data})
-        )
-      );
-  }
-  getEmployersNoActivated():Observable<any> {
-    const url = `${this.arteanUrl}/employers-pending-activation`;
-    return this.http.get<any>(url)
-      .pipe(
-        tap(data=>console.log(data),
-        map(data => {
+  getStudentsNoActivated(): Observable<any> {
+    const url = `${this.arteanUrl}/students-pending-activation`;
+    return this.http.get<any>(url).pipe(
+      tap(
+        (data) => console.log(data),
+        map((data) => {
           return data;
         })
-        )
-      );
+      )
+    );
   }
-
+  getEmployersNoActivated(): Observable<any> {
+    const url = `${this.arteanUrl}/employers-pending-activation`;
+    return this.http.get<any>(url).pipe(
+      tap(
+        (data) => console.log(data),
+        map((data) => {
+          return data;
+        })
+      )
+    );
+  }
 
   private handleError(err) {
     // in a real world app, we may send the server to some remote logging infrastructure

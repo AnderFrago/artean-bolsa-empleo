@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CvModule } from './cvs/cv.module';
@@ -29,6 +27,12 @@ import { AlertsComponent } from './alerts/alerts.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule, MatSpinner } from '@angular/material/progress-spinner';
 
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import {
+  GoogleLoginProvider,
+  //FacebookLoginProvider
+} from 'angularx-social-login';
+
 
 @NgModule({
   declarations: [
@@ -52,7 +56,8 @@ import { MatProgressSpinnerModule, MatSpinner } from '@angular/material/progress
     BrowserAnimationsModule,
     MatButtonModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    SocialLoginModule
 
   ],
   providers: [OfferService, CvService, AuthService, ArteanService,
@@ -61,6 +66,27 @@ import { MatProgressSpinnerModule, MatSpinner } from '@angular/material/progress
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
+    },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '944387348450-2t0jjcie7lerot31je2btibf80ac0erh.apps.googleusercontent.com'
+            )
+          },
+          // {
+          //   id: FacebookLoginProvider.PROVIDER_ID,
+          //   provider: new FacebookLoginProvider('clientId')
+          // }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
     }
   ],
   bootstrap: [AppComponent]
