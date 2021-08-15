@@ -1,8 +1,5 @@
-
-
 export const environment = {
   production: false,
- //APIEndpoint: 'localhost'
- APIEndpoint: '52.178.13.119'
-
+  //APIEndpoint: 'localhost'
+  APIEndpoint: 'artean.westeurope.cloudapp.azure.com',
 };

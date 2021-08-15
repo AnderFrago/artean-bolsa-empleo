@@ -11,13 +11,13 @@ The great advantage of this application is that it allows the administrator user
 
 In addition, to avoid the massive registration of fake accounts, either from former students or employers, every time there is a new registration it must be validated by the account administrator.
 
-## [Demo web page](https://52.178.13.119:4200/home)
+## [Demo web page](https://artean.westeurope.cloudapp.azure.com:4200/home)
 
 > The certificate is not valid, to use the application you must accept the risk of accessing the urls below:
 
-- [Fontend](https://52.178.13.119:4200)
+- [Fontend](https://artean.westeurope.cloudapp.azure.com:4200)
 
-- [Backend](https://52.178.13.119:8000)
+- [Backend](https://artean.westeurope.cloudapp.azure.com:8000)
 
 ---
 
