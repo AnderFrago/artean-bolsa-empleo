@@ -46,7 +46,7 @@ export class LoginComponent {
         this.data = {
           ...this.data,
           id_token: user.authToken,
-          u: user.email,
+          u: user.name,
         };
         this.provider = 'GOOGLE';
         this.authService.login(user.name, user.id).subscribe((d) => {
