@@ -117,7 +117,13 @@ class CVController extends AbstractController
         $cvs  = $this->getDoctrine()->getManager()
             ->getRepository(CV::class)
             ->findCVByUsername($username);
-        $cv = $cvs[count($cvs)-1];
+        if(count($cvs)>0){
+            $cv = $cvs[count($cvs)-1];
+        } else {
+            $cv = $cvs[0];
+        }
+
+
 
         $pdfPath = $cv->getPathName();
 
