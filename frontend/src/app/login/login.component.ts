@@ -45,11 +45,14 @@ export class LoginComponent {
         this.user = user;
         this.data = {
           ...this.data,
-          id_token: user.authToken,
           u: user.name,
         };
         this.provider = 'GOOGLE';
         this.authService.login(user.name, user.id).subscribe((d) => {
+          this.data = {
+            ...this.data,
+            id_token: d.id_token,
+          };
           // Check provider
           this.authService
             .checkProvider(user.name, this.provider)
