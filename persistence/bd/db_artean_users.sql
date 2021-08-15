@@ -41,7 +41,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-insert into users (username,email,password,is_active,provider,roles) values ("artean", "ander_frago@cuatrovientos.org", "$argon2id$v=19$m=65536,t=4,p=1$0fvkXpHdHuS1IIPYeqj/Tg$WoCUkN4zRl80TedHReCeYruDEd0+cfEwqKoasZCzZGI", true, "ARTEAN", "artean");
+insert into users (username,email,password,is_active,provider,roles) values ("artean", "artean", "$argon2id$v=19$m=65536,t=4,p=1$0fvkXpHdHuS1IIPYeqj/Tg$WoCUkN4zRl80TedHReCeYruDEd0+cfEwqKoasZCzZGI", true, "ARTEAN", "artean");
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
