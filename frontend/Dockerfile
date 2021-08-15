@@ -6,7 +6,7 @@ RUN npm install -g @angular/cli@11.2.1
 COPY . .
 RUN npm run build --pbuild
 
-CMD ng serve --port 4200 --host 0.0.0.0 --ssl true
+CMD ng serve --port 4200 --host 0.0.0.0 --ssl true --disable-host-check
 
 
 
