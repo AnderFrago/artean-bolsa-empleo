@@ -35,7 +35,7 @@ class User implements UserInterface
 
     /**
      * @Groups("user")
-     * @ORM\Column(type="string", length=25, unique=true)
+     * @ORM\Column(type="string", length=125, unique=true)
      */
     private $email;
 
