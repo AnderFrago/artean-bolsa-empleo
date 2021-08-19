@@ -88,7 +88,7 @@ export class RegisterComponent {
                       this.data = {
                         ...this.data,
                         id_token: d.id_token,
-                        u: user.email,
+                        u: val.username,
                       };
                       this.saveSession(user.name, user.id);
                       console.log('User is logged in');
@@ -149,7 +149,7 @@ export class RegisterComponent {
                 this.data = {
                   ...this.data,
                   id_token: d.id_token,
-                  u: val.email,
+                  u: val.username,
                 };
                 this.saveSession(val.username, val.password);
                 console.log('User is logged in');

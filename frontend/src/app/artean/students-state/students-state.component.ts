@@ -1,39 +1,42 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserState } from 'src/app/shared/user';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ArteanService } from 'src/app/shared/artean.service';
-
+import { MailerService } from 'src/app/shared/mailer.service';
 
 @Component({
   selector: 'app-students-state',
   templateUrl: './students-state.component.html',
-  styleUrls: ['./students-state.component.scss']
+  styleUrls: ['./students-state.component.scss'],
 })
 export class StudentsStateComponent implements OnInit {
-
   isSet = false;
   stateForm: any;
-  state: UserState
-
+  state: UserState;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
     private data: any,
     public fb: FormBuilder,
     private arteanService: ArteanService,
+    private mailerService: MailerService,
     private dialogRef: MatDialogRef<StudentsStateComponent>
-  ) { }
-
+  ) {}
 
   ngOnInit(): void {
     this.stateForm = this.fb.group({
-      state: [this.data.numstate, [Validators.required]]
-    })
+      state: [this.data.numstate, [Validators.required]],
+    });
   }
-
-
 
   get myForm() {
     return this.stateForm.get('state');
@@ -44,7 +47,7 @@ export class StudentsStateComponent implements OnInit {
     if (!this.stateForm.valid) {
       return false;
     } else {
-      console.log(JSON.stringify(this.stateForm.value))
+      console.log(JSON.stringify(this.stateForm.value));
       let newnumstate = parseInt(this.stateForm.value.state);
 
       switch (newnumstate) {
@@ -52,22 +55,20 @@ export class StudentsStateComponent implements OnInit {
           this.state = UserState.Validated;
           break;
         case 2:
-          this.state = UserState.Rejected
-          break;       
+          this.state = UserState.Rejected;
+          break;
         default:
-          this.state = UserState.Waiting
+          this.state = UserState.Waiting;
           break;
       }
 
-      this.arteanService.updateStudentState( this.data.studentname,  this.state).subscribe(data => {
-         console.log(data);
-         this.dialogRef.close();
-       })
-
-
+      this.arteanService
+        .updateStudentState(this.data.studentname, this.state)
+        .subscribe((data) => {
+          console.log(data);
+          this.mailerService.accountValidated();
+          this.dialogRef.close();
+        });
     }
-
   }
-
-  
 }
