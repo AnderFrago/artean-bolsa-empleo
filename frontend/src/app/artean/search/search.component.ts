@@ -6,76 +6,67 @@ import { ApplymentsService } from 'src/app/shared/applyments.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 import { CvService } from 'src/app/shared/cv.service';
-import { AlertsComponent } from 'src/app/alerts/alerts.component';
 import { MatDialog } from '@angular/material/dialog';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-
   pageTitle = 'Buscador de ofertas';
   errorMessage: string;
   searchForm: FormGroup;
   isFormSubmitted: boolean = false;
 
-  keyword = ''
+  keyword = '';
 
-  cvs : string[] 
+  cvs: string[];
 
   constructor(
-    private fb: FormBuilder, 
-    private arteanService:ArteanService ,
-    private cvService:CvService ,
-    private authService:AuthService ,
+    private fb: FormBuilder,
+    private arteanService: ArteanService,
+    private cvService: CvService,
+    private authService: AuthService,
     private router: Router,
-    private applymentsService: ApplymentsService,
-    public dialog: MatDialog
-  ) { }
+    public dialog: MatDialog,
+    private toastrService: ToastrService
+  ) {}
 
   ngOnInit(): void {
-    this.authService.getState().subscribe(data=>{
-      if(data != 1){
-          // alert("Cuenta no validada");
-          this.dialog.open(AlertsComponent, {
-            data: {
-              item: "Cuenta no validada",
-              type: "info"
-            }
-          });
-        this.authService.logout()
-        this.router.navigate(['login'])
+    this.authService.getState().subscribe((data) => {
+      if (data != 1) {
+        this.toastrService.warning(
+          'La cuenta debe ser validada por el administrador de Artean',
+          'Cuenta no validada'
+        );
+        this.authService.logout();
+        this.router.navigate(['login']);
       }
-  });
+    });
 
     this.searchForm = this.fb.group({
       keyword: '',
     });
   }
 
-  search(){
+  search() {
     if (this.searchForm.valid) {
       if (this.searchForm.dirty) {
         this.isFormSubmitted = true;
         this.keyword = this.searchForm.value.keyword;
-        this.arteanService.search(this.keyword).subscribe(
-          data => {
-            this.cvs = data;
-            this.isFormSubmitted = false;
-          } 
-        )
+        this.arteanService.search(this.keyword).subscribe((data) => {
+          this.cvs = data;
+          this.isFormSubmitted = false;
+        });
       }
     }
   }
 
-
   loadCV(fileName) {
-    this.cvService.showCvByFileName(fileName).subscribe(data => {
-      saveAs(data.file, fileName, { type: "application/pdf" });
+    this.cvService.showCvByFileName(fileName).subscribe((data) => {
+      saveAs(data.file, fileName, { type: 'application/pdf' });
     });
   }
-
 }

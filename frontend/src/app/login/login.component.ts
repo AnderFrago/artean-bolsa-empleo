@@ -3,13 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { AuthService } from '../shared/auth.service';
-import { AlertsComponent } from '../alerts/alerts.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSpinner } from '@angular/material/progress-spinner';
 import { SocialAuthService } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
 import { AuthResult } from '../shared/authresult';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +30,8 @@ export class LoginComponent {
     private authService: AuthService,
     private socialAuthService: SocialAuthService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private toastrService: ToastrService
   ) {
     this.form = this.fb.group({
       username: ['', Validators.required],
@@ -100,12 +101,7 @@ export class LoginComponent {
         },
         (error) => {
           this.isFormSubmitted = false;
-          this.dialog.open(AlertsComponent, {
-            data: {
-              item: `${error}`,
-              type: 'error',
-            },
-          });
+          this.toastrService.error(`${error}`, 'ERROR:');
         }
       );
     }

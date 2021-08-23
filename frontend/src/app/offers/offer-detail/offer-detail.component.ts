@@ -7,16 +7,15 @@ import { AuthService } from 'src/app/shared/auth.service';
 import { Offer, OfferState } from 'src/app/shared/offer';
 import { OfferService } from 'src/app/shared/offer.service';
 import { saveAs } from 'file-saver';
-import { AlertsComponent } from 'src/app/alerts/alerts.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-offer-detail',
   templateUrl: './offer-detail.component.html',
-  styleUrls: ['./offer-detail.component.scss']
+  styleUrls: ['./offer-detail.component.scss'],
 })
 export class OfferDetailComponent implements OnInit {
-
   offer: Offer;
   offerId: number;
   isOwner = false;
@@ -29,63 +28,58 @@ export class OfferDetailComponent implements OnInit {
     private offerService: OfferService,
     private authService: AuthService,
     private applymentsService: ApplymentsService,
-    iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
-    public dialog: MatDialog
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer,
+    public dialog: MatDialog,
+    private toastrService: ToastrService
   ) {
-
     iconRegistry.addSvgIcon(
       'file-down',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/images/filedown-icon.svg'));
-
+      sanitizer.bypassSecurityTrustResourceUrl(
+        'assets/images/filedown-icon.svg'
+      )
+    );
   }
 
   ngOnInit() {
-    this.authService.getState().subscribe(data=>{
-        if(data != 1){
-          // alert("Cuenta no validada");
-          this.dialog.open(AlertsComponent, {
-            data: {
-              item: "Cuenta no validada",
-              type: "info"
-            }
-          });
-          this.authService.logout()
-          this.router.navigate(['login'])
-        }
+    this.authService.getState().subscribe((data) => {
+      if (data != 1) {
+        this.toastrService.warning(
+          'La cuenta debe ser validada por el administrador de Artean',
+          'Cuenta no validada'
+        );
+        this.authService.logout();
+        this.router.navigate(['login']);
+      }
     });
 
     this.offerId = parseInt(this.activatedroute.snapshot.params['id']);
-    this.offerService.getOfferById(this.offerId).subscribe(data => {
-      if (data.message.includes("owner")) {
+    this.offerService.getOfferById(this.offerId).subscribe((data) => {
+      if (data.message.includes('owner')) {
         this.isOwner = true;
       }
       this.offer = data.offer;
     });
-    this.isStudent = this.authService.getRole() === "s";
+    this.isStudent = this.authService.getRole() === 's';
 
-    this.applymentsService.getApplymentState(this.offerId).subscribe(data => {
+    this.applymentsService.getApplymentState(this.offerId).subscribe((data) => {
       this.offerState = data;
     });
-
   }
 
-
   loadOffer(fileName) {
-    this.offerService.loadOffer(fileName).subscribe(data => {
-      saveAs(data.file, fileName, { type: "application/pdf" });
+    this.offerService.loadOffer(fileName).subscribe((data) => {
+      saveAs(data.file, fileName, { type: 'application/pdf' });
     });
   }
 
-
   apply() {
-    this.offerService.apply(this.offer).subscribe(
-      data => {
-        console.log(data);
-        if (data != null) {
-          this.offerState = data;
-        }
+    this.offerService.apply(this.offer).subscribe((data) => {
+      console.log(data);
+      if (data != null) {
+        this.offerState = data;
       }
-    );
+    });
     // TODO Treatment of response
   }
 
@@ -93,9 +87,9 @@ export class OfferDetailComponent implements OnInit {
     this.router.navigate(['/offers', this.offerId, 'edit']);
   }
   goDelete(): void {
-    this.offerService.deleteOffer(this.offerId).subscribe(
-      data => this.router.navigate([''])
-    );
+    this.offerService
+      .deleteOffer(this.offerId)
+      .subscribe((data) => this.router.navigate(['']));
   }
   goManage(): void {
     this.router.navigate(['/applyments', this.offerId, 'manage']);
@@ -104,7 +98,4 @@ export class OfferDetailComponent implements OnInit {
   onBack(): void {
     this.router.navigate(['']);
   }
-
 }
-
-

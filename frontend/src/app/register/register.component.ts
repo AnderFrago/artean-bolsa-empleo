@@ -9,7 +9,7 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
 import { AuthResult } from '../shared/authresult';
 import { MatDialog } from '@angular/material/dialog';
-import { AlertsComponent } from '../alerts/alerts.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'register',
@@ -28,7 +28,8 @@ export class RegisterComponent {
     private authService: AuthService,
     private socialAuthService: SocialAuthService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private toastrService: ToastrService
   ) {
     this.form = this.fb.group({
       username: ['', Validators.required],
@@ -67,12 +68,7 @@ export class RegisterComponent {
                 // User already exists
                 if (typeof d.error != 'undefined') {
                   this.isFormSubmitted = false;
-                  this.dialog.open(AlertsComponent, {
-                    data: {
-                      item: `${d.error.message}`,
-                      type: 'error',
-                    },
-                  });
+                  this.toastrService.warning(`${d.error.message}`, 'ERROR:');
                 }
 
                 this.data = {
@@ -98,12 +94,7 @@ export class RegisterComponent {
               },
               (error) => {
                 this.isFormSubmitted = false;
-                this.dialog.open(AlertsComponent, {
-                  data: {
-                    item: `${error}`,
-                    type: 'error',
-                  },
-                });
+                this.toastrService.error(`${error}`, 'ERROR:');
               }
             );
         });
@@ -131,12 +122,7 @@ export class RegisterComponent {
         .subscribe((d) => {
           if (typeof d.error !== 'undefined') {
             this.isFormSubmitted = false;
-            this.dialog.open(AlertsComponent, {
-              data: {
-                item: `${d.error.message}`,
-                type: 'error',
-              },
-            });
+            this.toastrService.warning(`${d.error.message}`, 'ERROR:');
           } else {
             this.data = {
               ...d,

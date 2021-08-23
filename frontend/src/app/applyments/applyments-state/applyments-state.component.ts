@@ -1,14 +1,6 @@
-import {
-  Component,
-  EventEmitter,
-  Inject,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CVState } from 'src/app/shared/cv';
-import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ApplymentsService } from 'src/app/shared/applyments.service';
 import { MailerService } from 'src/app/shared/mailer.service';

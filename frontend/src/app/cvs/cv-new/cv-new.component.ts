@@ -3,20 +3,19 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { AlertsComponent } from 'src/app/alerts/alerts.component';
 import { AuthService } from 'src/app/shared/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 
 import { CvService } from 'src/app/shared/cv.service';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cv-new',
   templateUrl: './cv-new.component.html',
-  styleUrls: ['./cv-new.component.scss']
+  styleUrls: ['./cv-new.component.scss'],
 })
-export class CvNewComponent implements OnInit{
-  pageTitle = "Subir CV";
+export class CvNewComponent implements OnInit {
+  pageTitle = 'Subir CV';
 
   fileName = '';
 
@@ -25,27 +24,24 @@ export class CvNewComponent implements OnInit{
   uploadProgress: number;
   uploadSub: Subscription;
 
-
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
     private cvService: CvService,
     private authService: AuthService,
     private router: Router,
-    public dialog: MatDialog
-    ) { }
+    public dialog: MatDialog,
+    private toastrService: ToastrService
+  ) {}
 
   ngOnInit(): void {
-    this.authService.getState().subscribe(data=>{
-      if(data != 1){
-          // alert("Cuenta no validada");
-          this.dialog.open(AlertsComponent, {
-            data: {
-              item: "Cuenta no validada",
-              type: "info"
-            }
-          });
-        this.authService.logout()
-        this.router.navigate(['login'])
+    this.authService.getState().subscribe((data) => {
+      if (data != 1) {
+        this.toastrService.warning(
+          'La cuenta debe ser validada por el administrador de Artean',
+          'Cuenta no validada'
+        );
+        this.authService.logout();
+        this.router.navigate(['login']);
       }
     });
   }
@@ -56,24 +52,21 @@ export class CvNewComponent implements OnInit{
     if (file) {
       this.fileName = file.name;
       const formData = new FormData();
-      formData.append("cv", file);
+      formData.append('cv', file);
 
-      this.uploadSub = this.cvService.createCV(formData).subscribe(event => {
+      this.uploadSub = this.cvService.createCV(formData).subscribe((event) => {
         if (event.type == HttpEventType.UploadProgress) {
           this.uploadProgress = Math.round(100 * (event.loaded / event.total));
         } else if (event.type == HttpEventType.Sent) {
-          console.log("Upload finished");
-          this.dialog.open(AlertsComponent, {
-            data: {
-              item: "Se ha almacenado su CV",
-              type: "info"
-            }
-          });
+          //console.log('Upload finished');
+          this.toastrService.warning(
+            'Se ha almacenado el CV',
+            'CV actualizado'
+          );
           this.reset();
         }
       });
     }
-
   }
 
   cancelUpload() {
@@ -85,6 +78,4 @@ export class CvNewComponent implements OnInit{
     this.uploadProgress = null;
     this.uploadSub = null;
   }
-
-
 }

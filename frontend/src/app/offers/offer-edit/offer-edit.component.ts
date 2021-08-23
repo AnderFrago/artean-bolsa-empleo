@@ -3,20 +3,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AlertsComponent } from 'src/app/alerts/alerts.component';
 import { AuthService } from 'src/app/shared/auth.service';
 import { Offer } from 'src/app/shared/offer';
 import { OfferService } from 'src/app/shared/offer.service';
 import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-offer-edit',
   templateUrl: './offer-edit.component.html',
-  styleUrls: ['./offer-edit.component.scss']
+  styleUrls: ['./offer-edit.component.scss'],
 })
 export class OfferEditComponent implements OnInit {
-
-
   pageTitle = 'Editar oferta';
   errorMessage: string;
   offerForm: FormGroup;
@@ -26,7 +24,6 @@ export class OfferEditComponent implements OnInit {
 
   isFormSubmitted: boolean = false;
 
-
   uploadProgress: number;
   uploadSub: Subscription;
   fileName = '';
@@ -35,27 +32,26 @@ export class OfferEditComponent implements OnInit {
   file: File;
   formData: FormData;
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private activatedroute: ActivatedRoute,
     private router: Router,
     private offerService: OfferService,
     private authService: AuthService,
-    public dialog: MatDialog
-    ) { }
+    public dialog: MatDialog,
+    private toastrService: ToastrService
+  ) {}
 
   ngOnInit(): void {
-    this.authService.getState().subscribe(data=>{
-        if(data != 1){
-          // alert("Cuenta no validada");
-          this.dialog.open(AlertsComponent, {
-            data: {
-              item: "Cuenta no validada",
-              type: "info"
-            }
-          });
-          this.authService.logout()
-          this.router.navigate(['login'])
-        }
+    this.authService.getState().subscribe((data) => {
+      if (data != 1) {
+        this.toastrService.warning(
+          'La cuenta debe ser validada por el administrador de Artean',
+          'Cuenta no validada'
+        );
+        this.authService.logout();
+        this.router.navigate(['login']);
+      }
     });
 
     this.offerForm = this.fb.group({
@@ -69,7 +65,7 @@ export class OfferEditComponent implements OnInit {
     // Read the offer Id from the route parameter
     this.offerId = parseInt(this.activatedroute.snapshot.params['id']);
 
-    this.offerService.getOfferById(this.offerId).subscribe(data => {
+    this.offerService.getOfferById(this.offerId).subscribe((data) => {
       this.offer = data.offer;
       this.fileName = data.offer.original_name;
       this.offerForm.setValue({
@@ -77,73 +73,78 @@ export class OfferEditComponent implements OnInit {
         position: data.offer.position,
         dueDate: data.offer.due_date,
         requirements: data.offer.minimum_requirements,
-        description: data.offer.description
+        description: data.offer.description,
       });
     });
   }
-
 
   saveOffer(): void {
     this.isFormSubmitted = true;
 
     if (this.offerForm.valid && typeof this.file !== 'undefined') {
       //if (this.offerForm.dirty) {
-     // this.offer = this.offerForm.value;
-      this.offer.company = this.offerForm.value.company || this.offer.company
-      this.offer.position = this.offerForm.value.position || this.offer.position
-      this.offer.dueDate = this.offerForm.value.due_date || this.offer.dueDate
-      this.offer.requirements = this.offerForm.value.minimum_requirements || this.offer.requirements
-      this.offer.description = this.offerForm.value.description || this.offer.description
+      // this.offer = this.offerForm.value;
+      this.offer.company = this.offerForm.value.company || this.offer.company;
+      this.offer.position =
+        this.offerForm.value.position || this.offer.position;
+      this.offer.dueDate = this.offerForm.value.due_date || this.offer.dueDate;
+      this.offer.requirements =
+        this.offerForm.value.minimum_requirements || this.offer.requirements;
+      this.offer.description =
+        this.offerForm.value.description || this.offer.description;
 
       this.offer.id = this.offerId;
-      this.offer.owner = localStorage.getItem('u')
-      this.offer.originalFileName = this.fileName
+      this.offer.owner = localStorage.getItem('u');
+      this.offer.originalFileName = this.fileName;
 
-      this.offerService.updateOffer(this.offer)
-        .subscribe(
-          data => {
-            // save file
-            this.uploadSub = this.offerService.createOfferPDF(this.formData).subscribe(event => {
+      this.offerService.updateOffer(this.offer).subscribe(
+        (data) => {
+          // save file
+          this.uploadSub = this.offerService
+            .createOfferPDF(this.formData)
+            .subscribe((event) => {
               if (this.event.type == HttpEventType.UploadProgress) {
-                this.uploadProgress = Math.round(100 * (this.event.loaded / this.event.total));
+                this.uploadProgress = Math.round(
+                  100 * (this.event.loaded / this.event.total)
+                );
               } else if (this.event.type == HttpEventType.Sent) {
-
-                console.log("Upload finished");
+                console.log('Upload finished');
                 this.reset();
               }
             });
 
-            this.onSaveComplete();
-          },
-          (error: any) => this.errorMessage = <any>error
-        );
+          this.onSaveComplete();
+        },
+        (error: any) => (this.errorMessage = <any>error)
+      );
 
       // } else {
       //   this.onSaveComplete();
       //   this.errorMessage = 'Por favor, termina de insertar valores.';
       // }
-    }else if(this.offerForm.valid) {
-      this.offer.company = this.offerForm.value.company || this.offer.company
-      this.offer.position = this.offerForm.value.position || this.offer.position
-      this.offer.dueDate = this.offerForm.value.due_date || this.offer.dueDate
-      this.offer.requirements = this.offerForm.value.minimum_requirements || this.offer.requirements
-      this.offer.description = this.offerForm.value.description || this.offer.description
+    } else if (this.offerForm.valid) {
+      this.offer.company = this.offerForm.value.company || this.offer.company;
+      this.offer.position =
+        this.offerForm.value.position || this.offer.position;
+      this.offer.dueDate = this.offerForm.value.due_date || this.offer.dueDate;
+      this.offer.requirements =
+        this.offerForm.value.minimum_requirements || this.offer.requirements;
+      this.offer.description =
+        this.offerForm.value.description || this.offer.description;
 
       this.offer.id = this.offerId;
-      this.offer.owner = localStorage.getItem('u')
-      this.offer.originalFileName = this.fileName
+      this.offer.owner = localStorage.getItem('u');
+      this.offer.originalFileName = this.fileName;
 
-      this.offerService.updateOffer(this.offer)
-        .subscribe(
-          data => {
-              this.onSaveComplete();
-          },
-          (error: any) => this.errorMessage = <any>error
-        );
+      this.offerService.updateOffer(this.offer).subscribe(
+        (data) => {
+          this.onSaveComplete();
+        },
+        (error: any) => (this.errorMessage = <any>error)
+      );
     } else if (typeof this.file !== 'undefined') {
       this.errorMessage = 'Por favor, corrije los errores de validación.';
       this.isFormSubmitted = false;
-
     }
   }
 
@@ -159,8 +160,7 @@ export class OfferEditComponent implements OnInit {
     if (this.file) {
       this.fileName = this.file.name;
       this.formData = new FormData();
-      this.formData.append("cv", this.file);
-
+      this.formData.append('cv', this.file);
     }
   }
 
@@ -173,6 +173,4 @@ export class OfferEditComponent implements OnInit {
     this.uploadProgress = null;
     this.uploadSub = null;
   }
-
-
 }
