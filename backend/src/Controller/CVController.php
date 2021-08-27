@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\CVsMgr\CV;
+use App\Entity\UserMgr\Student;
 use App\Entity\UserMgr\User;
 use SplFileObject;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +15,30 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 class CVController extends AbstractController
 {
+
+    private function removePreviousCVs(User $student){
+        $em = $this->getDoctrine()->getManager();
+        $cvs = $this->getDoctrine()
+            ->getRepository(CV::class)
+            ->findCVByUsername($student->getUsername());
+
+        foreach ($cvs as $cv) {
+            $filename = $cv->getFileName();
+            $student->removeCv($cv);
+            $em->remove($cv);
+            // Removing files from FS
+            $dir_pdf =  $_ENV['CV_PATH_PDF'];
+            $path = "$dir_pdf/$filename";
+            $process = new Process(['rm', "$path"]);
+            $process->run();
+            // executes after the command finishes
+            if (!$process->isSuccessful()) {
+                throw new ProcessFailedException($process);
+            }
+        }
+        $em->flush();
+    }
+
     /**
      * Adds a new CV to a user. Saves the PDF file in the system and
      * the transformation of the PDF to text is stored in
@@ -74,6 +99,7 @@ class CVController extends AbstractController
             'username' => $username
         ]);
         //$cv->setStudent($student);
+        $this->removePreviousCVs($student);
         $student->addCV($cv);
         $em->persist($cv);
         $em->flush();

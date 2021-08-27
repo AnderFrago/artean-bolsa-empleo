@@ -61,7 +61,7 @@ export class LoginComponent {
               if (typeof p != 'undefined') {
                 this.saveSession(user.name, user.id);
                 console.log('User is logged in');
-                this.router.navigateByUrl('/');
+                this.router.navigateByUrl('/home');
               }
             });
         });

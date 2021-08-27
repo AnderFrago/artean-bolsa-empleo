@@ -39,6 +39,12 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { FirebaseService } from './shared/firebase.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,12 +73,16 @@ import { ToastrModule } from 'ngx-toastr';
       closeButton: true,
       progressBar: true,
     }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireDatabaseModule,
   ],
   providers: [
     OfferService,
     CvService,
     AuthService,
     ArteanService,
+    FirebaseService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,

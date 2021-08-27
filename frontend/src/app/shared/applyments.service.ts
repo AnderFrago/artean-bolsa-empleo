@@ -7,6 +7,7 @@ import { OfferState } from './offer';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from './../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { FirebaseService } from './firebase.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,8 @@ export class ApplymentsService {
   constructor(
     private http: HttpClient,
     public dialog: MatDialog,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private firebaseService: FirebaseService
   ) {}
 
   updateApplymentState(
@@ -29,8 +31,8 @@ export class ApplymentsService {
   ): Observable<string> {
     const url = `${this.applymentsUrl}/update-state`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    const username = localStorage.getItem('u');
+    const username = this.firebaseService.get_Username();
+    // const username = localStorage.getItem('u');
 
     return this.http
       .post<any>(url, { offerId, newstate, studentname }, { headers })
@@ -50,7 +52,8 @@ export class ApplymentsService {
     const url = `${this.applymentsUrl}/cvs-offer`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    const username = localStorage.getItem('u');
+    const username = this.firebaseService.get_Username();
+    // const username = localStorage.getItem('u');
 
     return this.http.post<any>(url, { username, id }, { headers }).pipe(
       map((data) => {
@@ -64,11 +67,11 @@ export class ApplymentsService {
     );
   }
 
-  getApplymentState(id: number) {
+  getApplymentState(id: number, username: string) {
     const url = `${this.applymentsUrl}/state`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    const username = localStorage.getItem('u');
+    // const username = localStorage.getItem('u');
 
     return this.http.post<any>(url, { username, id }, { headers }).pipe(
       map((data) => {

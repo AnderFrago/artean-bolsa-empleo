@@ -5,7 +5,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './shared/auth-guard.service';
 
-
 @NgModule({
   imports: [
     RouterModule.forRoot([
@@ -16,29 +15,30 @@ import { AuthGuard } from './shared/auth-guard.service';
       {
         path: 'artean',
         loadChildren: () =>
-          import('./artean/artean.module').then(m => m.ArteanModule),
-        canActivate: [AuthGuard]
+          import('./artean/artean.module').then((m) => m.ArteanModule),
+        canActivate: [AuthGuard],
       },
       {
         path: 'offers',
         loadChildren: () =>
-          import('./offers/offer.module').then(m => m.OfferModule),
-        canActivate: [AuthGuard]
+          import('./offers/offer.module').then((m) => m.OfferModule),
+        canActivate: [AuthGuard],
       },
       {
         path: 'cvs',
-        loadChildren: () =>
-          import('./cvs/cv.module').then(m => m.CvModule),
-        canActivate: [AuthGuard]
+        loadChildren: () => import('./cvs/cv.module').then((m) => m.CvModule),
+        canActivate: [AuthGuard],
       },
       {
         path: 'applyments',
         loadChildren: () =>
-          import('./applyments/applyments.module').then(m => m.ApplymentsModule),
-        canActivate: [AuthGuard]
+          import('./applyments/applyments.module').then(
+            (m) => m.ApplymentsModule
+          ),
+        canActivate: [AuthGuard],
       },
-    ])
+    ]),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

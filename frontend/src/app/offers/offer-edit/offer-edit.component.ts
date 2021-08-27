@@ -8,6 +8,7 @@ import { Offer } from 'src/app/shared/offer';
 import { OfferService } from 'src/app/shared/offer.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { FirebaseService } from 'src/app/shared/firebase.service';
 
 @Component({
   selector: 'app-offer-edit',
@@ -39,7 +40,8 @@ export class OfferEditComponent implements OnInit {
     private offerService: OfferService,
     private authService: AuthService,
     public dialog: MatDialog,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private firebaseService: FirebaseService
   ) {}
 
   ngOnInit(): void {
@@ -64,7 +66,6 @@ export class OfferEditComponent implements OnInit {
 
     // Read the offer Id from the route parameter
     this.offerId = parseInt(this.activatedroute.snapshot.params['id']);
-
     this.offerService.getOfferById(this.offerId).subscribe((data) => {
       this.offer = data.offer;
       this.fileName = data.offer.original_name;
@@ -76,6 +77,20 @@ export class OfferEditComponent implements OnInit {
         description: data.offer.description,
       });
     });
+    // this.activatedroute.params.subscribe((params) => {
+    //   let offerId = +params['id'];
+    //   this.offerService.getOfferById(this.offerId).subscribe((data) => {
+    //     this.offer = data.offer;
+    //     this.fileName = data.offer.original_name;
+    //     this.offerForm.setValue({
+    //       company: data.offer.company,
+    //       position: data.offer.position,
+    //       dueDate: data.offer.due_date,
+    //       requirements: data.offer.minimum_requirements,
+    //       description: data.offer.description,
+    //     });
+    //   });
+    // });
   }
 
   saveOffer(): void {
@@ -94,7 +109,8 @@ export class OfferEditComponent implements OnInit {
         this.offerForm.value.description || this.offer.description;
 
       this.offer.id = this.offerId;
-      this.offer.owner = localStorage.getItem('u');
+      this.offer.owner = this.firebaseService.get_Username();
+      //this.offer.owner = localStorage.getItem('u');
       this.offer.originalFileName = this.fileName;
 
       this.offerService.updateOffer(this.offer).subscribe(
@@ -133,7 +149,8 @@ export class OfferEditComponent implements OnInit {
         this.offerForm.value.description || this.offer.description;
 
       this.offer.id = this.offerId;
-      this.offer.owner = localStorage.getItem('u');
+      this.offer.owner = this.firebaseService.get_Username();
+      //this.offer.owner = localStorage.getItem('u');
       this.offer.originalFileName = this.fileName;
 
       this.offerService.updateOffer(this.offer).subscribe(

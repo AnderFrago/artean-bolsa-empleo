@@ -60,6 +60,12 @@ export class ApplymentsComponent implements OnInit {
     this.applymentsService.getCVsForOffer(this.offerId).subscribe((data) => {
       this.cvs = data;
     });
+    // this.activatedroute.params.subscribe((params) => {
+    //   let offerId = +params['id'];
+    //   this.applymentsService.getCVsForOffer(this.offerId).subscribe((data) => {
+    //     this.cvs = data;
+    //   });
+    // });
   }
 
   loadCV(fileName) {

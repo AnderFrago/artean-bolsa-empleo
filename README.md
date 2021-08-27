@@ -11,19 +11,19 @@ The great advantage of this application is that it allows the administrator user
 
 In addition, to avoid the massive registration of fake accounts, either from former students or employers, every time there is a new registration it must be validated by the account administrator.
 
-## [Demo web page](https://artean.westeurope.cloudapp.azure.com:4200/home)
+## [Demo web page](https://artean-bolsa-empleo.web.app/home)
 
 > The certificate is not valid, to use the application you must accept the risk of accessing the urls below:
 
-- [Fontend](https://artean.westeurope.cloudapp.azure.com:4200)
-
 - [Backend](https://artean.westeurope.cloudapp.azure.com:8000)
+
+- [Fontend](https://artean.westeurope.cloudapp.azure.com:4200) (Just for debug)
 
 ---
 
 ## Documentation
 
-### Artean Classic web page documentacion in this [link](https://app.gitbook.com/@ander-frago-landa/s/sym-artean/)
+### Artean Classic web page documentacion in this [link](https://anderfrago.github.io/artean-bolsa-empleo/)
 
 ### Documentation about SPA in this other [link](https://ander-frago-landa.gitbook.io/artean-spa-sym4-3/)
 

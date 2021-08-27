@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User, UserState } from './user';
 import { environment } from './../../environments/environment';
+import { FirebaseService } from './firebase.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,10 @@ export class ArteanService {
 
   private arteanUrl = `https://${this.APIEndpoint}:8000/api/v1/artean`;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private firebaseService: FirebaseService
+  ) {}
 
   updateEmployerState(
     employername: string,
@@ -22,7 +26,8 @@ export class ArteanService {
     const url = `${this.arteanUrl}/employers-update-state`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    const username = localStorage.getItem('u');
+    const username = this.firebaseService.get_Username();
+    // const username = localStorage.getItem('u');
 
     return this.http
       .post<any>(url, { employername, newstate }, { headers })
@@ -45,7 +50,8 @@ export class ArteanService {
     const url = `${this.arteanUrl}/students-update-state`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    const username = localStorage.getItem('u');
+    const username = this.firebaseService.get_Username();
+    // const username = localStorage.getItem('u');
 
     return this.http
       .post<any>(url, { studentname, newstate }, { headers })

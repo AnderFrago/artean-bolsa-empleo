@@ -4,6 +4,7 @@ import { catchError, filter, map, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
 import { environment } from './../../environments/environment';
+import { FirebaseService } from './firebase.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +12,14 @@ import { environment } from './../../environments/environment';
 export class MailerService {
   private emailUrl = `https://${environment.APIEndpoint}:8000/api/v1/email`;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private firebaseService: FirebaseService
+  ) {}
 
   statusChanged() {
-    const username = localStorage.getItem('u');
+    const username = this.firebaseService.get_Username();
+    //const username = localStorage.getItem('u');
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return (
@@ -29,7 +34,8 @@ export class MailerService {
     );
   }
   accountValidated() {
-    const username = localStorage.getItem('u');
+    const username = this.firebaseService.get_Username();
+    //const username = localStorage.getItem('u');
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return (

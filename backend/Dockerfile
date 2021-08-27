@@ -4,36 +4,36 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG PHP_VERSION
 
 # Update repositories index
-RUN apt update --fix-missing && apt upgrade -y
+RUN apt-get update --fix-missing && apt-get upgrade -y
 
 # Install util tools
 RUN ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo "UTC" > /etc/timezone
-RUN apt install -y apt-utils git rsync nano vim unzip curl wget software-properties-common 
+RUN apt-get install -y apt-utils git rsync nano vim unzip curl wget software-properties-common 
 
 # Install Apache
 RUN apt-get install -y apache2
 RUN apt-get install openssl
 
- RUN apt-get install -y php$PHP_VERSION libapache2-mod-php$PHP_VERSION
+RUN apt-get install -y php$PHP_VERSION libapache2-mod-php$PHP_VERSION
 
 # Install PHP extensions
- RUN apt-get install -y -m   php$PHP_VERSION-cli \
-                             php$PHP_VERSION-dev \
-                             php$PHP_VERSION-common \
-                             php$PHP_VERSION-json \
-                             php$PHP_VERSION-intl \
-                             php$PHP_VERSION-curl \
-                             php$PHP_VERSION-mysql \
-                             php$PHP_VERSION-gd \
-                             php$PHP_VERSION-imagick \
-                             php$PHP_VERSION-ldap \
-                             php$PHP_VERSION-soap\
-                             php$PHP_VERSION-zip \
-                             php$PHP_VERSION-mbstring \
-                             php$PHP_VERSION-bcmath \
-                             php$PHP_VERSION-xml \
-                             php$PHP_VERSION-imap \
-                             php$PHP_VERSION-bz2
+RUN apt-get install -y -m   php$PHP_VERSION-cli \
+    php$PHP_VERSION-dev \
+    php$PHP_VERSION-common \
+    php$PHP_VERSION-json \
+    php$PHP_VERSION-intl \
+    php$PHP_VERSION-curl \
+    php$PHP_VERSION-mysql \
+    php$PHP_VERSION-gd \
+    php$PHP_VERSION-imagick \
+    php$PHP_VERSION-ldap \
+    php$PHP_VERSION-soap\
+    php$PHP_VERSION-zip \
+    php$PHP_VERSION-mbstring \
+    php$PHP_VERSION-bcmath \
+    php$PHP_VERSION-xml \
+    php$PHP_VERSION-imap \
+    php$PHP_VERSION-bz2
 
 # Install XDebug
 RUN apt-get install php$PHP_VERSION-xdebug
@@ -41,7 +41,7 @@ RUN apt-get install php$PHP_VERSION-xdebug
 COPY .docker/config/20-xdebug.ini /etc/php/$PHP_VERSION/cli/conf.d/20-xdebug.ini
 
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Config Apache
 ENV APACHE_RUN_USER www-data
@@ -77,7 +77,7 @@ RUN chmod -R 755 /var/db_docs
 
 
 WORKDIR /var/www/html
- 
+
 
 EXPOSE 80
 EXPOSE 8000

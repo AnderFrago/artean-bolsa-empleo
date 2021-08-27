@@ -4,9 +4,11 @@ import * as moment from 'moment';
 import { catchError, filter, map, tap } from 'rxjs/operators';
 import { User } from './user';
 import { AuthResult } from './authresult';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 import { environment } from './../../environments/environment';
+import { FirebaseService } from './firebase.service';
+import { DocumentChangeAction } from '@angular/fire/firestore';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +17,10 @@ export class AuthService {
   private authUrl = `https://${this.APIEndpoint}:8000`;
   private privateAuthUrl = `https://${this.APIEndpoint}:8000/api/v1`;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private firebaseService: FirebaseService
+  ) {}
 
   login(username: string, password: string) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
@@ -91,23 +96,51 @@ export class AuthService {
   setSession(authResult) {
     const expiresAt = moment().add(authResult.expires_at, 'second');
 
-    localStorage.setItem('u', authResult.u);
-    localStorage.setItem('r', authResult.r);
-
+    // localStorage.setItem('u', authResult.u);
+    //localStorage.setItem('r', authResult.r);
     localStorage.setItem('id_token', authResult.id_token);
-    localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+    //localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+    let record = {};
+    record['username'] = authResult.u;
+    record['role'] = authResult.r;
+    record['id_token'] = authResult.id_token;
+    record['expires_at'] = JSON.stringify(expiresAt.valueOf());
+
+    this.firebaseService.create_User(record).then((data) => {
+      localStorage.setItem('artean_id', data.id);
+      this.firebaseService.read_Username();
+      this.firebaseService.read_Role(data.id);
+    });
   }
 
   logout() {
-    localStorage.removeItem('u');
-    localStorage.removeItem('r');
-    localStorage.removeItem('token');
-    localStorage.removeItem('expires_at');
+    const userId = localStorage.getItem('artean_id');
+    this.firebaseService.delete_User(userId);
+    localStorage.removeItem('artean_id');
+
+    //localStorage.removeItem('u');
+    // localStorage.removeItem('r');
+    localStorage.removeItem('id_token');
+    //localStorage.removeItem('expires_at');
   }
 
   isLoggedIn() {
     let now = moment();
-    return now.isBefore(this.getExpiration());
+    // return now.isBefore(this.getExpiration());
+    const userId = localStorage.getItem('artean_id');
+
+    if (userId == null) return false;
+
+    return this.firebaseService.read_Users().subscribe((data) => {
+      data.map((e) => {
+        if (e.payload.doc.id == userId) {
+          const expiration = e.payload.doc.data()['expires_at'];
+          const expiresAt = JSON.parse(expiration);
+          let expiration_date = moment(expiresAt);
+          return now.isBefore(expiration_date);
+        }
+      });
+    });
   }
 
   isLoggedOut() {
@@ -115,10 +148,19 @@ export class AuthService {
   }
 
   getExpiration() {
-    const expiration = localStorage.getItem('expires_at');
-    const expiresAt = JSON.parse(expiration);
-    let expiration_date = moment(expiresAt);
-    return expiration_date;
+    // const expiration = localStorage.getItem('expires_at');
+    const userId = localStorage.getItem('artean_id');
+
+    return this.firebaseService.read_Users().subscribe((data) => {
+      data.map((e) => {
+        if (e.payload.doc.id == userId) {
+          const expiration = e.payload.doc.data()['expires_at'];
+          const expiresAt = JSON.parse(expiration);
+          let expiration_date = moment(expiresAt);
+          return expiration_date;
+        }
+      });
+    });
   }
 
   role(username: string, password: string) {
@@ -138,17 +180,22 @@ export class AuthService {
   }
 
   getRole() {
-    return localStorage.getItem('r') === 'ROLE_STUDENT'
-      ? 's'
-      : localStorage.getItem('r') === 'ROLE_EMPLOYER'
-      ? 'e'
-      : localStorage.getItem('r') === 'ROLE_ARTEAN'
-      ? 'a'
-      : '';
+    let userId = localStorage.getItem('artean_id');
+    if (userId == null) return '';
+    //return this.firebaseService.read_Role(userId);
+
+    // return localStorage.getItem('r') === 'ROLE_STUDENT'
+    //   ? 's'
+    //   : localStorage.getItem('r') === 'ROLE_EMPLOYER'
+    //   ? 'e'
+    //   : localStorage.getItem('r') === 'ROLE_ARTEAN'
+    //   ? 'a'
+    //   : '';
   }
 
   getState() {
-    const username = localStorage.getItem('u');
+    const username = this.firebaseService.get_Username();
+    //const username = localStorage.getItem('u');
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http
       .post<any>(this.authUrl + '/state', { username }, { headers })

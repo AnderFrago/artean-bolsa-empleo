@@ -9,6 +9,7 @@ import { OfferService } from 'src/app/shared/offer.service';
 import { saveAs } from 'file-saver';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { FirebaseService } from 'src/app/shared/firebase.service';
 
 @Component({
   selector: 'app-offer-detail',
@@ -21,6 +22,7 @@ export class OfferDetailComponent implements OnInit {
   isOwner = false;
   isStudent = false;
   offerState: OfferState;
+  username: string;
 
   constructor(
     private activatedroute: ActivatedRoute,
@@ -31,7 +33,8 @@ export class OfferDetailComponent implements OnInit {
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     public dialog: MatDialog,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private firebaseService: FirebaseService
   ) {
     iconRegistry.addSvgIcon(
       'file-down',
@@ -59,12 +62,27 @@ export class OfferDetailComponent implements OnInit {
         this.isOwner = true;
       }
       this.offer = data.offer;
-    });
-    this.isStudent = this.authService.getRole() === 's';
+      // this.activatedroute.params.subscribe((params) => {
+      //   let offerId = +params['id'];
 
-    this.applymentsService.getApplymentState(this.offerId).subscribe((data) => {
-      this.offerState = data;
+      //   this.offerService.getOfferById(this.offerId).subscribe((data) => {
+      //     if (data.message.includes('owner')) {
+      //       this.isOwner = true;
+      //     }
+      //     this.offer = data.offer;
+      //   });
     });
+
+    //this.isStudent = this.authService.getRole() === 's';
+    //this.isStudent = this.authService.getRole(userId) === 'ROLE_STUDENT';
+    this.isStudent = this.firebaseService.check_RoleStudent();
+    this.username = this.firebaseService.get_Username();
+
+    this.applymentsService
+      .getApplymentState(this.offerId, this.username)
+      .subscribe((data) => {
+        this.offerState = data;
+      });
   }
 
   loadOffer(fileName) {

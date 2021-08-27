@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/ng-artean-offers",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

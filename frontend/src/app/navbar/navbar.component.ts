@@ -4,14 +4,14 @@ import { Router } from '@angular/router';
 import { CvService } from '../shared/cv.service';
 import { AuthService } from '../shared/auth.service';
 import { saveAs } from 'file-saver';
+import { FirebaseService } from '../shared/firebase.service';
 
 @Component({
   selector: 'navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-
   id: any;
   username: string;
 
@@ -19,37 +19,41 @@ export class NavbarComponent implements OnInit {
     private cvService: CvService,
     private offerService: OfferService,
     private authService: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private firebaseService: FirebaseService
+  ) {}
 
   ngOnInit() {
     if (!this.isLoggedIn()) {
       this.authService.logout();
-      this.username = "";
-      this.router.navigate(['/']);
+      this.firebaseService.clear_Username();
+      this.username = '';
+      this.router.navigate(['/home']);
     } else {
-      this.username = localStorage.getItem('u');
+      this.firebaseService.read_Username();
+      this.username = this.firebaseService.get_Username();
+      this.firebaseService.read_Role();
     }
-
   }
 
   newOffer() {
-    this.router.navigate(['/offers','new']);
+    this.router.navigate(['/offers', 'new']);
   }
   newCv() {
     this.router.navigate(['/cv', 'new']);
   }
   showCv() {
-    this.cvService.showCv().subscribe(data => {
-      saveAs(data.file, data.fileName, { type: "application/pdf" });
+    this.cvService.showCv().subscribe((data) => {
+      saveAs(data.file, data.fileName, { type: 'application/pdf' });
     });
   }
   search() {
     this.router.navigate(['/artean']);
   }
-  mngStudents(){
+  mngStudents() {
     this.router.navigate(['/artean', 'students']);
   }
-  mngEmployers(){
+  mngEmployers() {
     this.router.navigate(['/artean', 'employers']);
   }
 
@@ -61,20 +65,25 @@ export class NavbarComponent implements OnInit {
   }
   logout() {
     this.authService.logout();
-    this.username = "";
-    this.router.navigate(['/']);
+    this.username = '';
+    this.router.navigate(['/home']);
   }
   isLoggedIn() {
     return this.authService.isLoggedIn();
   }
   isStudent() {
-    return this.authService.getRole() === "s";
+    return this.firebaseService.check_RoleStudent();
   }
   isEmployer() {
-    return this.authService.getRole() === "e";
+    return this.firebaseService.check_RoleEmployer();
   }
   isArtean() {
-    return this.authService.getRole() === "a";
+    return this.firebaseService.check_RoleArtean();
   }
 
+  hasUsername() {
+    this.username = this.firebaseService.get_Username();
+    if (this.username != null) return true;
+    return false;
+  }
 }
