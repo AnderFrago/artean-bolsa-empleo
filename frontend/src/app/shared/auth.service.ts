@@ -9,6 +9,7 @@ import { Observable, throwError } from 'rxjs';
 import { environment } from './../../environments/environment';
 import { FirebaseService } from './firebase.service';
 import { DocumentChangeAction } from '@angular/fire/firestore';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class AuthService {
@@ -19,7 +20,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private firebaseService: FirebaseService
+    private firebaseService: FirebaseService,
+    private toastrService: ToastrService
   ) {}
 
   login(username: string, password: string) {
@@ -87,6 +89,8 @@ export class AuthService {
             return error;
           } else {
             console.log('registered ' + JSON.stringify(res));
+            this.firebaseService.read_Username();
+            this.firebaseService.read_Role();
             return res;
           }
         })
@@ -117,10 +121,11 @@ export class AuthService {
     const userId = localStorage.getItem('artean_id');
     this.firebaseService.delete_User(userId);
     localStorage.removeItem('artean_id');
-
+    localStorage.removeItem('id_token');
+    this.firebaseService.clear_Username();
+    this.firebaseService.clear_Role();
     //localStorage.removeItem('u');
     // localStorage.removeItem('r');
-    localStorage.removeItem('id_token');
     //localStorage.removeItem('expires_at');
   }
 
@@ -175,6 +180,8 @@ export class AuthService {
       .pipe(
         tap((res) => {
           console.log('registered ' + JSON.stringify(res));
+          this.firebaseService.read_Username();
+          this.firebaseService.read_Role();
         })
       );
   }
@@ -202,6 +209,8 @@ export class AuthService {
       .pipe(
         tap((res) => {
           console.log('registered ' + JSON.stringify(res));
+          this.firebaseService.read_Username();
+          this.firebaseService.read_Role();
         }),
         map((data) => {
           return data.state;
@@ -214,7 +223,6 @@ export class AuthService {
     // instead of just logging it to the console
     //let errorMessage: string;
     // alert(`An error occurred: ${err.error.message}`);
-
     // console.error(err.error.message);
     return throwError(new Error(err.error.message));
   }

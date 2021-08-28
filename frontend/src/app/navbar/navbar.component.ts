@@ -26,8 +26,6 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     if (!this.isLoggedIn()) {
       this.authService.logout();
-      this.firebaseService.clear_Username();
-      this.username = '';
       this.router.navigate(['/home']);
     } else {
       this.firebaseService.read_Username();

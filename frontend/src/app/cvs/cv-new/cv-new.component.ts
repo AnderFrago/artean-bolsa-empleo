@@ -23,6 +23,7 @@ export class CvNewComponent implements OnInit {
   requiredFileType: string;
   uploadProgress: number;
   uploadSub: Subscription;
+  isLoading:boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -41,7 +42,7 @@ export class CvNewComponent implements OnInit {
           'Cuenta no validada'
         );
         this.authService.logout();
-        this.router.navigate(['login']);
+        this.router.navigate(['/login']);
       }
     });
   }
@@ -53,7 +54,7 @@ export class CvNewComponent implements OnInit {
       this.fileName = file.name;
       const formData = new FormData();
       formData.append('cv', file);
-
+      this.isLoading = true;
       this.uploadSub = this.cvService.createCV(formData).subscribe((event) => {
         if (event.type == HttpEventType.UploadProgress) {
           this.uploadProgress = Math.round(100 * (event.loaded / event.total));
@@ -63,6 +64,7 @@ export class CvNewComponent implements OnInit {
             'Se ha almacenado el CV',
             'CV actualizado'
           );
+          this.isLoading = false;
           this.reset();
         }
       });

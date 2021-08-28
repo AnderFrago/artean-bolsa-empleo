@@ -90,6 +90,10 @@ export class RegisterComponent {
                       console.log('User is logged in');
                       this.router.navigateByUrl('/');
                     });
+                },
+                (error) => {
+                  this.isFormSubmitted = false;
+                  this.toastrService.error(`${error}`, 'ERROR:');
                 });
               },
               (error) => {
@@ -140,6 +144,10 @@ export class RegisterComponent {
                 this.saveSession(val.username, val.password);
                 console.log('User is logged in');
                 this.router.navigateByUrl('/');
+              },
+              (error) => {
+                this.isFormSubmitted = false;
+                this.toastrService.error(`${error}`, 'ERROR:');
               });
           }
         });

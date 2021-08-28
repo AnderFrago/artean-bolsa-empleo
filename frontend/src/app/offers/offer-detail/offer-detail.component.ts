@@ -52,7 +52,7 @@ export class OfferDetailComponent implements OnInit {
           'Cuenta no validada'
         );
         this.authService.logout();
-        this.router.navigate(['login']);
+        this.router.navigate(['/login']);
       }
     });
 
@@ -78,11 +78,9 @@ export class OfferDetailComponent implements OnInit {
     this.isStudent = this.firebaseService.check_RoleStudent();
     this.username = this.firebaseService.get_Username();
 
-    this.applymentsService
-      .getApplymentState(this.offerId, this.username)
-      .subscribe((data) => {
-        this.offerState = data;
-      });
+    this.applymentsService.getApplymentState(this.offerId).subscribe((data) => {
+      this.offerState = data;
+    });
   }
 
   loadOffer(fileName) {
@@ -107,7 +105,7 @@ export class OfferDetailComponent implements OnInit {
   goDelete(): void {
     this.offerService
       .deleteOffer(this.offerId)
-      .subscribe((data) => this.router.navigate(['']));
+      .subscribe((data) => this.router.navigate(['/home']));
   }
   goManage(): void {
     this.router.navigate(['/applyments', this.offerId, 'manage']);

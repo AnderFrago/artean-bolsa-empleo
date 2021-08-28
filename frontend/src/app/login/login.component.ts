@@ -49,22 +49,28 @@ export class LoginComponent {
           u: user.name,
         };
         this.provider = 'GOOGLE';
-        this.authService.login(user.name, user.id).subscribe((d) => {
-          this.data = {
-            ...this.data,
-            id_token: d.id_token,
-          };
-          // Check provider
-          this.authService
-            .checkProvider(user.name, this.provider)
-            .subscribe((p) => {
-              if (typeof p != 'undefined') {
-                this.saveSession(user.name, user.id);
-                console.log('User is logged in');
-                this.router.navigateByUrl('/home');
-              }
-            });
-        });
+        this.authService.login(user.name, user.id).subscribe(
+          (d) => {
+            this.data = {
+              ...this.data,
+              id_token: d.id_token,
+            };
+            // Check provider
+            this.authService
+              .checkProvider(user.name, this.provider)
+              .subscribe((p) => {
+                if (typeof p != 'undefined') {
+                  this.saveSession(user.name, user.id);
+                  console.log('User is logged in');
+                  this.router.navigateByUrl('/home');
+                }
+              });
+          },
+          (error) => {
+            this.isFormSubmitted = false;
+            this.toastrService.error(`${error}`, 'ERROR:');
+          }
+        );
       });
   }
 

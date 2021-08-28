@@ -52,7 +52,7 @@ export class OfferEditComponent implements OnInit {
           'Cuenta no validada'
         );
         this.authService.logout();
-        this.router.navigate(['login']);
+        this.router.navigate(['/login']);
       }
     });
 

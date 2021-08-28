@@ -67,13 +67,13 @@ export class ArteanService {
       );
   }
 
-  search(keyword: string): Observable<string[]> {
+  search(keyword: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.arteanUrl}/search`;
 
     return this.http.post<any>(url, { keyword }).pipe(
       map((data) => {
-        return data.cvs;
+        return data;
       })
     );
   }

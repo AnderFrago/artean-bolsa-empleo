@@ -67,9 +67,10 @@ export class ApplymentsService {
     );
   }
 
-  getApplymentState(id: number, username: string) {
+  getApplymentState(id: number) {
     const url = `${this.applymentsUrl}/state`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const username = this.firebaseService.get_Username();
 
     // const username = localStorage.getItem('u');
 

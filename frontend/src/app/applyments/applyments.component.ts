@@ -53,7 +53,7 @@ export class ApplymentsComponent implements OnInit {
         );
 
         this.authService.logout();
-        this.router.navigate(['login']);
+        this.router.navigate(['/login']);
       }
     });
     this.offerId = parseInt(this.activatedroute.snapshot.params['id']);

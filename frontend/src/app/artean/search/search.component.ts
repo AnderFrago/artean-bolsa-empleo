@@ -23,6 +23,7 @@ export class SearchComponent implements OnInit {
   keyword = '';
 
   cvs: string[];
+  students: string[];
 
   constructor(
     private fb: FormBuilder,
@@ -42,7 +43,7 @@ export class SearchComponent implements OnInit {
           'Cuenta no validada'
         );
         this.authService.logout();
-        this.router.navigate(['login']);
+        this.router.navigate(['/login']);
       }
     });
 
@@ -57,7 +58,8 @@ export class SearchComponent implements OnInit {
         this.isFormSubmitted = true;
         this.keyword = this.searchForm.value.keyword;
         this.arteanService.search(this.keyword).subscribe((data) => {
-          this.cvs = data;
+          this.cvs = data.cvs;
+          this.students = data.students;
           this.isFormSubmitted = false;
         });
       }

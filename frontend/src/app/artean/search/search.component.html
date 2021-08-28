@@ -17,8 +17,18 @@
       </div>
     <div *ngIf="cvs"  class="row">
         <ul class="list-group" >
-            <li class="list-group-item" *ngFor="let element of cvs"> 
-               <div (click)="loadCV(element)"> {{ element }} </div> 
+            <li class="list-group-item" *ngFor="let element of cvs; index as i"> 
+              <div class="d-flex justify-inline-content">
+                  <div class="p-2 lead bg-light">
+                    {{students[i]}}
+                  </div>
+                  <div class="p-2 muted"> 
+                    CV: {{ element }} 
+                 </div> 
+                 <div class="float-right">
+                    <button class="btn btn-small btn-outline-success" (click)="loadCV(element)">Descargar</button>
+                </div>
+              </div>
             </li>
         </ul>
     </div>

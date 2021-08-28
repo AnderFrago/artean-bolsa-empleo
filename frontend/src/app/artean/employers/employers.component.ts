@@ -33,7 +33,7 @@ export class EmployersComponent implements OnInit {
           'Cuenta no validada'
         );
         this.authService.logout();
-        this.router.navigate(['login']);
+        this.router.navigate(['/login']);
       }
     });
     this.arteanService.getEmployersNoActivated().subscribe((data) => {

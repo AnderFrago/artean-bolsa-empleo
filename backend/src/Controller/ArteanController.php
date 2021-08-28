@@ -152,13 +152,17 @@ class ArteanController extends AbstractController
             ->getQuery()
             ->getResult();
         $cvs_names = [];
+        $students_names = [];
         foreach ($result as $item){
             $cvs_names[] = $item->getOriginalName();
+            $student = $item->getStudent();
+            $students_names[] = $student->getUsername();
         }
+
         return $this->json([
             'message' => 'OK: search',
             'cvs' => $cvs_names,
-
+            'students' => $students_names
         ]);
     }
 }

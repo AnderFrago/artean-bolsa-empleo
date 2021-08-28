@@ -38,6 +38,7 @@ export class FirebaseService {
     if (this.username == null) this.read_Username();
     return this.username;
   }
+
   clear_Username() {
     // this.read_Username();
     this.username = '';
@@ -56,7 +57,9 @@ export class FirebaseService {
         });
       });
   }
-
+  clear_Role() {
+    this.role = '';
+  }
   check_RoleStudent() {
     return this.role === 'ROLE_STUDENT';
   }

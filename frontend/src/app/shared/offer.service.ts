@@ -104,7 +104,7 @@ export class OfferService {
   deleteOffer(id: number): Observable<{}> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.offersUrl}/${id}`;
-    return this.http.delete<Offer>(url, { headers: headers }).pipe(
+    return this.http.delete<Offer>(url, { headers }).pipe(
       tap((data) => console.log('deleteOffer: ' + id)),
       map((data) => {
         return data;
