@@ -74,8 +74,8 @@ export class OfferNewComponent implements OnInit {
         this.isFormSubmitted = true;
         this.offer = this.offerForm.value;
         //  this.offer.id = this.offerId;
-        this.offer.owner = this.firebaseService.get_Username();
-        //this.offer.owner = localStorage.getItem('u');
+        //BUG this.offer.owner = this.firebaseService.get_Username();
+        this.offer.owner = localStorage.getItem('u');
         this.offer.originalFileName = this.fileName;
 
         this.offerService.createOffer(this.offer).subscribe(

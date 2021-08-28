@@ -21,8 +21,8 @@ export class CvService {
   ) {}
 
   createCV(formData: FormData) {
-    const username = this.firebaseService.get_Username();
-    // const username = localStorage.getItem('u');
+    //BUG const username = this.firebaseService.get_Username();
+    const username = localStorage.getItem('u');
 
     return this.http
       .post(this.cvsUrl + '/cv-upload?username=' + username, formData, {
@@ -40,8 +40,8 @@ export class CvService {
   showCvByFileName(fileName: any) {
     const url = `${this.cvsUrl}/cv-filename`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const username = this.firebaseService.get_Username();
-    // const username = localStorage.getItem('u');
+    //BUG const username = this.firebaseService.get_Username();
+    const username = localStorage.getItem('u');
 
     return this.http.post<any>(url, { username, fileName }, { headers }).pipe(
       map((data) => {
@@ -59,8 +59,8 @@ export class CvService {
     const url = `${this.cvsUrl}/cv-show`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    const username = this.firebaseService.get_Username();
-    // const username = localStorage.getItem('u');
+    //BUG const username = this.firebaseService.get_Username();
+    const username = localStorage.getItem('u');
 
     return this.http.post<any>(url, { username }, { headers }).pipe(
       map((data) => {

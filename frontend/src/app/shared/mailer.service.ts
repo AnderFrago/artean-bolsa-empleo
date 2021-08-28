@@ -18,8 +18,8 @@ export class MailerService {
   ) {}
 
   statusChanged() {
-    const username = this.firebaseService.get_Username();
-    //const username = localStorage.getItem('u');
+    //BUG const username = this.firebaseService.get_Username();
+    const username = localStorage.getItem('u');
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return (
@@ -34,8 +34,8 @@ export class MailerService {
     );
   }
   accountValidated() {
-    const username = this.firebaseService.get_Username();
-    //const username = localStorage.getItem('u');
+    //BUG const username = this.firebaseService.get_Username();
+    const username = localStorage.getItem('u');
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return (

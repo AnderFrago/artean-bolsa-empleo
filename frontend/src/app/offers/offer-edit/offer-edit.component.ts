@@ -109,8 +109,8 @@ export class OfferEditComponent implements OnInit {
         this.offerForm.value.description || this.offer.description;
 
       this.offer.id = this.offerId;
-      this.offer.owner = this.firebaseService.get_Username();
-      //this.offer.owner = localStorage.getItem('u');
+      //BUG this.offer.owner = this.firebaseService.get_Username();
+      this.offer.owner = localStorage.getItem('u');
       this.offer.originalFileName = this.fileName;
 
       this.offerService.updateOffer(this.offer).subscribe(
@@ -149,8 +149,8 @@ export class OfferEditComponent implements OnInit {
         this.offerForm.value.description || this.offer.description;
 
       this.offer.id = this.offerId;
-      this.offer.owner = this.firebaseService.get_Username();
-      //this.offer.owner = localStorage.getItem('u');
+      //BUG this.offer.owner = this.firebaseService.get_Username();
+      this.offer.owner = localStorage.getItem('u');
       this.offer.originalFileName = this.fileName;
 
       this.offerService.updateOffer(this.offer).subscribe(

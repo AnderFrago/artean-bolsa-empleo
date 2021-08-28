@@ -31,8 +31,8 @@ export class ApplymentsService {
   ): Observable<string> {
     const url = `${this.applymentsUrl}/update-state`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const username = this.firebaseService.get_Username();
-    // const username = localStorage.getItem('u');
+    //BUG const username = this.firebaseService.get_Username();
+    const username = localStorage.getItem('u');
 
     return this.http
       .post<any>(url, { offerId, newstate, studentname }, { headers })
@@ -52,8 +52,8 @@ export class ApplymentsService {
     const url = `${this.applymentsUrl}/cvs-offer`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    const username = this.firebaseService.get_Username();
-    // const username = localStorage.getItem('u');
+    //BUG const username = this.firebaseService.get_Username();
+    const username = localStorage.getItem('u');
 
     return this.http.post<any>(url, { username, id }, { headers }).pipe(
       map((data) => {
@@ -70,9 +70,9 @@ export class ApplymentsService {
   getApplymentState(id: number) {
     const url = `${this.applymentsUrl}/state`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const username = this.firebaseService.get_Username();
+    //BUG const username = this.firebaseService.get_Username();
 
-    // const username = localStorage.getItem('u');
+    const username = localStorage.getItem('u');
 
     return this.http.post<any>(url, { username, id }, { headers }).pipe(
       map((data) => {

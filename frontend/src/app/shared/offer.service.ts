@@ -26,8 +26,8 @@ export class OfferService {
     const url = `${this.offersUrl}/load-offer`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    const username = this.firebaseService.get_Username();
-    //const username = localStorage.getItem('u');
+    //BUG const username = this.firebaseService.get_Username();
+    const username = localStorage.getItem('u');
 
     return this.http.post<any>(url, { username, fileName }, { headers }).pipe(
       map((data) => {
@@ -52,8 +52,8 @@ export class OfferService {
     const url = `${this.offersUrlPrivate}/${id}`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    const username = this.firebaseService.get_Username();
-    //const username = localStorage.getItem('u');
+    //BUG const username = this.firebaseService.get_Username();
+    const username = localStorage.getItem('u');
     const password = '';
 
     return this.http.post<any>(url, { username, password }, { headers }).pipe(
@@ -85,8 +85,8 @@ export class OfferService {
   }
 
   createOfferPDF(formData: FormData) {
-    const username = this.firebaseService.get_Username();
-    // const username = localStorage.getItem('u');
+    //BUG const username = this.firebaseService.get_Username();
+    const username = localStorage.getItem('u');
 
     return this.http
       .post(this.offersUrl + '/offer-upload?username=' + username, formData, {
@@ -127,8 +127,8 @@ export class OfferService {
   }
 
   apply(offer: Offer): Observable<OfferState> {
-    const username = this.firebaseService.get_Username();
-    //const username = localStorage.getItem('u');
+    //BUG  const username = this.firebaseService.get_Username();
+    const username = localStorage.getItem('u');
     const token = localStorage.getItem('id_token');
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.offersUrlPrivate}/apply`;

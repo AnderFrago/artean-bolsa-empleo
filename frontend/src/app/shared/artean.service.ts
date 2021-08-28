@@ -26,8 +26,8 @@ export class ArteanService {
     const url = `${this.arteanUrl}/employers-update-state`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    const username = this.firebaseService.get_Username();
-    // const username = localStorage.getItem('u');
+    //BUG const username = this.firebaseService.get_Username();
+    const username = localStorage.getItem('u');
 
     return this.http
       .post<any>(url, { employername, newstate }, { headers })
@@ -50,8 +50,8 @@ export class ArteanService {
     const url = `${this.arteanUrl}/students-update-state`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    const username = this.firebaseService.get_Username();
-    // const username = localStorage.getItem('u');
+    //BUG const username = this.firebaseService.get_Username();
+    const username = localStorage.getItem('u');
 
     return this.http
       .post<any>(url, { studentname, newstate }, { headers })

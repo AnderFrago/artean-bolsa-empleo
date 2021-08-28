@@ -100,7 +100,7 @@ export class AuthService {
   setSession(authResult) {
     const expiresAt = moment().add(authResult.expires_at, 'second');
 
-    // localStorage.setItem('u', authResult.u);
+    localStorage.setItem('u', authResult.u);
     //localStorage.setItem('r', authResult.r);
     localStorage.setItem('id_token', authResult.id_token);
     //localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
@@ -201,8 +201,8 @@ export class AuthService {
   }
 
   getState() {
-    const username = this.firebaseService.get_Username();
-    //const username = localStorage.getItem('u');
+    //BUG const username = this.firebaseService.get_Username();
+    const username = localStorage.getItem('u');
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http
       .post<any>(this.authUrl + '/state', { username }, { headers })
