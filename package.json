@@ -11,7 +11,7 @@
     "sass-loader": "^8.0.2",
     "webpack": "^4.43.0",
     "webpack-icons-installer": "^2.0.0",
-    "webpack-notifier": "^1.8.0"
+    "webpack-notifier": "^1.15.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
